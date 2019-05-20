@@ -5,9 +5,9 @@
         <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
           $(function () {
-            var socket = io();
+            var socket = io('http://micasitatucasita.com:3000');
             // var socket = new io.Socket();
-            socket.connect('http://micasitatucasita.com/', {port: 300}); 
+            // socket.connect('http://micasitatucasita.com:3000'); 
             $('form').submit(function(e){
               e.preventDefault(); // prevents page reloading
               socket.emit('chat message', $('#m').val());
