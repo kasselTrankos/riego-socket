@@ -15,6 +15,10 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
+  socket.on('made riego', function(msg){
+    console.log('message: ' + msg);
+    io.emit('made riego', msg);
+  });
 });
 
 http.listen(3000, function(){
