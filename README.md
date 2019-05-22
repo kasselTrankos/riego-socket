@@ -16,4 +16,4 @@ ProxyPassReverse /socket.io http://localhost:3000/socket.io
 
 Info:
  - [create systemctl riegoserver.service for run node](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
- - using forever to always stay at work ```npm npm i -g forever```
+ - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```
