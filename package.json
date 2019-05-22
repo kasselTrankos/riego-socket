@@ -4,9 +4,10 @@
   "description": "Socket for my irrigation",
   "main": "app.js",
   "scripts": {
-    "start": "forever start app.js",
-    "stop": "forever stop 0",
-    "list": "forever list",
+    "start": "pm2 start app.js",
+    "stop": "pm2 stop 0",
+    "list": "pm2 list",
+    "delete": "pm2 delete",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
