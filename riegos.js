@@ -1,11 +1,27 @@
 const MongoClient = require('mongodb').MongoClient;
-const {url, dbName, collection} = require('./config.js');
+const ObjectID = require('mongodb').ObjectID;
+const {url, dbName, riegos, config} = require('./config.js');
 
+const getConfig = async () => {
+  let client;
+  try {
+    client = await MongoClient.connect(url);
+    const [result] =  await client.db(dbName).collection(config).find({_id: ObjectID('5ce5acf6b445b60c531c8d08')}).toArray(); 
+    return result;
+  } catch(error) {
+    return {duration: 30}; 
+    // throw error;
+  } finally {
+    client.close();
+  } 
+
+}
 const madeRiego = async (riego) => {
   let client;
   try {
     client = await MongoClient.connect(url);
-    return await client.db(dbName).collection(collection).insertOne({riego: riego, date: new Date()}); 
+    const {duration} = await getConfig();
+    return await client.db(dbName).collection(riegos).insertOne({riego: riego, date: new Date(), duration, inmediate: true, programated: false}); 
   } catch(error) {
     throw error;
   } finally {
@@ -16,7 +32,7 @@ const findAll = async () => {
   let client;
   try {
     client = await MongoClient.connect(url);
-    return  await client.db(dbName).collection(collection).find({}).toArray();
+    return  await client.db(dbName).collection(riegos).find({}).toArray();
   } catch (err) {
     return  {};
     //soon control it
