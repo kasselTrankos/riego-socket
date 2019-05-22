@@ -15,10 +15,7 @@ const findAll = async () => {
   let client;
   try {
     client = await MongoClient.connect(url);
-
-    const result = await client.db(dbName).collection(collection).find({}).toArray();
-    console.log(result);
-    return result;
+    return  await client.db(dbName).collection(collection).find({}).toArray();
   } catch (err) {
     return  {};
     //soon control it
