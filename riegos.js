@@ -14,7 +14,6 @@ const getConfig = async () => {
   } finally {
     client.close();
   } 
-
 }
 const madeRiego = async (riego) => {
   let client;
@@ -42,5 +41,5 @@ const findAll = async () => {
   }
 };
 module.exports = {
-  findAll, madeRiego
+  findAll, madeRiego, getConfig
 }

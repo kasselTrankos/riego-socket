@@ -31,7 +31,7 @@
         $('#list').append($('<li  class="list-group-item"/>').text(msg));
       });
       socket.on('made riego', function(msg){
-        $('#list').append($('<li class="list-group-item" />').text(msg));
+        $('#list').append($('<li class="list-group-item" />').text(msg.riego));
       });
     });
   </script>
