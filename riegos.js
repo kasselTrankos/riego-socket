@@ -46,7 +46,7 @@ const riegoDone = async (id) => {
     client = await MongoClient.connect(url);
     return  await client.db(dbName).collection(riegos).updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true});
   } catch (err) {
-    return  {err, id};
+    return  {id, error: true};
     //soon control it
     // throw err;
   } finally {

@@ -20,9 +20,8 @@ app.get('/', function(req, res){
 });
 app.post('/riego', async (req, res)=> {
   const response  = await riegoDone(req.body.id);
-  //res.send("is: " + req.body.id);
-  //console.log(req.body.id);
-  res.json(response);
+  const text = response.error ? 'KO logs...' : 'OK done!'  
+  res.send(text);
 });
 
 io.on('connection', function(socket){
