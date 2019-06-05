@@ -1,7 +1,11 @@
 const app = require('express')();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const {findAll, madeRiego, getConfig} = require('./riegos.js');
+const {findAll, madeRiego, getConfig,
+  riegoDone} = require('./riegos.js');
 
 app.get('/riegos', async (req, res) => {
   const riegos = await findAll();
@@ -13,6 +17,12 @@ app.get('/config', async (req, res) => {
 });
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
+});
+app.post('/riego', async (req, res)=> {
+  const response  = await riegoDone(req.body.id);
+  //res.send("is: " + req.body.id);
+  //console.log(req.body.id);
+  res.json(response);
 });
 
 io.on('connection', function(socket){

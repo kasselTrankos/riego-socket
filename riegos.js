@@ -40,6 +40,20 @@ const findAll = async () => {
     client.close(); 
   }
 };
+const riegoDone = async (id) => {
+  let client;
+  try {
+    client = await MongoClient.connect(url);
+    return  await client.db(dbName).collection(riegos).updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true});
+  } catch (err) {
+    return  {err, id};
+    //soon control it
+    // throw err;
+  } finally {
+    client.close(); 
+  }
+};
 module.exports = {
-  findAll, madeRiego, getConfig
+  findAll, madeRiego, getConfig,
+  riegoDone
 }
