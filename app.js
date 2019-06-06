@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const {findAll, madeRiego, getConfig,
-  riegoDone} = require('./riegos.js');
+  riegoDone, putConfig} = require('./riegos.js');
 
 app.get('/riegos', async (req, res) => {
   const riegos = await findAll();
@@ -15,6 +15,12 @@ app.get('/config', async (req, res) => {
   const config = await getConfig();
   res.json(config);
 });
+app.put('/config/:_id/:duration', async (req, res) => {
+  const {duration, _id} = req.params; 
+  const config = await putConfig(_id, duration);
+  res.json(config);
+});
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
