@@ -23,8 +23,7 @@ const {findAll, madeRiego, getConfig,
   });
   app.post('/kalendar', async (req, res)=> {
     const response  = await madeKalendar(req.body);
-    const text = response.error ? 'KO logs...' : 'OK done!'  
-    res.send(text);
+    res.send(response);
   });
   
 app.get('/', function(req, res){
@@ -33,7 +32,7 @@ app.get('/', function(req, res){
 app.post('/riego', async (req, res)=> {
   const response  = await riegoDone(req.body.id);
   const text = response.error ? 'KO logs...' : 'OK done!'  
-  res.send(text);
+  res.send(response);
 });
 
 io.on('connection', function(socket){

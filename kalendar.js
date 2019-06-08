@@ -4,12 +4,19 @@ const fs = require('fs');
 const madeKalendar = ({start, end, hour, minute}) => {
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
   const dates = Array.from({length: days}, (_, i)=> {
-    const day = moment(start).add(i, 'days').set({hour, minute});
+    return  moment(start).add(i, 'days').set({hour, minute});
   });
   try {
-    return fs.writeFileSync('kalendar.json', {dates}, 'utf8', {mode: 0755});
+    const json ={
+      configuration: {
+        priority: 'dates'
+      },
+      sheduler: "* * * * * *"
+    };
+    fs.writeFileSync('kalendar.json', JSON.stringify(Object.assign({}, json, {dates}), 'utf8', {mode: 0755});
+    return {message: 'update kalendar', status: true};
   } catch(err) {
-    return err;
+    return {message: 'ko kalendar', status: false}
   };
 };
 
