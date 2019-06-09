@@ -2,8 +2,11 @@ const moment = require('moment');
 const fs = require('fs');
 
 const madeKalendar = ({start, end, hour, minute, duration}) => {
+  if(!moment(start, 'YYYY-MM-DD', true).isValid) {
+    return {message: 'no need update', status: true};
+  }
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
-  const dates = Array.from({length: days}, (_, i)=> {
+  const dates = Array.from({length: (days + 1)}, (_, i)=> {
     return  moment(start).add(i, 'days').set({hour, minute});
   });
   try {
