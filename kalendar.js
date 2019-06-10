@@ -22,12 +22,12 @@ const madeKalendar = async ({start, end, hour, minute, duration}, file = FILE) =
     return {message: 'no need update', status: true};
   }
   const getStrDate = index => moment(start).add(index, 'days').set({hour, minute});
-  const getDate = (_, i) => ({date: getStrDate(i), duration});
+  const getObjectKalendar = (_, i) => ({date: getStrDate(i), duration});
   const isOverEqualNow = ({date}) => moment(date) >= moment();
   const previous = getKalendar();
   const previousDates = gotDates(previous) ? previous.dates : []; 
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
-  const newDates = Array.from({length: (days + 1)}, getDate);
+  const newDates = Array.from({length: (days + 1)}, getObjectKalendar);
   const combinedDates = [...previousDates, ...newDates]; 
   const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
 
