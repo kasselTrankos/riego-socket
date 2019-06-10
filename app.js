@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 const {findAll, madeRiego, getConfig,
   riegoDone, putConfig} = require('./riegos.js');
 const {madeKalendar, getKalendar} = require('./kalendar'); 
+////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
   
@@ -46,7 +47,6 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
   socket.on('made riego', async (msg) => {
