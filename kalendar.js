@@ -21,8 +21,10 @@ const madeKalendar = async ({start, end, hour, minute, duration}, file = FILE) =
   if(!moment(start, 'YYYY-MM-DD', true).isValid()) {
     return {message: 'no need update', status: true};
   }
-  const getStrDate = index => moment(start).add(index, 'days').set({hour, minute});
-  const getObjectKalendar = (_, i) => ({date: getStrDate(i), duration});
+  const getDay = index => moment(start).add(index, 'days')
+  const getDayFormat = day => day.format('YYYY-MM-DD');
+  const getStrDate = index => getDay(index).set({hour, minute});
+  const getObjectKalendar = (_, i) => ({date: getStrDate(i), day: getDayFormat(getDay(i)), duration, hour, minute});
   const isOverEqualNow = ({date}) => moment(date) >= moment();
   const previous = getKalendar();
   const previousDates = gotDates(previous) ? previous.dates : []; 
