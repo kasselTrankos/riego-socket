@@ -1,6 +1,7 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
+var uuid = require('uuid');
 
 const getKalendar =  (file = FILE) => {
   try {
@@ -24,7 +25,11 @@ const madeKalendar = async ({start, end, hour, minute, duration}, file = FILE) =
   const getDay = index => moment(start).add(index, 'days')
   const getDayFormat = day => day.format('YYYY-MM-DD');
   const getStrDate = index => getDay(index).set({hour, minute});
-  const getObjectKalendar = (_, i) => ({date: getStrDate(i), day: getDayFormat(getDay(i)), duration, hour, minute});
+  const getObjectKalendar = (_, i) => ({
+    date: getStrDate(i).tz('Europe/Madrid').format('YYYY-MM-DD HH:mm'),
+    day: getDayFormat(getDay(i)),
+    uuid: uuid.v1(),
+    duration, hour, minute});
   const isOverEqualNow = ({date}) => moment(date) >= moment();
   const previous = getKalendar();
   const previousDates = gotDates(previous) ? previous.dates : []; 
