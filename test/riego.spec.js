@@ -17,17 +17,22 @@ const arbRiego = jsc.record({
 const blessRiego = jsc.bless({
   generator: ()=> {
     const riego = arbRiego.generator();
-    return Riego(riego.date, riego.duration, riego.hour, riego.minute, riego.active);
+    return Riego(riego.date, riego.duration, riego.hour, riego.minute, true);
   }
 });
 const {associativity} = laws.Semigroup(Z.equals, Riego);
 const {leftIdentity, rightIdentity} = laws.Monoid(Z.equals, Riego);
+const {leftInverse, rightInverse} = laws.Group(Z.equals, Riego);
 const testAssociativity = associativity (blessRiego, blessRiego, blessRiego);
 const testRightIdentity = rightIdentity (blessRiego);
 const testLeftIdentity = leftIdentity (blessRiego);
+const testLeftInverse = leftInverse (blessRiego);
+const testRightInverse = rightInverse (blessRiego);
 
 describe('RiegoArb => ',  () => {
  it('testAssociativity', testAssociativity);
  it('testLeftIdentity', testLeftIdentity);
  it('testRightIdentity', testRightIdentity);
+ it('testLeftInverse', testLeftInverse);
+ it('testRightInverse', testRightInverse);
 });
