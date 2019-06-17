@@ -1,4 +1,4 @@
-const Riego = require ('./../src/Riego');
+const Riego = require ('./../src/riego');
 const {concat} = require('ramda');
 const FL = require('fantasy-land');
 const laws = require('fantasy-laws');
@@ -8,33 +8,26 @@ const Z = require ('sanctuary-type-classes');
 
 const allwaysTrue = jsc.bool.generator.map(bool => true)
 const arbRiego = jsc.record({
-  date: jsc.datetime,
+  date: jsc.datetime(new Date('2015-11-10'), new Date()),
   hour: jsc.integer(0, 24),
   minute: jsc.integer(0, 60),
   duration: jsc.integer(0, 60),
   active: jsc.bool,
 });
+const blessRiego = jsc.bless({
+  generator: ()=> {
+    const riego = arbRiego.generator();
+    return Riego(riego.date, riego.duration, riego.hour, riego.minute, riego.active);
+  }
+});
 const {associativity} = laws.Semigroup(Z.equals, Riego);
-const {leftIdentity, rightIdentity} = laws.Monoid((concated, _this) => {console.log('soy concated', concated, 'hay this?', _this); return true}, Riego);
-const testAssociativity = associativity (arbRiego, arbRiego, arbRiego);
-const testRightIdentity = rightIdentity (arbRiego);
-const testLeftIdentity = leftIdentity (arbRiego);
+const {leftIdentity, rightIdentity} = laws.Monoid(Z.equals, Riego);
+const testAssociativity = associativity (blessRiego, blessRiego, blessRiego);
+const testRightIdentity = rightIdentity (blessRiego);
+const testLeftIdentity = leftIdentity (blessRiego);
 
-console.log(FL);
 describe('RiegoArb => ',  () => {
  it('testAssociativity', testAssociativity);
- it('custom ', ()=> {
-    const A = Riego[FL.empty]();
-    const B = Riego(new Date(), 12, 10, 11, true);
-    const C = B[FL.concat](A);
-    const F = A[FL.concat](B);
-    const D = concat(A, B);
-    c = curry2 (Z.concat);
-    const G = c(A)(B);
-    console.log(A[FL.concat], FL.concat);
-    // console.log('000', Z.equals(G, B), G, B);
-    // console.log(A, 'B:', B, 'C: ', C);
- }) 
+ it('testLeftIdentity', testLeftIdentity);
  it('testRightIdentity', testRightIdentity);
-//  it('testLeftIdentity', testLeftIdentity);
 });
