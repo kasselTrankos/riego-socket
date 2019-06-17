@@ -8,16 +8,24 @@
     "stop": "pm2 stop 0",
     "list": "pm2 list",
     "delete": "pm2 delete",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "daggy": "^1.4.0",
     "express": "^4.17.0",
+    "fantasy-land": "^4.0.1",
+    "fantasy-laws": "^1.2.0",
+    "jsverify": "^0.8.4",
+    "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "mongodb": "^3.2.5",
+    "sanctuary-show": "^1.0.0",
+    "sanctuary-type-classes": "^11.0.0",
     "socket.io": "^2.2.0",
     "uuid": "^3.3.2"
   }
