@@ -1,3 +1,4 @@
+![travis](https://travis-ci.org/kasselTrankos/riego-socket.svg?branch=master)
 ## The soket riego's leg
 
 This is the socket server from port 3000 that comunicate directly with arduino and mobile.
