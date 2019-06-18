@@ -13,10 +13,9 @@ Riegos.from = function (xs) {
   )
 }
 Riegos.prototype[equals] = Riegos.prototype.equals = function (that) {
-  const isEqual = _this => _that => _this[equal](_that);
   const _this = this.toArray();
   const _that = that.toArray();
-  const areEquals = _that.reduce((acc, el) => {
+  const isEqual = _that.reduce((acc, el) => {
     const _isEqual = _this.some(_el => _el[equals](el));
     if(!_isEqual){
       acc = false;
@@ -24,7 +23,7 @@ Riegos.prototype[equals] = Riegos.prototype.equals = function (that) {
     return _isEqual;
   }, true);
 
-  return areEquals;
+  return isEqual;
 }
 Riegos.prototype[map] = Riegos.prototype.map = function (f) {
   return this.cata({
