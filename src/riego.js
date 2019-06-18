@@ -1,5 +1,6 @@
 const {tagged} = require('daggy');
-const {empty, of, concat, equals, invert} = require('fantasy-land');
+const {empty, of, concat, equals, invert,
+  lte} = require('fantasy-land');
 
 const Riego = tagged('Riego', ['date', 'duration', 'hour', 'minute', 'active']);
 Riego[of] = value => Riego(value);
@@ -9,6 +10,11 @@ Riego.prototype[equals] = function(that) {
     this.duration === that.duration,
     this.hour === that.hour, this.minute === that.minute].every(Boolean);
 };
+Riego.prototype.lte = Riego.prototype[lte] = function(that) {
+  const thatDate = new Date(new Date(new Date(that.date).setHours(that.hour)).setMinutes(that.minute))
+  const thisDate = new Date(new Date(new Date(this.date).setHours(this.hour)).setMinutes(this.minute));;
+  return thatDate >= thisDate; 
+}
 Riego.prototype[concat] = function(that) {
   if(!that.active || !this.active) {
     return Riego(new Date('1900-01-01'), 0, 0, 0, true);
