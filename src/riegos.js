@@ -1,3 +1,7 @@
+/**
+ * need to re-read this 
+ * http://www.tomharding.me/2017/04/09/fantas-eel-and-specification-3.5/
+ */
 const {taggedSum} = require('daggy');
 const {compose, equals, empty, map, of} = require('fantasy-land');
 const Riego  = require('./riego');
