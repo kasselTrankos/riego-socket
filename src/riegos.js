@@ -3,7 +3,7 @@
  * http://www.tomharding.me/2017/04/09/fantas-eel-and-specification-3.5/
  */
 const {taggedSum} = require('daggy');
-const {compose, equals, empty, map, of} = require('fantasy-land');
+const {filter, equals, empty, map, of} = require('fantasy-land');
 const Riego  = require('./riego');
 const Riegos = taggedSum('Riegos', {
   Cons: ['head', 'tail'],
@@ -37,7 +37,7 @@ Riegos.prototype[map] = Riegos.prototype.map = function (f) {
     Nil: () => Riegos.Nil
   })
 }
-Riegos.prototype.filter = function (f) {
+Riegos.prototype[filter] = Riegos.prototype.filter = function (f) {
   return this.cata({
     Cons: (head, tail) => {
       return !f(head) ? tail.filter(f) : Riegos.Cons(head, tail.filter(f))

@@ -24,12 +24,19 @@ const blessRiegos = (amount = 4) => jsc.bless({
     return Riegos.from(riegos);
   }
 });
+const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, startDate.getDate()))
 
+const { distributivity, annihilation } = laws.Filterable(Z.equals, Riegos);
 const {identity} = laws.Functor(Z.equals, Riegos);
+// console.log(laws.Filterable(Z.equals, Riegos))
 const testIdentity = identity(blessRiegos());
+const testDistributivity = distributivity(blessRiegos(13), jsc.bless({generator:() =>  x => x.date > d}), jsc.bless({generator: ()=> x=> x.duration > 10}));
+const testAnnihilation = annihilation(blessRiegos(13), blessRiegos(13));
 
 describe('Riegos  => ',  () => {
   it('testIdentity', testIdentity);
+  it('testAnnihilation', testAnnihilation);
+  it('testDistributivity', testDistributivity);
   it('testComposition', ()=> {
     const map = f => U => U.map(f);
     const compose = (f, g) => x => f(g(x))
@@ -41,7 +48,7 @@ describe('Riegos  => ',  () => {
     expect(Z.equals(map(compose(fb, fa))(G), compose(map(fa), map(fb))(G)))
     
   });
-  it('filter BY  date using > now', ()=> {
+  it('testFilter', ()=> {
     const G = blessRiegos(300).generator();
     const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, startDate.getDate()))
     const J = G.filter(x=> x.date > d);
