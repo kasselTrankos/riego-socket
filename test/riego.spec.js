@@ -32,7 +32,6 @@ const testRightIdentity = rightIdentity (blessRiego);
 const testLeftIdentity = leftIdentity (blessRiego);
 const testLeftInverse = leftInverse (blessRiego);
 const testRightInverse = rightInverse (blessRiego);
-console.log(laws.Setoid);
 
 describe('RiegoArb => ',  () => {
  it('testAssociativity', testAssociativity);
