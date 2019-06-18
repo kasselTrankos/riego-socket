@@ -31,7 +31,7 @@ describe('Riegos  => ',  () => {
   it('testComposition', ()=> {
     const map = f => U => U.map(f);
     const compose = (f, g) => x => f(g(x))
-    const G = blessRiegos().generator()
+    const G = blessRiegos(20).generator()
     const fa = x => {x.duration = x.duration *45; return x;};
     const fb = x => {x.hour = x.hour *45; return x;};
     

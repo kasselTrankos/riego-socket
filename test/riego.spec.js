@@ -21,12 +21,10 @@ const blessRiego = jsc.bless({
   }
 });
 const {associativity} = laws.Semigroup(Z.equals, Riego);
-console.log(laws.Ord);
 const testReflexivity = laws.Setoid.reflexivity(blessRiego);
 const testTotality = laws.Ord.totality(blessRiego, blessRiego);
 const testAntisymmetry = laws.Ord.antisymmetry(blessRiego, blessRiego);
 const ordTestTransitivity = laws.Ord.transitivity(blessRiego, blessRiego, blessRiego);
-
 const testSymmetry = laws.Setoid.symmetry(blessRiego, blessRiego);
 const testTransitivity = laws.Setoid.transitivity(blessRiego, blessRiego, blessRiego);
 
