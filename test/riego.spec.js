@@ -21,6 +21,10 @@ const blessRiego = jsc.bless({
   }
 });
 const {associativity} = laws.Semigroup(Z.equals, Riego);
+const testReflexivity = laws.Setoid.reflexivity(blessRiego);
+const testSymmetry = laws.Setoid.symmetry(blessRiego, blessRiego);
+const testTransitivity = laws.Setoid.transitivity(blessRiego, blessRiego, blessRiego);
+
 const {leftIdentity, rightIdentity} = laws.Monoid(Z.equals, Riego);
 const {leftInverse, rightInverse} = laws.Group(Z.equals, Riego);
 const testAssociativity = associativity (blessRiego, blessRiego, blessRiego);
@@ -28,6 +32,7 @@ const testRightIdentity = rightIdentity (blessRiego);
 const testLeftIdentity = leftIdentity (blessRiego);
 const testLeftInverse = leftInverse (blessRiego);
 const testRightInverse = rightInverse (blessRiego);
+console.log(laws.Setoid);
 
 describe('RiegoArb => ',  () => {
  it('testAssociativity', testAssociativity);
@@ -35,4 +40,8 @@ describe('RiegoArb => ',  () => {
  it('testRightIdentity', testRightIdentity);
  it('testLeftInverse', testLeftInverse);
  it('testRightInverse', testRightInverse);
+ it('testReflexivity', testReflexivity);
+ it('testSymmetry', testSymmetry);
+ it('testTransitivity', testTransitivity);
+
 });

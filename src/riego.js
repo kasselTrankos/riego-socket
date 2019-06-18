@@ -19,12 +19,12 @@ Riego.prototype[concat] = function(that) {
   const isGteDateThat = thatDate >= thisDate;
   const date = isGteDateThat ? that.date : this.date;
   const duration = +that.duration + +this.duration;
-  
   const hour = isGteDateThat ? that.hour : this.hour;
   const minute = isGteDateThat ? that.minute : this.minute;
+  
   return Riego(date, duration, hour, minute, true);
 }
 Riego.prototype[invert] = Riego.prototype.invert = function() {
-  return Riego(new Date(), 0, 0, 0, false);
+  return Riego(this.date, this.duration, this.hour, this.minute, false);
 }
 module.exports = Riego;
