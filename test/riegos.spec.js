@@ -1,10 +1,9 @@
 const Riegos = require ('./../src/riegos');
 const Riego = require ('./../src/riego');
-const {concat} = require('ramda');
-const FL = require('fantasy-land');
+
+const {expect} = require('chai');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
-const show = require ('sanctuary-show');
 const Z = require ('sanctuary-type-classes');
 
 const arbRiego = jsc.record({
@@ -23,12 +22,22 @@ const blessRiegos = (amount = 4) => jsc.bless({
     return Riegos.from(riegos);
   }
 });
-const {identity, composition} = laws.Functor(x=> true, Riegos);
+
+const {identity} = laws.Functor(Z.equals, Riegos);
 const testIdentity = identity(blessRiegos());
 
-const testComposition = composition(blessRiegos(), blessRiegos(), blessRiegos());
 describe('Riegos  => ',  () => {
-  // it('testComposition', testComposition);
   it('testIdentity', testIdentity);
-
+  it('testComposition', ()=> {
+    const map = f => U => U.map(f);
+    const compose = (f, g) => x => f(g(x))
+    const G = blessRiegos().generator()
+    const fa = x => {x.duration = x.duration *45; return x;};
+    const fb = x => {x.hour = x.hour *45; return x;};
+    
+    expect(Z.Functor.test(G)).to.be.true;
+    expect(Z.equals(map(compose(fb, fa))(G), compose(map(fa), map(fb))(G)))
+    
+  })
+  
 });

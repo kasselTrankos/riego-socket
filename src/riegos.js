@@ -1,5 +1,5 @@
 const {taggedSum} = require('daggy');
-const {equals, empty, map, of} = require('fantasy-land');
+const {compose, equals, empty, map, of} = require('fantasy-land');
 const Riego  = require('./riego');
 const Riegos = taggedSum('Riegos', {
   Cons: ['head', 'tail'],
@@ -16,11 +16,14 @@ Riegos.prototype[equals] = Riegos.prototype.equals = function (that) {
   const isEqual = _this => _that => _this[equal](_that);
   const _this = this.toArray();
   const _that = that.toArray();
-  const _equals = _that.map(el => _this.some(_el => _el[equals](el)));
-  const areEquals =  _equals.reduce((acc, val)=> { 
-    if(!val) acc = false; 
-    return val;}, 
-    true);
+  const areEquals = _that.reduce((acc, el) => {
+    const _isEqual = _this.some(_el => _el[equals](el));
+    if(!_isEqual){
+      acc = false;
+    }
+    return _isEqual;
+  }, true);
+
   return areEquals;
 }
 Riegos.prototype[map] = Riegos.prototype.map = function (f) {
