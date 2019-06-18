@@ -6,8 +6,10 @@ const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 
+const startDate = new Date();
+const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 6, startDate.getDate());
 const arbRiego = jsc.record({
-  date: jsc.datetime(new Date('2015-11-10'), new Date()),
+  date: jsc.datetime(startDate, endDate),
   hour: jsc.integer(0, 24),
   minute: jsc.integer(0, 60),
   duration: jsc.integer(0, 60),
@@ -40,14 +42,12 @@ describe('Riegos  => ',  () => {
     
   });
   it('filter BY  date using > now', ()=> {
-    const G = blessRiegos(40).generator();
-    const J = G.filter(x=> x.date > new Date('2017-01-12'));
-    const ALL = J.toArray().every(x=> x.date > new Date('2017-01-12'));
-    const ANY = G.toArray().every(x=> x.date > new Date('2017-01-12'));
+    const G = blessRiegos(300).generator();
+    const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, startDate.getDate()))
+    const J = G.filter(x=> x.date > d);
+    const ALL = J.toArray().every(x=> x.date > d);
+    const ANY = G.toArray().every(x=> x.date > d);
     expect(ALL).to.be.true;
     expect(ANY).to.be.false;
-
-
   });
-  
 });
