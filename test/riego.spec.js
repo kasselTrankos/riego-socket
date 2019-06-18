@@ -42,5 +42,4 @@ describe('RiegoArb => ',  () => {
  it('testReflexivity', testReflexivity);
  it('testSymmetry', testSymmetry);
  it('testTransitivity', testTransitivity);
-
 });
