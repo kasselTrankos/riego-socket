@@ -38,6 +38,16 @@ describe('Riegos  => ',  () => {
     expect(Z.Functor.test(G)).to.be.true;
     expect(Z.equals(map(compose(fb, fa))(G), compose(map(fa), map(fb))(G)))
     
-  })
+  });
+  it('filter BY  date using > now', ()=> {
+    const G = blessRiegos(40).generator();
+    const J = G.filter(x=> x.date > new Date('2017-01-12'));
+    const ALL = J.toArray().every(x=> x.date > new Date('2017-01-12'));
+    const ANY = G.toArray().every(x=> x.date > new Date('2017-01-12'));
+    expect(ALL).to.be.true;
+    expect(ANY).to.be.false;
+
+
+  });
   
 });
