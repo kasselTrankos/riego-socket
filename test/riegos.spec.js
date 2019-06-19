@@ -1,7 +1,6 @@
 const Riegos = require ('./../src/riegos');
 const Riego = require ('./../src/riego');
 
-const {expect} = require('chai');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
