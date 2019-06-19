@@ -28,7 +28,6 @@ const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, s
 
 const { distributivity, identity: identityFilterable, annihilation } = laws.Filterable(Z.equals, Riegos);
 const {identity, composition} = laws.Functor(Z.equals, Riegos);
-console.log(laws.Functor(Z.equals, Riegos))
 const testIdentity = identity(blessRiegos());
 const testComposition = composition(blessRiegos(13), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x=> {x.hour = x.hour +10; return x}}));
 const testDistributivity  = distributivity(blessRiegos(2), jsc.bless({generator:() =>  x => x.date > d}), jsc.bless({generator: ()=> x=> x.duration > 10}));
