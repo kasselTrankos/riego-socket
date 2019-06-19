@@ -26,35 +26,19 @@ const blessRiegos = (amount = 4) => jsc.bless({
 });
 const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, startDate.getDate()))
 
-const { distributivity, annihilation } = laws.Filterable(Z.equals, Riegos);
-const {identity} = laws.Functor(Z.equals, Riegos);
-// console.log(laws.Filterable(Z.equals, Riegos))
+const { distributivity, identity: identityFilterable, annihilation } = laws.Filterable(Z.equals, Riegos);
+const {identity, composition} = laws.Functor(Z.equals, Riegos);
+console.log(laws.Functor(Z.equals, Riegos))
 const testIdentity = identity(blessRiegos());
-const testDistributivity = distributivity(blessRiegos(13), jsc.bless({generator:() =>  x => x.date > d}), jsc.bless({generator: ()=> x=> x.duration > 10}));
+const testComposition = composition(blessRiegos(13), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x=> {x.hour = x.hour +10; return x}}));
+const testDistributivity  = distributivity(blessRiegos(2), jsc.bless({generator:() =>  x => x.date > d}), jsc.bless({generator: ()=> x=> x.duration > 10}));
 const testAnnihilation = annihilation(blessRiegos(13), blessRiegos(13));
+const testIdentityFilterable = identityFilterable(blessRiegos(10));
 
 describe('Riegos  => ',  () => {
   it('testIdentity', testIdentity);
+  it('testComposition', testComposition);
   it('testAnnihilation', testAnnihilation);
   it('testDistributivity', testDistributivity);
-  it('testComposition', ()=> {
-    const map = f => U => U.map(f);
-    const compose = (f, g) => x => f(g(x))
-    const G = blessRiegos(20).generator()
-    const fa = x => {x.duration = x.duration *45; return x;};
-    const fb = x => {x.hour = x.hour *45; return x;};
-    
-    expect(Z.Functor.test(G)).to.be.true;
-    expect(Z.equals(map(compose(fb, fa))(G), compose(map(fa), map(fb))(G)))
-    
-  });
-  it('testFilter', ()=> {
-    const G = blessRiegos(300).generator();
-    const d = new Date(new Date(startDate.getFullYear(), startDate.getMonth() + 3, startDate.getDate()))
-    const J = G.filter(x=> x.date > d);
-    const ALL = J.toArray().every(x=> x.date > d);
-    const ANY = G.toArray().every(x=> x.date > d);
-    expect(ALL).to.be.true;
-    expect(ANY).to.be.false;
-  });
+  it('testIdentityFilterable', testIdentityFilterable);
 });
