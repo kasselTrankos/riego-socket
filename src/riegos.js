@@ -21,9 +21,9 @@ Riegos.prototype[equals] = Riegos.prototype.equals = function (that) {
       Cons: (head_, tail_) =>
         head.equals(head_) ? tail.equals(tail_)
                            : head.equals(head_),
-
       Nil: () => false
     }),
+    Nil: () => true
   })
 }
 Riegos.prototype[map] = Riegos.prototype.map = function (f) {
@@ -37,7 +37,8 @@ Riegos.prototype[map] = Riegos.prototype.map = function (f) {
 Riegos.prototype[filter] = Riegos.prototype.filter = function (f) {
   return this.cata({
     Cons: (head, tail) => {
-      return !f(head) ? tail.filter(f) : Riegos.Cons(head, tail.filter(f))
+      return !f(head) ? tail.filter(f) 
+                      : Riegos.Cons(head, tail.filter(f))
     },
     Nil: () => Riegos.Nil
   })
