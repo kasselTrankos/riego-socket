@@ -1,5 +1,6 @@
 const {taggedSum} = require('daggy');
-const {map, equals, of} = require('fantasy-land')
+const {map, equals, of} = require('fantasy-land');
+
 const Irrigation = taggedSum('Irrigation', {
   Some: ['items'],
   None: [],
@@ -41,11 +42,11 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
 }
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
-    Some: (items) => Irrigation.Some(items.map(item => f(item) )),
+    Some: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
     None: () => this,
     Nil: () => this,
     Cons: (head, tail) => Irrigation.Cons(
-      f(head), tail.map(f)
+      f(Object.assign({}, head)), tail.map(f)
     )
   })
 }
