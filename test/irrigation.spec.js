@@ -16,7 +16,7 @@ const blessCons = (length=3) => jsc.bless({
 });
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
 const testSomeIdentity = identity(blessSome);
-const testConsIdentity = identity(blessCons(5));
+const testConsIdentity = identity(blessCons(190));
 const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.a =  x.a * 3; return x}}), jsc.bless({generator: ()=> x => {x.b = x.b +10; return x}}));
 const testSomeComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
 
