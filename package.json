@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "benchmark": "^2.1.4",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "daggy": "^1.4.0",

@@ -1,7 +1,7 @@
 const {taggedSum} = require('daggy');
 const {map, equals, of} = require('fantasy-land')
 const Irrigation = taggedSum('Irrigation', {
-  Some: ['duration', 'y'],
+  Some: ['items'],
   None: [],
   Cons: ['head', 'tail'],
   Nil: []
@@ -15,8 +15,20 @@ Irrigation.from = function (xs) {
 }
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
-    Some: (duration, y) => that.duration === duration && y === that.y,
-    Cons: (head, tail) => this.cata({
+    Some: (items) => that.cata({
+      Some: (items_) => items.reduce((acc, {duration: duration_, y:y_}) => {
+        const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
+        if(!find.length) {
+          acc = false;
+        }
+        return acc;
+      }, true),
+
+      Nil: () => false,
+      None :() => false,
+      Cons: () => false
+    }),
+    Cons: (head, tail) => that.cata({
       Cons: (head_, tail_) => head.a === head_.a && head.b === head_.b ? tail.equals(tail_)
                                                   : head.a === head_.a && head.b === head_.b,
       Nil: () => false,
@@ -29,7 +41,7 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
 }
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
-    Some: (duration, y) => Irrigation.Some(f(duration), y),
+    Some: (items) => Irrigation.Some(items.map(item => f(item) )),
     None: () => this,
     Nil: () => this,
     Cons: (head, tail) => Irrigation.Cons(

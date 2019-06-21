@@ -3,9 +3,13 @@ const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 
-const blessSome = jsc.bless({
+
+const blessSome = (length=3) => jsc.bless({
   generator: ()=> {
-    return Irrigation.Some(jsc.integer(0, 60).generator(), jsc.integer(0, 60).generator());
+
+    const elms = Array.from({length}, ()=> 
+      ({duration: jsc.integer(0, 60).generator(), y: jsc.integer(0, 60).generator()}));
+    return Irrigation.Some(elms);
   }
 });
 const blessCons = (length=3) => jsc.bless({
@@ -15,10 +19,10 @@ const blessCons = (length=3) => jsc.bless({
   }
 });
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
-const testSomeIdentity = identity(blessSome);
-const testConsIdentity = identity(blessCons(190));
+const testSomeIdentity = identity(blessSome());
+const testConsIdentity = identity(blessCons(9));
 const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.a =  x.a * 3; return x}}), jsc.bless({generator: ()=> x => {x.b = x.b +10; return x}}));
-const testSomeComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
+const testSomeComposition = composition(blessSome(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
 
 describe('Irrigation => ',  () => {
   it('testSomeIdentity', testSomeIdentity);
