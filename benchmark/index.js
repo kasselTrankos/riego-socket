@@ -21,12 +21,14 @@ const blessSomeEs6 = (length=3) => jsc.bless({
 });
 
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
-const testSomeComposition = composition(blessSome(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
-const testSomeCompositionEs6 = composition(blessSomeEs6(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
+const testSomeIdentity = identity(blessSome(604));
+const testConsIdentityEs6 = identity(blessSomeEs6(604));
 
+const testSomeComposition = composition(blessSome(3004), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
+const testSomeCompositionEs6 = composition(blessSomeEs6(3004), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
 const suite = new Benchmark.Suite;
-suite.add('testSomeComposition#test', testSomeComposition)
-suite.add('testSomeCompositionEs6#test', testSomeCompositionEs6)
+suite.add('testSomeIdentity#test', testSomeIdentity)
+suite.add('testConsIdentityEs6#test', testConsIdentityEs6)
 .on('cycle', function(event) {
   console.log(String(event.target));
 })

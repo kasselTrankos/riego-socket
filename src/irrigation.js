@@ -1,6 +1,5 @@
 const {taggedSum} = require('daggy');
 const {map, equals, of} = require('fantasy-land');
-
 const Irrigation = taggedSum('Irrigation', {
   Some: ['items'],
   SomeEs6: ['items'],
@@ -19,19 +18,17 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
     Some: (items) => that.cata({
       Some: (items_) => {
         let _exists = false;
-        for (let i = 0; i < items_.length; i ++){
+        for (var i = 0; i < items.length; i ++){
           const {duration, y} = items[i];
           _exists = false;
-          for(let t = 0; t < items_.length; t ++) {
-            const {duration: duration_, y:y_} = items[t];
+          for (var t = 0; t < items_.length; t ++) {
+            const {duration: duration_, y:y_} = items_[t];
             if(duration === duration_ && y === y_){
               _exists = true;
               break;
             }
           }
-          if(!_exists) {
-            break;
-          }
+          if(!_exists) break; 
         }
         return _exists;
       },
@@ -41,16 +38,16 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
       Cons: () => false,
     }),
     SomeEs6: (items) => that.cata({
-      SomeEs6:(items_) => items_.reduce((acc, {duration: duration_, y:y_}) => {
-      const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
-      if(!find.length) {
-        acc = false;
-      }
-      return acc;
+      SomeEs6: (items_) => items.reduce((acc, {duration: duration_, y:y_}) => {
+        const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
+        if(!find.length) {
+          acc = false;
+        }
+        return acc;
       }, true),
       Some: () => false,
       Nil: () => false,
-      None: () => false,
+      None :() => false,
       Cons: () => false
     }),
     Cons: (head, tail) => that.cata({
@@ -69,7 +66,7 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
     Some: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
-    SomeEs6: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
+    SomeEs6: (items) => Irrigation.SomeEs6(items.map(item => f(Object.assign({}, item)) )),
     None: () => this,
     Nil: () => this,
     Cons: (head, tail) => Irrigation.Cons(
