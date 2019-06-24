@@ -31,7 +31,6 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
         }
         return _exists;
       },
-      SomeEs6: () => false,
       Nil: () => false,
       None: () => false,
       Cons: () => false,
@@ -42,8 +41,6 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
       Nil: () => false,
       None :() => false,
       Some: () => false,
-      SomeEs6: () => false,
-
     }),
     Nil: () => true,
     None: () => true,
