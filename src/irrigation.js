@@ -2,7 +2,6 @@ const {taggedSum} = require('daggy');
 const {map, equals, of} = require('fantasy-land');
 const Irrigation = taggedSum('Irrigation', {
   Some: ['items'],
-  None: [],
   Cons: ['head', 'tail'],
   Nil: []
 });
@@ -31,29 +30,25 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
         }
         return _exists;
       },
-      Nil: () => false,
-      None: () => false,
       Cons: () => false,
+      Nil: () => false,
     }),
     Cons: (head, tail) => that.cata({
       Cons: (head_, tail_) => head.a === head_.a && head.b === head_.b ? tail.equals(tail_)
                                                   : head.a === head_.a && head.b === head_.b,
-      Nil: () => false,
-      None :() => false,
       Some: () => false,
+      Nil: () => false,
     }),
     Nil: () => true,
-    None: () => true,
   });
 }
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
     Some: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
-    None: () => this,
-    Nil: () => this,
     Cons: (head, tail) => Irrigation.Cons(
       f(Object.assign({}, head)), tail.map(f)
-    )
+    ),
+    Nil: () => this,
   })
 }
 
@@ -63,7 +58,6 @@ Irrigation.prototype.toArray = function () {
       x, ... acc.toArray()
     ],
     Some: (duration, y ) => [duration, y],
-    None: () => [],
     Nil: () => [],
   })
 }
