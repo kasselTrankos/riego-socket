@@ -16,7 +16,7 @@ Irrigation.from = function (xs) {
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Some: (items) => that.cata({
-      Some: (items_) => items.reduce((acc, {duration: duration_, y:y_}) => {
+      Some: (items_) => items_.reduce((acc, {duration: duration_, y:y_}) => {
         const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
         if(!find.length) {
           acc = false;
@@ -25,7 +25,7 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
       }, true),
 
       Nil: () => false,
-      None :() => false,
+      None: () => false,
       Cons: () => false
     }),
     Cons: (head, tail) => that.cata({
