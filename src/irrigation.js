@@ -3,6 +3,7 @@ const {map, equals, of} = require('fantasy-land');
 
 const Irrigation = taggedSum('Irrigation', {
   Some: ['items'],
+  SomeEs6: ['items'],
   None: [],
   Cons: ['head', 'tail'],
   Nil: []
@@ -34,14 +35,20 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
         }
         return _exists;
       },
-      // items_.reduce((acc, {duration: duration_, y:y_}) => {
-      //   const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
-      //   if(!find.length) {
-      //     acc = false;
-      //   }
-      //   return acc;
-      // }, true),
-
+      SomeEs6: () => false,
+      Nil: () => false,
+      None: () => false,
+      Cons: () => false,
+    }),
+    SomeEs6: (items) => that.cata({
+      SomeEs6:(items_) => items_.reduce((acc, {duration: duration_, y:y_}) => {
+      const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
+      if(!find.length) {
+        acc = false;
+      }
+      return acc;
+      }, true),
+      Some: () => false,
       Nil: () => false,
       None: () => false,
       Cons: () => false
@@ -51,7 +58,9 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
                                                   : head.a === head_.a && head.b === head_.b,
       Nil: () => false,
       None :() => false,
-      Some: () => false
+      Some: () => false,
+      SomeEs6: () => false,
+
     }),
     Nil: () => true,
     None: () => true,
@@ -60,6 +69,7 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
     Some: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
+    SomeEs6: (items) => Irrigation.Some(items.map(item => f(Object.assign({}, item)) )),
     None: () => this,
     Nil: () => this,
     Cons: (head, tail) => Irrigation.Cons(
@@ -74,6 +84,7 @@ Irrigation.prototype.toArray = function () {
       x, ... acc.toArray()
     ],
     Some: (duration, y ) => [duration, y],
+    SomeEs6: (duration, y ) => [duration, y],
     None: () => [],
     Nil: () => [],
   })
