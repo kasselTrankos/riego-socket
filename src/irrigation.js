@@ -6,7 +6,6 @@ const Irrigation = taggedSum('Irrigation', {
   Cons: ['head', 'tail'],
   Nil: []
 });
-Irrigation[of] = value => Irrigation.from(value);
 Irrigation.from = function (xs) {
   return xs.reduceRight(
     (acc, x) => Irrigation.Cons(x, acc),
@@ -16,7 +15,7 @@ Irrigation.from = function (xs) {
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Some: (duration, y) => that.duration === duration && y === that.y,
-    Cons: (head, tail) => this.cata({
+    Cons: (head, tail) => that.cata({
       Cons: (head_, tail_) => head.a === head_.a && head.b === head_.b ? tail.equals(tail_)
                                                   : head.a === head_.a && head.b === head_.b,
       Nil: () => false,
