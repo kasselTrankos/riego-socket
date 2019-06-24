@@ -25,7 +25,7 @@ const testConsIdentity = identity(blessCons(9));
 const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.a =  x.a * 3; return x}}), jsc.bless({generator: ()=> x => {x.b = x.b +10; return x}}));
 const testSomeComposition = composition(blessSome(4), jsc.bless({generator:() =>  x => {x.duration =  x.duration * 3; return x}}), jsc.bless({generator: ()=> x => {x.y = x.y +10; return x}}));
 
-const A = Irrigation.from([{a: 4, b:2}, {a:11, b:2}, {a:134, b:1}, {a: 1, b:12}, {a: 212, b:1}]);
+const A = Irrigation.from([{a: 4, b:0}, {a:11, b:2}, {a:134, b:109}, {a: 1, b:12}, {a: 212, b:1}]);
 const B = A.sort();
 
 console.log(A.toArray(), '000000', B.toArray());
