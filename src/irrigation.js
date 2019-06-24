@@ -16,13 +16,31 @@ Irrigation.from = function (xs) {
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Some: (items) => that.cata({
-      Some: (items_) => items_.reduce((acc, {duration: duration_, y:y_}) => {
-        const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
-        if(!find.length) {
-          acc = false;
+      Some: (items_) => {
+        let _exists = false;
+        for (let i = 0; i < items_.length; i ++){
+          const {duration, y} = items[i];
+          _exists = false;
+          for(let t = 0; t < items_.length; t ++) {
+            const {duration: duration_, y:y_} = items[t];
+            if(duration === duration_ && y === y_){
+              _exists = true;
+              break;
+            }
+          }
+          if(!_exists) {
+            break;
+          }
         }
-        return acc;
-      }, true),
+        return _exists;
+      },
+      // items_.reduce((acc, {duration: duration_, y:y_}) => {
+      //   const find = items.filter(({duration, y}) => duration_ === duration && y === y_);
+      //   if(!find.length) {
+      //     acc = false;
+      //   }
+      //   return acc;
+      // }, true),
 
       Nil: () => false,
       None: () => false,
