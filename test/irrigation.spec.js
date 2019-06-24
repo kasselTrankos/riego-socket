@@ -1,7 +1,9 @@
 const Irrigation = require ('./../src/irrigation');
+var Benchmark = require('benchmark');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
+
 
 
 const blessSome = (length=3) => jsc.bless({
@@ -31,3 +33,15 @@ describe('Irrigation => ',  () => {
   it('testConsComposition', testConsComposition);
   it('testSomeComposition', testSomeComposition);
 });
+
+const Suite = new Benchmark.Suite;
+Suite.add('RegExp#test', function() {
+  /o/.test('Hello World!');
+}).on('cycle', function(event) {
+  console.log(String(event.target));
+})
+.on('complete', function() {
+  console.log('Fastest is ' + this.filter('fastest').map('name'));
+})
+// run async
+.run({ 'async': true });
