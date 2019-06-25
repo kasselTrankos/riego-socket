@@ -48,14 +48,6 @@ Irrigation.prototype.sort = function (that) {
     Cons: (head, tail) => {
       return tail.cata({
         Cons: (head_, tail_) => {
-          // const _head = head.a <= head_.a? head_ : head;
-          // const _head_ = head.a <= head_.a ? head : head_;
-          // return Irrigation.Cons(_head, Irrigation.Cons(_head_, tail.sort(tail_)));
-          // console.log(that_,' head a ', head.a,'ppppññññññaaaa', head_.a, 'pppppppgggggyygyy', head.a >= head_.a, swap(head, head_));
-          console.log(' head a ', head.a,'ppppññññññaaaa head_--:', head_.a);
-          console.log(Irrigation.Cons(head_, Irrigation.Cons(head, tail_)).toArray());
-          // console.log( 'pppppppgggggyygyy', head_.a > head.a);
-          // console.log('head is', head, ' tail is', tail);
           return head_.a > head.a
             ? Irrigation.Cons(head_, Irrigation.Cons(head, tail_)).sort()
             : Irrigation.Cons(head, tail.sort())
