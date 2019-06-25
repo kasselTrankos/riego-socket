@@ -60,13 +60,14 @@ Irrigation.prototype.second = function() {
     Nil: () => this,
   });
 }
+let a = 0;
 Irrigation.prototype.sort = function () {
   return this.cata({
     Some: (items) => false,
     Cons: (head, tail) => {
       return tail.cata({
         Cons: (head_, tail_) => {
-          console.log('SORT NOT HURT head_:', head_.a, 'head: ', head.a, ' is: ', head_.a > head.a );
+          console.log('SORT NOT HURT head_:', head_.a, 'head: ', head.a, ' is: ', tail_.is );
           return  head_.a > head.a 
             ? Irrigation.Cons(head_, Irrigation.Cons(head, tail_.sort()).sort())
             : Irrigation.Cons(head, Irrigation.Cons(head_, tail_.sort()).sort())

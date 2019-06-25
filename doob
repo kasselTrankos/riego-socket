@@ -1,0 +1,135 @@
+
+> socket@1.0.0 test /Users/aotn/riego-socket
+> mocha
+
+SORT NOT HURT head_: 4 head:  1900  is:  undefined
+SORT NOT HURT head_: 134 head:  11  is:  undefined
+SORT NOT HURT head_: 212 head:  190  is:  undefined
+SORT NOT HURT head_: 1901 head:  1  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 1901 head:  190  is:  undefined
+SORT NOT HURT head_: 1 head:  190  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 212 head:  11  is:  undefined
+SORT NOT HURT head_: 190 head:  1901  is:  undefined
+SORT NOT HURT head_: 1 head:  190  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 1901 head:  11  is:  undefined
+SORT NOT HURT head_: 1 head:  190  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 190 head:  11  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 134 head:  4  is:  undefined
+SORT NOT HURT head_: 1901 head:  212  is:  undefined
+SORT NOT HURT head_: 11 head:  190  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 190 head:  212  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 11 head:  190  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 1901 head:  4  is:  undefined
+SORT NOT HURT head_: 190 head:  212  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 11 head:  190  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 212 head:  4  is:  undefined
+SORT NOT HURT head_: 11 head:  190  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 190 head:  4  is:  undefined
+SORT NOT HURT head_: 1 head:  11  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+SORT NOT HURT head_: 11 head:  4  is:  undefined
+SORT NOT HURT head_: 1 head:  4  is:  function $sum$isUnit(val) {
+      return unit === val || Boolean(val) &&
+        unit[TAG] === val[TAG] &&
+        type(unit) === type(val);
+    }
+[ { a: 1900, b: 12 },
+  { a: 4, b: 0 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ] '000000' [ { a: 1900, b: 12 },
+  { a: 134, b: 109 },
+  { a: 1901, b: 2 },
+  { a: 212, b: 1 },
+  { a: 190, b: 112 },
+  { a: 11, b: 2 },
+  { a: 4, b: 0 },
+  { a: 1, b: 12 } ]
+
+
+  Irrigation => 
+    ✓ testSomeIdentity
+    ✓ testConsIdentity
+    ✓ testConsComposition
+    ✓ testSomeComposition
+
+  RiegoArb => 
+    ✓ testTotality
+    ✓ testAntisymmetry
+    ✓ ordTestTransitivity
+    ✓ testAssociativity
+    ✓ testLeftIdentity
+    ✓ testRightIdentity
+    ✓ testLeftInverse
+    ✓ testRightInverse
+    ✓ testReflexivity
+    ✓ testSymmetry
+    ✓ testTransitivity
+
+  Riegos  => 
+    ✓ testIdentity
+    ✓ testComposition
+    ✓ testAnnihilation
+    ✓ testDistributivity
+    ✓ testIdentityFilterable
+
+
+  20 passing (136ms)
+
