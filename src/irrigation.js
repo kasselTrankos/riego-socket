@@ -67,6 +67,17 @@ Irrigation.prototype.swap = function(head_, tail_) {
     Nil: () => this,
   });
 }
+Irrigation.prototype.sorting = function () {
+  return this.cata({
+    Cons: (head, tail) => {
+      console.log('sorting, head', head, 'cons');
+      this.swap(head, tail);
+      tail.sorting()
+    },
+    Some: (items) => this,
+    Nil:() => this,
+  });
+}
 Irrigation.prototype.sort = function () {
   if(a=== 0) {
     cons = this
@@ -75,17 +86,8 @@ Irrigation.prototype.sort = function () {
     Some: (items) => false,
     Cons: (head, tail) => {
       console.log('sort is: ', head,' this');
-      // cons.sorting();
+      cons.sorting();
       ++a;
-      cons.cata({
-        Cons: (head, tail) => {
-          console.log('sorting, head', head, 'cons');
-          this.swap(head, tail);
-          tail.sorting()
-        },
-        Some: (items) => this,
-        Nil:() => this,
-      });
       return Irrigation.Cons(head, tail.sort());
     },
     Nil: () => this,
