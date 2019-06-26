@@ -1,4 +1,5 @@
 const moment = require('moment-timezone');
+const Irrigation = require('./src/irrigation');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
 var uuid = require('uuid');
