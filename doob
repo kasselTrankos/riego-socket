@@ -2,123 +2,14 @@
 > socket@1.0.0 test /Users/aotn/riego-socket
 > mocha
 
-head:  { a: 180, b: 12 } left;  { a: 180, b: 12 } right:  { a: 4, b: 0 }
-head:  { a: 4, b: 0, moved: 0 } left;  { a: 11, b: 2, moved: 0 } right:  { a: 4, b: 0, moved: 0 }
-head:  { a: 134, b: 109, moved: 0 } left;  { a: 190, b: 112, moved: 0 } right:  { a: 134, b: 109, moved: 0 }
-head:  { a: 212, b: 1 } left;  { a: 212, b: 1 } right:  { a: 1, b: 12 }
-head:  { a: 1, b: 12, moved: 0 } left;  { a: 1901, b: 2, moved: 0 } right:  { a: 1, b: 12, moved: 0 }
-ppppppppppppp [ { a: 180, b: 12 },
-  { a: 11, b: 2, moved: 0 },
-  { a: 4, b: 0, moved: 0 },
-  { a: 190, b: 112, moved: 0 },
-  { a: 134, b: 109, moved: 0 },
+[ { a: 1901, b: 2 },
   { a: 212, b: 1 },
-  { a: 1901, b: 2, moved: 0 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 180, b: 12 } left;  { a: 180, b: 12 } right:  { a: 11, b: 2, moved: 0 }
-head:  { a: 11, b: 2, moved: 0 } left;  { a: 11, b: 2, moved: 0 } right:  { a: 4, b: 0, moved: 0 }
-head:  { a: 4, b: 0, moved: 1 } left;  { a: 190, b: 112, moved: 1 } right:  { a: 4, b: 0, moved: 1 }
-head:  { a: 134, b: 109, moved: 1 } left;  { a: 212, b: 1, moved: 1 } right:  { a: 134, b: 109, moved: 1 }
-head:  { a: 1901, b: 2, moved: 0 } left;  { a: 1901, b: 2, moved: 0 } right:  { a: 1, b: 12, moved: 0 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 180, b: 12 },
-  { a: 11, b: 2, moved: 0 },
-  { a: 190, b: 112, moved: 1 },
-  { a: 4, b: 0, moved: 1 },
-  { a: 212, b: 1, moved: 1 },
-  { a: 134, b: 109, moved: 1 },
-  { a: 1901, b: 2, moved: 0 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 180, b: 12 } left;  { a: 180, b: 12 } right:  { a: 11, b: 2, moved: 0 }
-head:  { a: 11, b: 2, moved: 2 } left;  { a: 190, b: 112, moved: 2 } right:  { a: 11, b: 2, moved: 2 }
-head:  { a: 4, b: 0, moved: 2 } left;  { a: 212, b: 1, moved: 2 } right:  { a: 4, b: 0, moved: 2 }
-head:  { a: 134, b: 109, moved: 2 } left;  { a: 1901, b: 2, moved: 2 } right:  { a: 134, b: 109, moved: 2 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 180, b: 12 },
-  { a: 190, b: 112, moved: 2 },
-  { a: 11, b: 2, moved: 2 },
-  { a: 212, b: 1, moved: 2 },
-  { a: 4, b: 0, moved: 2 },
-  { a: 1901, b: 2, moved: 2 },
-  { a: 134, b: 109, moved: 2 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 180, b: 12, moved: 3 } left;  { a: 190, b: 112, moved: 3 } right:  { a: 180, b: 12, moved: 3 }
-head:  { a: 11, b: 2, moved: 3 } left;  { a: 212, b: 1, moved: 3 } right:  { a: 11, b: 2, moved: 3 }
-head:  { a: 4, b: 0, moved: 3 } left;  { a: 1901, b: 2, moved: 3 } right:  { a: 4, b: 0, moved: 3 }
-head:  { a: 134, b: 109, moved: 2 } left;  { a: 134, b: 109, moved: 2 } right:  { a: 1, b: 12, moved: 0 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 190, b: 112, moved: 3 },
-  { a: 180, b: 12, moved: 3 },
-  { a: 212, b: 1, moved: 3 },
-  { a: 11, b: 2, moved: 3 },
-  { a: 1901, b: 2, moved: 3 },
-  { a: 4, b: 0, moved: 3 },
-  { a: 134, b: 109, moved: 2 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 190, b: 112, moved: 3 } left;  { a: 190, b: 112, moved: 3 } right:  { a: 180, b: 12, moved: 3 }
-head:  { a: 180, b: 12, moved: 4 } left;  { a: 212, b: 1, moved: 4 } right:  { a: 180, b: 12, moved: 4 }
-head:  { a: 11, b: 2, moved: 4 } left;  { a: 1901, b: 2, moved: 4 } right:  { a: 11, b: 2, moved: 4 }
-head:  { a: 4, b: 0, moved: 4 } left;  { a: 134, b: 109, moved: 4 } right:  { a: 4, b: 0, moved: 4 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 190, b: 112, moved: 3 },
-  { a: 212, b: 1, moved: 4 },
-  { a: 180, b: 12, moved: 4 },
-  { a: 1901, b: 2, moved: 4 },
-  { a: 11, b: 2, moved: 4 },
-  { a: 134, b: 109, moved: 4 },
-  { a: 4, b: 0, moved: 4 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 190, b: 112, moved: 5 } left;  { a: 212, b: 1, moved: 5 } right:  { a: 190, b: 112, moved: 5 }
-head:  { a: 180, b: 12, moved: 5 } left;  { a: 1901, b: 2, moved: 5 } right:  { a: 180, b: 12, moved: 5 }
-head:  { a: 11, b: 2, moved: 5 } left;  { a: 134, b: 109, moved: 5 } right:  { a: 11, b: 2, moved: 5 }
-head:  { a: 4, b: 0, moved: 4 } left;  { a: 4, b: 0, moved: 4 } right:  { a: 1, b: 12, moved: 0 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 212, b: 1, moved: 5 },
-  { a: 190, b: 112, moved: 5 },
-  { a: 1901, b: 2, moved: 5 },
-  { a: 180, b: 12, moved: 5 },
-  { a: 134, b: 109, moved: 5 },
-  { a: 11, b: 2, moved: 5 },
-  { a: 4, b: 0, moved: 4 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 212, b: 1, moved: 5 } left;  { a: 212, b: 1, moved: 5 } right:  { a: 190, b: 112, moved: 5 }
-head:  { a: 190, b: 112, moved: 6 } left;  { a: 1901, b: 2, moved: 6 } right:  { a: 190, b: 112, moved: 6 }
-head:  { a: 180, b: 12, moved: 5 } left;  { a: 180, b: 12, moved: 5 } right:  { a: 134, b: 109, moved: 5 }
-head:  { a: 134, b: 109, moved: 5 } left;  { a: 134, b: 109, moved: 5 } right:  { a: 11, b: 2, moved: 5 }
-head:  { a: 11, b: 2, moved: 5 } left;  { a: 11, b: 2, moved: 5 } right:  { a: 4, b: 0, moved: 4 }
-head:  { a: 4, b: 0, moved: 4 } left;  { a: 4, b: 0, moved: 4 } right:  { a: 1, b: 12, moved: 0 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 212, b: 1, moved: 5 },
-  { a: 1901, b: 2, moved: 6 },
-  { a: 190, b: 112, moved: 6 },
-  { a: 180, b: 12, moved: 5 },
-  { a: 134, b: 109, moved: 5 },
-  { a: 11, b: 2, moved: 5 },
-  { a: 4, b: 0, moved: 4 },
-  { a: 1, b: 12, moved: 0 } ]
-head:  { a: 212, b: 1, moved: 7 } left;  { a: 1901, b: 2, moved: 7 } right:  { a: 212, b: 1, moved: 7 }
-head:  { a: 190, b: 112, moved: 6 } left;  { a: 190, b: 112, moved: 6 } right:  { a: 180, b: 12, moved: 5 }
-head:  { a: 180, b: 12, moved: 5 } left;  { a: 180, b: 12, moved: 5 } right:  { a: 134, b: 109, moved: 5 }
-head:  { a: 134, b: 109, moved: 5 } left;  { a: 134, b: 109, moved: 5 } right:  { a: 11, b: 2, moved: 5 }
-head:  { a: 11, b: 2, moved: 5 } left;  { a: 11, b: 2, moved: 5 } right:  { a: 4, b: 0, moved: 4 }
-head:  { a: 4, b: 0, moved: 4 } left;  { a: 4, b: 0, moved: 4 } right:  { a: 1, b: 12, moved: 0 }
-head:  { a: 1, b: 12, moved: 0 } left;  undefined right:  undefined
-ppppppppppppp [ { a: 1901, b: 2, moved: 7 },
-  { a: 212, b: 1, moved: 7 },
-  { a: 190, b: 112, moved: 6 },
-  { a: 180, b: 12, moved: 5 },
-  { a: 134, b: 109, moved: 5 },
-  { a: 11, b: 2, moved: 5 },
-  { a: 4, b: 0, moved: 4 },
-  { a: 1, b: 12, moved: 0 } ]
-[ { a: 1901, b: 2, moved: 7 },
-  { a: 212, b: 1, moved: 7 },
-  { a: 190, b: 112, moved: 6 },
-  { a: 180, b: 12, moved: 5 },
-  { a: 134, b: 109, moved: 5 },
-  { a: 11, b: 2, moved: 5 },
-  { a: 4, b: 0, moved: 4 },
-  { a: 1, b: 12, moved: 0 } ]
+  { a: 190, b: 112 },
+  { a: 180, b: 12 },
+  { a: 134, b: 109 },
+  { a: 11, b: 2 },
+  { a: 4, b: 0 },
+  { a: 1, b: 12 } ]
 
 
   Irrigation => 
@@ -148,6 +39,6 @@ ppppppppppppp [ { a: 1901, b: 2, moved: 7 },
     - testIdentityFilterable
 
 
-  4 passing (52ms)
+  4 passing (58ms)
   16 pending
 

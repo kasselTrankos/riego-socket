@@ -42,9 +42,6 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
     Nil: () => true,
   });
 }
-let a = 0;
-let t = 0;
-let cons;
 Irrigation.prototype.swap = function(head_, tail_) {
   return tail_.cata({
     Some: (items) => false,
@@ -73,8 +70,10 @@ Irrigation.prototype.sorting = function () {
     Nil:() => this,
   });
 }
-Irrigation.prototype.sort = function () {
-  if(a=== 0) {
+let cons;
+Irrigation.prototype.sort = function (init = true) {
+  
+  if(init) {
     cons = this
   } 
   return this.cata({
@@ -82,8 +81,7 @@ Irrigation.prototype.sort = function () {
     Cons: (head, tail) => {
       const s = cons.sorting();
       cons = s
-      ++a;
-      tail.sort();
+      tail.sort(false);
       return cons;
     },
     Nil: () => this,
