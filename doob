@@ -2,92 +2,116 @@
 > socket@1.0.0 test /Users/aotn/riego-socket
 > mocha
 
-sort is:  { a: 180, b: 12 }  this
-sorting, head { a: 180, b: 12 } cons
-sorting, head { a: 4, b: 0, moved: 1 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1 } cons
-sorting, head { a: 1, b: 12, moved: 1 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 4, b: 0, moved: 1 }  this
-sorting, head { a: 180, b: 12, moved: 1 } cons
-sorting, head { a: 4, b: 0, moved: 2 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 1 } cons
-sorting, head { a: 1, b: 12, moved: 2 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 11, b: 2 }  this
-sorting, head { a: 180, b: 12, moved: 2 } cons
-sorting, head { a: 4, b: 0, moved: 3 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 2 } cons
-sorting, head { a: 1, b: 12, moved: 3 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 134, b: 109 }  this
-sorting, head { a: 180, b: 12, moved: 3 } cons
-sorting, head { a: 4, b: 0, moved: 4 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 3 } cons
-sorting, head { a: 1, b: 12, moved: 4 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 190, b: 112 }  this
-sorting, head { a: 180, b: 12, moved: 4 } cons
-sorting, head { a: 4, b: 0, moved: 5 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 4 } cons
-sorting, head { a: 1, b: 12, moved: 5 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 212, b: 1, moved: 5 }  this
-sorting, head { a: 180, b: 12, moved: 5 } cons
-sorting, head { a: 4, b: 0, moved: 6 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 5 } cons
-sorting, head { a: 1, b: 12, moved: 6 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 1, b: 12, moved: 6 }  this
-sorting, head { a: 180, b: 12, moved: 6 } cons
-sorting, head { a: 4, b: 0, moved: 7 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 6 } cons
-sorting, head { a: 1, b: 12, moved: 7 } cons
-sorting, head { a: 1901, b: 2 } cons
-sort is:  { a: 1901, b: 2 }  this
-sorting, head { a: 180, b: 12, moved: 7 } cons
-sorting, head { a: 4, b: 0, moved: 8 } cons
-sorting, head { a: 11, b: 2 } cons
-sorting, head { a: 134, b: 109 } cons
-sorting, head { a: 190, b: 112 } cons
-sorting, head { a: 212, b: 1, moved: 7 } cons
-sorting, head { a: 1, b: 12, moved: 8 } cons
-sorting, head { a: 1901, b: 2 } cons
-[ { a: 180, b: 12, moved: 8 },
-  { a: 4, b: 0, moved: 8 },
+left; { a: 180, b: 12, moved: 0 } right { a: 4, b: 0, moved: 0 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 0 },
+  { a: 180, b: 12, moved: 0 },
   { a: 11, b: 2 },
   { a: 134, b: 109 },
   { a: 190, b: 112 },
-  { a: 212, b: 1, moved: 8 },
-  { a: 1, b: 12, moved: 8 },
-  { a: 1901, b: 2 } ] '000000' [ { a: 180, b: 12, moved: 8 },
-  { a: 4, b: 0, moved: 8 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 1 } right { a: 4, b: 0, moved: 1 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 1 },
+  { a: 180, b: 12, moved: 1 },
   { a: 11, b: 2 },
   { a: 134, b: 109 },
   { a: 190, b: 112 },
-  { a: 212, b: 1, moved: 8 },
-  { a: 1, b: 12, moved: 8 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 2 } right { a: 4, b: 0, moved: 2 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 2 },
+  { a: 180, b: 12, moved: 2 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 3 } right { a: 4, b: 0, moved: 3 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 3 },
+  { a: 180, b: 12, moved: 3 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 4 } right { a: 4, b: 0, moved: 4 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 4 },
+  { a: 180, b: 12, moved: 4 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 5 } right { a: 4, b: 0, moved: 5 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 5 },
+  { a: 180, b: 12, moved: 5 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 6 } right { a: 4, b: 0, moved: 6 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 6 },
+  { a: 180, b: 12, moved: 6 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+left; { a: 180, b: 12, moved: 7 } right { a: 4, b: 0, moved: 7 }
+left; { a: 134, b: 109 } right { a: 11, b: 2 }
+left; { a: 212, b: 1 } right { a: 190, b: 112 }
+left; { a: 1901, b: 2 } right { a: 1, b: 12 }
+ppppppppppppp [ { a: 4, b: 0, moved: 7 },
+  { a: 180, b: 12, moved: 7 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ]
+[ { a: 180, b: 12, moved: 7 },
+  { a: 4, b: 0, moved: 7 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
+  { a: 1901, b: 2 } ] '000000' [ { a: 180, b: 12, moved: 7 },
+  { a: 4, b: 0, moved: 7 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1, b: 12 },
   { a: 1901, b: 2 } ]
 i: 0 , j: 0
 i: 0 , j: 1
@@ -154,6 +178,6 @@ i: 5 , j: 5
     - testIdentityFilterable
 
 
-  4 passing (54ms)
+  4 passing (50ms)
   16 pending
 
