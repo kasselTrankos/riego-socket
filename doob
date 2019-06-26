@@ -1,0 +1,159 @@
+
+> socket@1.0.0 test /Users/aotn/riego-socket
+> mocha
+
+sort is:  { a: 180, b: 12 }  this
+sorting, head { a: 180, b: 12 } cons
+sorting, head { a: 4, b: 0, moved: 1 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1 } cons
+sorting, head { a: 1, b: 12, moved: 1 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 4, b: 0, moved: 1 }  this
+sorting, head { a: 180, b: 12, moved: 1 } cons
+sorting, head { a: 4, b: 0, moved: 2 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 1 } cons
+sorting, head { a: 1, b: 12, moved: 2 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 11, b: 2 }  this
+sorting, head { a: 180, b: 12, moved: 2 } cons
+sorting, head { a: 4, b: 0, moved: 3 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 2 } cons
+sorting, head { a: 1, b: 12, moved: 3 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 134, b: 109 }  this
+sorting, head { a: 180, b: 12, moved: 3 } cons
+sorting, head { a: 4, b: 0, moved: 4 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 3 } cons
+sorting, head { a: 1, b: 12, moved: 4 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 190, b: 112 }  this
+sorting, head { a: 180, b: 12, moved: 4 } cons
+sorting, head { a: 4, b: 0, moved: 5 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 4 } cons
+sorting, head { a: 1, b: 12, moved: 5 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 212, b: 1, moved: 5 }  this
+sorting, head { a: 180, b: 12, moved: 5 } cons
+sorting, head { a: 4, b: 0, moved: 6 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 5 } cons
+sorting, head { a: 1, b: 12, moved: 6 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 1, b: 12, moved: 6 }  this
+sorting, head { a: 180, b: 12, moved: 6 } cons
+sorting, head { a: 4, b: 0, moved: 7 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 6 } cons
+sorting, head { a: 1, b: 12, moved: 7 } cons
+sorting, head { a: 1901, b: 2 } cons
+sort is:  { a: 1901, b: 2 }  this
+sorting, head { a: 180, b: 12, moved: 7 } cons
+sorting, head { a: 4, b: 0, moved: 8 } cons
+sorting, head { a: 11, b: 2 } cons
+sorting, head { a: 134, b: 109 } cons
+sorting, head { a: 190, b: 112 } cons
+sorting, head { a: 212, b: 1, moved: 7 } cons
+sorting, head { a: 1, b: 12, moved: 8 } cons
+sorting, head { a: 1901, b: 2 } cons
+[ { a: 180, b: 12, moved: 8 },
+  { a: 4, b: 0, moved: 8 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1, moved: 8 },
+  { a: 1, b: 12, moved: 8 },
+  { a: 1901, b: 2 } ] '000000' [ { a: 180, b: 12, moved: 8 },
+  { a: 4, b: 0, moved: 8 },
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1, moved: 8 },
+  { a: 1, b: 12, moved: 8 },
+  { a: 1901, b: 2 } ]
+i: 0 , j: 0
+i: 0 , j: 1
+i: 0 , j: 2
+i: 0 , j: 3
+i: 0 , j: 4
+i: 0 , j: 5
+i: 1 , j: 0
+i: 1 , j: 1
+i: 1 , j: 2
+i: 1 , j: 3
+i: 1 , j: 4
+i: 1 , j: 5
+i: 2 , j: 0
+i: 2 , j: 1
+i: 2 , j: 2
+i: 2 , j: 3
+i: 2 , j: 4
+i: 2 , j: 5
+i: 3 , j: 0
+i: 3 , j: 1
+i: 3 , j: 2
+i: 3 , j: 3
+i: 3 , j: 4
+i: 3 , j: 5
+i: 4 , j: 0
+i: 4 , j: 1
+i: 4 , j: 2
+i: 4 , j: 3
+i: 4 , j: 4
+i: 4 , j: 5
+i: 5 , j: 0
+i: 5 , j: 1
+i: 5 , j: 2
+i: 5 , j: 3
+i: 5 , j: 4
+i: 5 , j: 5
+
+
+  Irrigation => 
+    ✓ testSomeIdentity
+    ✓ testConsIdentity
+    ✓ testConsComposition
+    ✓ testSomeComposition
+
+  RiegoArb => 
+    - testTotality
+    - testAntisymmetry
+    - ordTestTransitivity
+    - testAssociativity
+    - testLeftIdentity
+    - testRightIdentity
+    - testLeftInverse
+    - testRightInverse
+    - testReflexivity
+    - testSymmetry
+    - testTransitivity
+
+  Riegos  => 
+    - testIdentity
+    - testComposition
+    - testAnnihilation
+    - testDistributivity
+    - testIdentityFilterable
+
+
+  4 passing (54ms)
+  16 pending
+
