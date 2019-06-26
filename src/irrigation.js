@@ -50,7 +50,7 @@ Irrigation.prototype.swap = function(head_, tail_) {
     Some: (items) => false,
     Cons: (_head, rest) => {
       // console.log(head_.a, head.a, head_.a > head.a, '0000000\n');
-      if(head_.a > _head.a){
+      if(head_.a < _head.a){
         // head.mierda = {a1: head_.a, a2: head.a};
 
         // console.log('0', head, 'p', head_);
@@ -63,7 +63,7 @@ Irrigation.prototype.swap = function(head_, tail_) {
 
       }
       // console.log(_head, '::::::', head_);
-      return {left: _head, right: head_, rest};
+      return {right: _head, left: head_, rest};
     },
     Nil: () => this,
   });
@@ -73,11 +73,17 @@ Irrigation.prototype.sorting = function () {
     Cons: (head, tail) => {
       // console.log('sorting, head', head, 'cons');
       const {left, right, rest} = this.swap(head, tail);
-      // tail.sorting()
-      // if(!tail.is) {
-        console.log('left;', left, 'right', right);
-        return Irrigation.Cons(right, Irrigation.Cons(left, tail.sorting()));
-        console.log(gg.toArray, tail.is);
+
+      console.log('head: ', head, 'left; ', left, 'right: ', right);
+      if(left && left.a !== head.a) {
+        tail = rest;
+        return Irrigation.Cons(left, Irrigation.Cons(right, tail.sorting()))
+
+      }
+      return Irrigation.Cons(head, tail.sorting());
+        
+
+      // console.log(gg.toArray, tail.is);
 
       // }
       // return Irrigation.Cons(head_, tail.sorting());
@@ -96,6 +102,7 @@ Irrigation.prototype.sort = function () {
     Cons: (head, tail) => {
       // console.log('sort is: ', head,' this');
       const s = cons.sorting();
+      cons = Irrigation.from(s.toArray());
       console.log('ppppppppppppp',s.toArray())
       ++a;
       return Irrigation.Cons(head, tail.sort());
