@@ -1,15 +1,15 @@
 
-> socket@1.0.0 test /Users/aotn/riego-socket
+> socket@1.0.0 test /home/vera/Documentos/riego/riego-socket
 > mocha
 
-[ { a: 1901, b: 2 },
-  { a: 212, b: 1 },
-  { a: 190, b: 112 },
-  { a: 180, b: 12 },
-  { a: 134, b: 109 },
-  { a: 11, b: 2 },
+[ { a: 1, b: 12 },
   { a: 4, b: 0 },
-  { a: 1, b: 12 } ]
+  { a: 11, b: 2 },
+  { a: 134, b: 109 },
+  { a: 180, b: 12 },
+  { a: 190, b: 112 },
+  { a: 212, b: 1 },
+  { a: 1901, b: 2 } ]
 
 
   Irrigation => 
@@ -39,6 +39,6 @@
     - testIdentityFilterable
 
 
-  4 passing (58ms)
+  4 passing (93ms)
   16 pending
 
