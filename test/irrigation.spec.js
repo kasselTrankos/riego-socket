@@ -27,7 +27,7 @@ const testSomeComposition = composition(blessSome(4), jsc.bless({generator:() =>
 
 const A = Irrigation.from([ {a:180, b: 12}, {a: 4, b:0}, {a:11, b:2}, {a:134, b:109}, {a:190, b: 112},{a: 212, b:1}, {a: 1, b:12}, {a: 1901, b:2}]);
 const B = A.sort();
-console.log(B.toArray())
+// console.log(B.toArray())
 describe('Irrigation => ',  () => {
   it('testSomeIdentity', testSomeIdentity);
   it('testConsIdentity', testConsIdentity);

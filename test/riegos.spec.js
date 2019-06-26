@@ -33,7 +33,7 @@ const testDistributivity  = distributivity(blessRiegos(2), jsc.bless({generator:
 const testAnnihilation = annihilation(blessRiegos(13), blessRiegos(13));
 const testIdentityFilterable = identityFilterable(blessRiegos(10));
 
-xdescribe('Riegos  => ',  () => {
+describe('Riegos  => ',  () => {
   it('testIdentity', testIdentity);
   it('testComposition', testComposition);
   it('testAnnihilation', testAnnihilation);

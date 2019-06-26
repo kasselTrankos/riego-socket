@@ -1,12 +1,9 @@
 const Riego = require ('./../src/riego');
-const {concat} = require('ramda');
-const FL = require('fantasy-land');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const show = require ('sanctuary-show');
 const Z = require ('sanctuary-type-classes');
 
-const allwaysTrue = jsc.bool.generator.map(bool => true)
 const arbRiego = jsc.record({
   date: jsc.datetime(new Date('2015-11-10'), new Date()),
   hour: jsc.integer(0, 24),
@@ -36,7 +33,7 @@ const testLeftIdentity = leftIdentity (blessRiego);
 const testLeftInverse = leftInverse (blessRiego);
 const testRightInverse = rightInverse (blessRiego);
 
-xdescribe('RiegoArb => ',  () => {
+describe('RiegoArb => ',  () => {
  it('testTotality', testTotality);
  it('testAntisymmetry', testAntisymmetry);
  it('ordTestTransitivity', ordTestTransitivity);
