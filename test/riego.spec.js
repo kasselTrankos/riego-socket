@@ -36,7 +36,7 @@ const testLeftIdentity = leftIdentity (blessRiego);
 const testLeftInverse = leftInverse (blessRiego);
 const testRightInverse = rightInverse (blessRiego);
 
-describe('RiegoArb => ',  () => {
+xdescribe('RiegoArb => ',  () => {
  it('testTotality', testTotality);
  it('testAntisymmetry', testAntisymmetry);
  it('ordTestTransitivity', ordTestTransitivity);

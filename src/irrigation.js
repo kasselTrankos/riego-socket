@@ -42,42 +42,54 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
     Nil: () => true,
   });
 }
-Irrigation.prototype.second = function() {
-  return this.cata({
+Irrigation.prototype.second = function(head_, tail_) {
+  return tail_.cata({
     Some: (items) => false,
     Cons: (head, tail) => {
-      return tail.cata({
-        Cons: (head_, tail_) => {
-          console.log('SECOND NOT HURT head_:', head_.a, 'head: ', head.a);
-          return head_.a > head.a
-          ? Irrigation.Cons(head_, Irrigation.Cons(head, tail_)).second()
-          : Irrigation.Cons(head, tail.second())
-        },
-        Some: () => false,
-        Nil: () => this,
-      })
+      // console.log(head_.a, head.a, head_.a > head.a, '0000000\n');
+      if(head_.a > head.a){
+        // head.mierda = {a1: head_.a, a2: head.a};
+
+        console.log('0', head, 'p', head_);
+        const tmp = head;
+        head = head_;
+        head_ = tmp;
+        console.log('1' ,head, 'p', head_);
+
+      }
+      // return head_.a > head.a
+      //   ? Irrigation.Cons(head_, Irrigation.Cons(head, tail_))
+      //   : Irrigation.Cons(head, tail)
     },
     Nil: () => this,
   });
 }
 let a = 0;
+let t = 0;
+let cons;
+Irrigation.prototype.sorting = function () {
+  return this.cata({
+    Cons: (head, tail) => {
+      console.log('sorting, head', head, 'cons');
+      head.moved = a;
+      this.second(head, tail);
+      tail.sorting()
+    },
+    Some: (items) => this,
+    Nil:() => this,
+  });
+}
 Irrigation.prototype.sort = function () {
+  if(a=== 0) {
+    cons = this
+  } 
   return this.cata({
     Some: (items) => false,
     Cons: (head, tail) => {
-      return tail.cata({
-        Cons: (head_, tail_) => {
-          console.log('SORT NOT HURT head_:', head_.a, 'head: ', head.a, ' is: ', tail_.is );
-          return  head_.a > head.a 
-            ? Irrigation.Cons(head_, Irrigation.Cons(head, tail_.sort()).sort())
-            : Irrigation.Cons(head, Irrigation.Cons(head_, tail_.sort()).sort())
-          // return head_.a > head.a
-          //   ? Irrigation.Cons(head_, Irrigation.Cons(head, tail.second())).sort()
-          //   : Irrigation.Cons(head, tail.sort())
-          },
-        Some: () => false,
-        Nil: () => this,
-      })
+      console.log('sort is: ', head,' this');
+      cons.sorting();
+      ++a;
+      return Irrigation.Cons(head, tail.sort());
     },
     Nil: () => this,
   });
