@@ -4,14 +4,6 @@ const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 
-const blessSome = (length=3) => jsc.bless({
-  generator: ()=> {
-
-    const elms = Array.from({length}, ()=> 
-      ({duration: jsc.integer(0, 60).generator(), y: jsc.integer(0, 60).generator()}));
-    return Irrigation.Some(elms);
-  }
-});
 const blessCons = (length=3) => jsc.bless({
   generator: ()=> {
     const elms = Array.from({length}, ()=> ({a: jsc.integer(0, 60).generator(), b: jsc.integer(0, 60).generator()}));
@@ -20,12 +12,18 @@ const blessCons = (length=3) => jsc.bless({
 });
 
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
-const testSomeIdentity = identity(blessSome(1400));
 const testConsIdentityCons= identity(blessCons(1400));
 
 const suite = new Benchmark.Suite;
-suite.add('testSomeIdentity#test', testSomeIdentity)
-suite.add('testConsIdentityCons#test', testConsIdentityCons)
+suite.add('Test order  using bubble sort #test',  () => blessCons(70).generator().sort())
+suite.add('Test order  native sort #test',  () => {
+  const sort = (elmA, elmB)=> {
+    if (elmA.a > elmB.a) return 1;
+    if (elmA.a < elmB.a) return -1;
+  return
+  }
+  blessCons(70).generator().toArray().sort();
+})
 .on('cycle', function(event) {
   console.log(String(event.target));
 })
