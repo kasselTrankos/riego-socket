@@ -12,7 +12,7 @@ Irrigation.from = function (xs) {
 }
 
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
-  return this.head.a <= that.a;
+  return this.head.a < that.a;
 }
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
   return this.cata({

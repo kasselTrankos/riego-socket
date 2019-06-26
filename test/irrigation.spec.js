@@ -22,7 +22,9 @@ const testAssociativity = associativity (blessCons(4), blessCons(4), blessCons(4
 const A = Irrigation.from([ {a:180, b: 12}, {a: 4, b:0}, {a:11, b:2}, {a:134, b:109}, {a:190, b: 112},{a: 212, b:1}, {a: 1, b:12}, {a: 1901, b:2}]);
 const B = Irrigation.from([ {a:120, b: 12}, {a: 554, b:0}]);
 // const C = A.sort();
-// console.log(B.toArray())
+const now = new Date();
+
+console.log(now, new Date(), blessCons(200).generator().sort().toArray())
 // console.log('0000909090',A.concat(B).toArray());
 describe('Irrigation => ',  () => {
   it('testConsIdentity', testConsIdentity);
