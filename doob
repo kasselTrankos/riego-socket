@@ -111,6 +111,14 @@ ppppppppppppp [ { a: 1901, b: 2, moved: 7 },
   { a: 11, b: 2, moved: 5 },
   { a: 4, b: 0, moved: 4 },
   { a: 1, b: 12, moved: 0 } ]
+[ { a: 1901, b: 2, moved: 7 },
+  { a: 212, b: 1, moved: 7 },
+  { a: 190, b: 112, moved: 6 },
+  { a: 180, b: 12, moved: 5 },
+  { a: 134, b: 109, moved: 5 },
+  { a: 11, b: 2, moved: 5 },
+  { a: 4, b: 0, moved: 4 },
+  { a: 1, b: 12, moved: 0 } ]
 
 
   Irrigation => 
@@ -140,6 +148,6 @@ ppppppppppppp [ { a: 1901, b: 2, moved: 7 },
     - testIdentityFilterable
 
 
-  4 passing (53ms)
+  4 passing (52ms)
   16 pending
 

@@ -49,20 +49,11 @@ Irrigation.prototype.swap = function(head_, tail_) {
   return tail_.cata({
     Some: (items) => false,
     Cons: (_head, rest) => {
-      // console.log(head_.a, head.a, head_.a > head.a, '0000000\n');
       if(head_.a < _head.a){
-        // head.mierda = {a1: head_.a, a2: head.a};
-
-        // console.log('0', head, 'p', head_);
         const tmp = _head;
         _head = head_;
         head_ = tmp;
-        _head.moved = a;
-        head_.moved = a;
-        // console.log('1' ,head, 'p', head_);
-
       }
-      // console.log(_head, '::::::', head_);
       return {right: _head, left: head_, rest};
     },
     Nil: () => this,
@@ -71,23 +62,12 @@ Irrigation.prototype.swap = function(head_, tail_) {
 Irrigation.prototype.sorting = function () {
   return this.cata({
     Cons: (head, tail) => {
-      // console.log('sorting, head', head, 'cons');
       const {left, right, rest} = this.swap(head, tail);
-
-      console.log('head: ', head, 'left; ', left, 'right: ', right);
       if(left && left.a !== head.a) {
         tail = rest;
         return Irrigation.Cons(left, Irrigation.Cons(right, tail.sorting()))
-
       }
       return Irrigation.Cons(head, tail.sorting());
-        
-
-      // console.log(gg.toArray, tail.is);
-
-      // }
-      // return Irrigation.Cons(head_, tail.sorting());
-      // tail.sorting();
     },
     Some: (items) => this,
     Nil:() => this,
@@ -100,12 +80,11 @@ Irrigation.prototype.sort = function () {
   return this.cata({
     Some: (items) => false,
     Cons: (head, tail) => {
-      // console.log('sort is: ', head,' this');
       const s = cons.sorting();
-      cons = Irrigation.from(s.toArray());
-      console.log('ppppppppppppp',s.toArray())
+      cons = s
       ++a;
-      return Irrigation.Cons(head, tail.sort());
+      tail.sort();
+      return cons;
     },
     Nil: () => this,
   });
