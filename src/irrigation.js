@@ -72,8 +72,7 @@ Irrigation.prototype.sort = function (init = true) {
   return this.cata({
     Some: (items) => false,
     Cons: (head, tail) => {
-      const s = cons.swap();
-      cons = s
+      cons = cons.swap();
       tail.sort(false);
       return cons;
     },
