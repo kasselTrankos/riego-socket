@@ -1,5 +1,5 @@
 const {taggedSum} = require('daggy');
-const {map, equals, lte} = require('fantasy-land');
+const {map, equals, lte, concat} = require('fantasy-land');
 const Irrigation = taggedSum('Irrigation', {
   Cons: ['head', 'tail'],
   Nil: []
@@ -10,9 +10,23 @@ Irrigation.from = function (xs) {
     Irrigation.Nil
   )
 }
+
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
   return this.head.a <= that.a;
 }
+Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
+  return this.cata({
+    Cons:(head, tail) => {
+
+      if(tail.is){
+        return Irrigation.Cons(that.head, that.tail);
+      }
+      return Irrigation.Cons(head, tail.concat(that));
+    },
+    Nil:() => this 
+  });
+}
+
 
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
