@@ -27,7 +27,7 @@ const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>
 const ordTestTransitivity = laws.Ord.transitivity(blessCons(900), blessCons(900), blessCons(900));
 const testAssociativity = associativity (blessCons(4), blessCons(4), blessCons(4));
 
-describe('Irrigation => ',  () => {
+xdescribe('Irrigation => ',  () => {
   it('testConsIdentity', testConsIdentity);
   it('testConsComposition', testConsComposition);
   it('ordTestTransitivity', ordTestTransitivity);

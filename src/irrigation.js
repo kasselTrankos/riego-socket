@@ -17,11 +17,9 @@ Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
   return this.cata({
     Cons:(head, tail) => {
-
-      if(tail.is){
-        return Irrigation.Cons(that.head, that.tail);
-      }
-      return Irrigation.Cons(head, tail.concat(that));
+      return tail.is && that.head && that.tail
+        ? Irrigation.Cons(that.head, that.tail)
+        : Irrigation.Cons(head, tail.concat(that));
     },
     Nil:() => this 
   });

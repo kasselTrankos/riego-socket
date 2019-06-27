@@ -41,10 +41,9 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     const gotDates = ({dates}) => Boolean(dates && dates.length);
     const isOverEqualNow = ({date}) => moment(date) >= moment();
     const previous = getKalendar();
-    console.log(previous, 'previous');
-    const previousDates = gotDates(previous) ? Irrigation.from(previous.dates) : []; 
+    const previousDates = gotDates(previous) ? previous.dates : []; 
     const newDates = fillKalendar(data);
-    const combinedDates = newDates.concat(previousDates);
+    const combinedDates = newDates.concat(Irrigation.from(previousDates));
     console.log(combinedDates.toArray());
     // [...previousDates, ...newDates]; 
     // const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
