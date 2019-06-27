@@ -26,10 +26,10 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     day: getDayFormat(getDay(i)),
     uuid: uuid.v1(),
     duration, hour, minute});
-    const days = Math.abs(moment(start).diff(moment(end), 'days'));
-    
-    return Array.from({length: (days + 1)}, getObjectKalendar);
-  }
+  const days = Math.abs(moment(start).diff(moment(end), 'days'));
+  // console.log(Irrigation.from);  
+  return Irrigation.from(Array.from({length: (days + 1)}, getObjectKalendar));
+}
   
   
   const madeKalendar = async (data = {}, file = FILE) => {
@@ -42,24 +42,26 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     const isOverEqualNow = ({date}) => moment(date) >= moment();
     const previous = getKalendar();
     console.log(previous, 'previous');
-    const previousDates = gotDates(previous) ? previous.dates : []; 
+    const previousDates = gotDates(previous) ? Irrigation.from(previous.dates) : []; 
     const newDates = fillKalendar(data);
-    const combinedDates = [...previousDates, ...newDates]; 
-    const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
+    const combinedDates = newDates.concat(previousDates);
+    console.log(combinedDates.toArray());
+    // [...previousDates, ...newDates]; 
+    // const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
 
-  try {
-    const json ={
-      configuration: {
-        priority: 'dates'
-      },
-      sheduler: "* * * * * *",
-      dates
-    };
-    fs.writeFileSync(file, JSON.stringify(json))
-    return {message: 'update kalendar', status: true};
-  } catch(err) {
-    return {message: 'ko kalendar', status: false}
-  };
+  // try {
+  //   const json ={
+  //     configuration: {
+  //       priority: 'dates'
+  //     },
+  //     sheduler: "* * * * * *",
+  //     dates
+  //   };
+  //   fs.writeFileSync(file, JSON.stringify(json))
+  //   return {message: 'update kalendar', status: true};
+  // } catch(err) {
+  //   return {message: 'ko kalendar', status: false}
+  // };
 };
 
 module.exports = {madeKalendar, getKalendar};

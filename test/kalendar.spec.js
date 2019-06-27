@@ -7,7 +7,7 @@ const moment = require('moment-timezone');
 const {expect} = require('chai');
 
 const blessKalendar = jsc.bless({
-  generator: ()=> {
+  generator: () => {
     const format = value => value <= 9 ? `0${value}` : value;
     const start = moment().subtract(2, 'days').format('YYYY-MM-DD');
     const end = moment().add(10, 'days').format('YYYY-MM-DD');
