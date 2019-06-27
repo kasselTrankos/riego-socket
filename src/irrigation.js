@@ -88,9 +88,13 @@ Irrigation.prototype[filter] = Irrigation.prototype.filter = function (f) {
 }
 
 
-Irrigation.prototype.next = function () {
+Irrigation.prototype.contains = function (f) {
   return this.cata({
-    Cons: (head, tail) => tail,
+    Cons: (head, tail) => {
+      if(f(head)) return true;
+      Irrigation.Cons(head, tail.contains(f));
+      return false;
+    },
     Nil: () => [],
   })
 }

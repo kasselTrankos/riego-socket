@@ -40,27 +40,12 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
       return {message: 'no need update', status: true};
     }
+    const unique = current => riegos => riegos.contains(riego => current.date === riego.date);
     const gotDates = ({dates}) => Boolean(dates && dates.length);
     const previous = getKalendar();
-    const previousDates = gotDates(previous) ? previous.dates : []; 
+    const prev = gotDates(previous) ? previous.dates : []; 
     const newDates = fillKalendar(data);
-    const riegos = newDates.concat(Irrigation.from(previousDates));
-    const unique = Equivalence((x, y) => {
-      const equal = tail => xomp => {
-        if(!tail || !tail.head || !xomp) return true;
-        if(!tail.is) {
-          equal(tail.tail)(xomp);
-        }
-        return +tail.head.date !== +xomp.date;
-      };
-      return equal(y)(x);
-    });
-    const g = riegos.filter(v=> {
-      return unique.f(v, riegos)
-    });
-    console.log(g.toArray());
-    // [...previousDates, ...newDates]; 
-    // const dates = unique(riegos.filter(isOverEqualNow).sort(sortDates));
+    const riegos = newDates.concat(Irrigation.from(prev).filter(item => unique(item)(riegos)));
   // try {
   //   const json ={
   //     configuration: {
