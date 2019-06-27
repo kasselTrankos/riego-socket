@@ -19,7 +19,7 @@ const sortDates = (date1, date2)  => {
 };
 const gotDates = ({dates}) => dates && Boolean(dates.length);
 
-const madeKalendar = async ({start, end, hour, minute, duration}, file = FILE) => {
+const madeKalendar = async ({ start, end, hour, minute, duration}, file = FILE) => {
   if(!moment(start, 'YYYY-MM-DD', true).isValid()) {
     return {message: 'no need update', status: true};
   }

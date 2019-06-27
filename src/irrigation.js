@@ -12,7 +12,7 @@ Irrigation.from = function (xs) {
 }
 
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
-  return this.head.a < that.a;
+  return +this.head.date < +that.date;
 }
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
   return this.cata({
@@ -31,8 +31,8 @@ Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Cons: (head, tail) => that.cata({
-      Cons: (head_, tail_) => head.a === head_.a && head.b === head_.b ? tail.equals(tail_)
-                                                  : head.a === head_.a && head.b === head_.b,
+      Cons: (head_, tail_) => +head.date === +head_.date ? tail.equals(tail_)
+                                                        : +head.date === +head_.date,
       Nil: () => false,
     }),
     Nil: () => true,

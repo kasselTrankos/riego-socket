@@ -4,14 +4,20 @@ const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 const {expect} = require('chai');
 
-
-
 const blessCons = (length=3) => jsc.bless({
   generator: ()=> {
-    const elms = Array.from({length}, ()=> ({a: jsc.integer(0, 460).generator(), b: jsc.integer(0, 60).generator()}));
+    const now =  new Date();
+    const from = new Date(now.setDate(now.getDate()-jsc.integer(0, 100).generator()))
+    const to = new Date(now.setDate(now.getDate()+jsc.integer(0, 100).generator()))
+    const elms = Array.from({length}, ()=> (
+      {
+        date: jsc.datetime(from, to).generator(), 
+        b: jsc.integer(0, 60).generator(),
+      }));
     return Irrigation.from(elms);
   }
 });
+
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
 const testConsIdentity = identity(blessCons(9));
 const {associativity} = laws.Semigroup(Z.equals, Irrigation);
