@@ -1,6 +1,4 @@
 const Irrigation = require('./src/irrigation');
-const Equivalence = require('./src/equivalence');
-
 const moment = require('moment-timezone');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
@@ -33,32 +31,34 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
   // console.log(Irrigation.from);  
   return Irrigation.from(Array.from({length: (days + 1)}, getObjectKalendar));
 }
+const write = (riegos, file = FILE) => {
+  const json ={
+    configuration: {
+      priority: 'dates'
+    },
+    sheduler: "* * * * * *",
+    dates: riegos.toArray()
+  };
+  try {
+    fs.writeFileSync(file, JSON.stringify(json))
+    return {message: 'update kalendar', status: true};
+  } catch(err) {
+    return {message: 'ko kalendar', status: false}
+  };
+}  
   
-  
-  const madeKalendar = async (data = {}, file = FILE) => {
-    
-    if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
-      return {message: 'no need update', status: true};
-    }
-    const unique = current => riegos => riegos.contains(riego => current.date === riego.date);
-    const gotDates = ({dates}) => Boolean(dates && dates.length);
-    const previous = getKalendar();
-    const prev = gotDates(previous) ? previous.dates : []; 
-    const newDates = fillKalendar(data);
-    const riegos = newDates.concat(Irrigation.from(prev).filter(item => unique(item)(riegos)));
-  // try {
-  //   const json ={
-  //     configuration: {
-  //       priority: 'dates'
-  //     },
-  //     sheduler: "* * * * * *",
-  //     dates
-  //   };
-  //   fs.writeFileSync(file, JSON.stringify(json))
-  //   return {message: 'update kalendar', status: true};
-  // } catch(err) {
-  //   return {message: 'ko kalendar', status: false}
-  // };
+const madeKalendar = async (data = {}, file = FILE) => {
+  if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
+    return {message: 'no need update', status: true};
+  }
+  const unique = current => riegos => riegos.contains(riego => current.date === riego.date);
+  const gotDates = ({dates}) => Boolean(dates && dates.length);
+  const previous = getKalendar();
+  const current = fillKalendar(data);
+  const prev = Irrigation.from(gotDates(previous) ? previous.dates : []).filter(item => unique(item)(current)); 
+  const riegos = current.concat(prev).sort();
+  console.log(riegos.toArray(), prev.toArray(), previous);
+  return write(riegos);
 };
 
 module.exports = {madeKalendar, getKalendar};

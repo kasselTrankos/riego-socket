@@ -98,6 +98,7 @@ Irrigation.prototype.contains = function (f) {
     Nil: () => [],
   })
 }
+
 Irrigation.prototype.toArray = function () {
   return this.cata({
     Cons: (x, acc) => [

@@ -10,7 +10,7 @@ const blessKalendar = jsc.bless({
   generator: () => {
     const format = value => value <= 9 ? `0${value}` : value;
     const start = moment().subtract(2, 'days').format('YYYY-MM-DD');
-    const end = moment().add(10, 'days').format('YYYY-MM-DD');
+    const end = moment().add(1, 'days').format('YYYY-MM-DD');
     return {
       start, 
       end, 
