@@ -1,5 +1,7 @@
-const moment = require('moment-timezone');
 const Irrigation = require('./src/irrigation');
+const DateI = require('./src/date');
+
+const moment = require('moment-timezone');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
 var uuid = require('uuid');
@@ -17,7 +19,6 @@ const sortDates = (date1, date2)  => {
   if (new Date(date1.date) < new Date(date2.date)) return -1;
   return 0;
 };
-const gotDates = ({dates}) => Boolean(dates && dates.length);
 const fillKalendar = ({ start, end, hour, minute, duration}) => {
   const getDay = index => moment(start).add(index, 'days')
   const getDayFormat = day => day.format('YYYY-MM-DD');
@@ -27,16 +28,17 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     day: getDayFormat(getDay(i)),
     uuid: uuid.v1(),
     duration, hour, minute});
-  const days = Math.abs(moment(start).diff(moment(end), 'days'));
-
-  return Array.from({length: (days + 1)}, getObjectKalendar);
-}
-
-
-const madeKalendar = async (data = {}, file = FILE) => {
-  if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
-    return {message: 'no need update', status: true};
+    const days = Math.abs(moment(start).diff(moment(end), 'days'));
+    
+    return Array.from({length: (days + 1)}, getObjectKalendar);
   }
+  
+  
+  const madeKalendar = async (data = {}, file = FILE) => {
+    if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
+      return {message: 'no need update', status: true};
+    }
+  const gotDates = ({dates}) => Boolean(dates && dates.length);
   const isOverEqualNow = ({date}) => moment(date) >= moment();
   const previous = getKalendar();
   const previousDates = gotDates(previous) ? previous.dates : []; 
