@@ -47,21 +47,19 @@ Irrigation.prototype.swap = function () {
       });
       if(!tail.is && tail.lte(head)) {
         tail = tail_;
-        // console.log('swap', head, head_);
-        return Irrigation.Cons(head_, Irrigation.Cons(head, tail).swap())
+        return Irrigation.Cons(Object.assign({}, head_), Irrigation.Cons(Object.assign({}, head), tail).swap())
       }
-      return Irrigation.Cons(head, tail.swap());
+      return Irrigation.Cons(Object.assign({}, head), tail.swap());
     },
     Nil:() => this,
   });
 }
-let cons;
-Irrigation.prototype.sort = function () {
+Irrigation.prototype.sort = function (_cons) {
   return this.cata({
     Cons: (head, tail) => {
-      if(!cons) cons = this
+      let cons = _cons || this;
       cons = cons.swap();
-      tail.sort();
+      tail.sort(cons);
       return cons;
     },
     Nil: () => this,
