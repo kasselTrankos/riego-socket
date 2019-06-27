@@ -1,4 +1,6 @@
 const Irrigation = require('./src/irrigation');
+const Equivalence = require('./src/equivalence');
+
 const moment = require('moment-timezone');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
@@ -11,7 +13,7 @@ const getKalendar =  (file = FILE) => {
     return {dates: []};
   }
 };
-const unique = arr => [...new Set(arr.map(item => JSON.stringify(item)))].map(item => JSON.parse(item));
+// const unique = arr => [...new Set(arr.map(item => JSON.stringify(item)))].map(item => JSON.parse(item));
 const sortDates = (date1, date2)  => {
   if (new Date(date1.date) > new Date(date2.date)) return 1;
   if (new Date(date1.date) < new Date(date2.date)) return -1;
@@ -26,6 +28,7 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     day: getDayFormat(getDay(i)),
     uuid: uuid.v1(),
     duration, hour, minute});
+
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
   // console.log(Irrigation.from);  
   return Irrigation.from(Array.from({length: (days + 1)}, getObjectKalendar));
@@ -37,17 +40,27 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
     if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
       return {message: 'no need update', status: true};
     }
-    console.log('data',moment(data.start, 'YYYY-MM-DD', true).isValid() , data);
     const gotDates = ({dates}) => Boolean(dates && dates.length);
-    const isOverEqualNow = ({date}) => moment(date) >= moment();
     const previous = getKalendar();
     const previousDates = gotDates(previous) ? previous.dates : []; 
     const newDates = fillKalendar(data);
-    const combinedDates = newDates.concat(Irrigation.from(previousDates));
-    console.log(combinedDates.toArray());
+    const riegos = newDates.concat(Irrigation.from(previousDates));
+    const unique = Equivalence((x, y) => {
+      const equal = tail => xomp => {
+        if(!tail || !tail.head || !xomp) return true;
+        if(!tail.is) {
+          equal(tail.tail)(xomp);
+        }
+        return +tail.head.date !== +xomp.date;
+      };
+      return equal(y)(x);
+    });
+    const g = riegos.filter(v=> {
+      return unique.f(v, riegos)
+    });
+    console.log(g.toArray());
     // [...previousDates, ...newDates]; 
-    // const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
-
+    // const dates = unique(riegos.filter(isOverEqualNow).sort(sortDates));
   // try {
   //   const json ={
   //     configuration: {

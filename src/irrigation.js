@@ -1,5 +1,5 @@
 const {taggedSum} = require('daggy');
-const {map, equals, lte, concat} = require('fantasy-land');
+const {map, equals, lte, concat, filter} = require('fantasy-land');
 const Irrigation = taggedSum('Irrigation', {
   Cons: ['head', 'tail'],
   Nil: []
@@ -14,6 +14,7 @@ Irrigation.from = function (xs) {
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
   return +this.head.date < +that.date;
 }
+
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
   return this.cata({
     Cons:(head, tail) => {
@@ -66,6 +67,7 @@ Irrigation.prototype.sort = function () {
     Nil: () => this,
   });
 }
+
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   return this.cata({
     Cons: (head, tail) => Irrigation.Cons(
@@ -75,6 +77,23 @@ Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
   })
 }
 
+Irrigation.prototype[filter] = Irrigation.prototype.filter = function (f) {
+  return this.cata({
+    Cons: (head, tail) => {
+      return !f(head) ? tail.filter(f) 
+                      : Irrigation.Cons(head, tail.filter(f))
+    },
+    Nil: () => Irrigation.Nil
+  })
+}
+
+
+Irrigation.prototype.next = function () {
+  return this.cata({
+    Cons: (head, tail) => tail,
+    Nil: () => [],
+  })
+}
 Irrigation.prototype.toArray = function () {
   return this.cata({
     Cons: (x, acc) => [
@@ -83,4 +102,5 @@ Irrigation.prototype.toArray = function () {
     Nil: () => [],
   })
 }
+
 module.exports = Irrigation
