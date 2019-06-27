@@ -51,8 +51,7 @@ const madeKalendar = async (data = {}, file = FILE) => {
   const current = fillKalendar(data);
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
     .filter(item => unique(item)(current)); 
-  const riegos = current.concat(prev).sort();
-  console.log(current, '9999999', prev, riegos.toArray());
+  const riegos = current.concat(prev).sort().filter(item => +new Date(item.date) > +new Date());
   return write(riegos);
 };
 
