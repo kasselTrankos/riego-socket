@@ -6,6 +6,7 @@ const {expect} = require('chai');
 
 const blessCons = (length=3) => jsc.bless({
   generator: ()=> {
+    
     const now =  new Date();
     const from = new Date(now.setDate(now.getDate()-jsc.integer(0, 100).generator()))
     const to = new Date(now.setDate(now.getDate()+jsc.integer(0, 100).generator()))
