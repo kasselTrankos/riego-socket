@@ -1,6 +1,4 @@
 const Irrigation = require('./src/irrigation');
-const DateI = require('./src/date');
-
 const moment = require('moment-timezone');
 const fs = require('fs');
 const FILE  = 'kalendar.json';
@@ -35,16 +33,19 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
   
   
   const madeKalendar = async (data = {}, file = FILE) => {
+    
     if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
       return {message: 'no need update', status: true};
     }
-  const gotDates = ({dates}) => Boolean(dates && dates.length);
-  const isOverEqualNow = ({date}) => moment(date) >= moment();
-  const previous = getKalendar();
-  const previousDates = gotDates(previous) ? previous.dates : []; 
-  const newDates = fillKalendar(data);
-  const combinedDates = [...previousDates, ...newDates]; 
-  const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
+    console.log('data',moment(data.start, 'YYYY-MM-DD', true).isValid() , data);
+    const gotDates = ({dates}) => Boolean(dates && dates.length);
+    const isOverEqualNow = ({date}) => moment(date) >= moment();
+    const previous = getKalendar();
+    console.log(previous, 'previous');
+    const previousDates = gotDates(previous) ? previous.dates : []; 
+    const newDates = fillKalendar(data);
+    const combinedDates = [...previousDates, ...newDates]; 
+    const dates = unique(combinedDates.filter(isOverEqualNow).sort(sortDates));
 
   try {
     const json ={
