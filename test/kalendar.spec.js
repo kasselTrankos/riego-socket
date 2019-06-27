@@ -8,13 +8,12 @@ const {expect} = require('chai');
 
 const blessKalendar = jsc.bless({
   generator: ()=> {
-    const now = new Date();
     const format = value => value <= 9 ? `0${value}` : value;
-    const year = now.getFullYear();
-
+    const start = moment().subtract(2, 'days').format('YYYY-MM-DD');
+    const end = moment().add(10, 'days').format('YYYY-MM-DD');
     return {
-      start: `${year}-${jsc.integer(1, 5).generator.map(format)()}-${jsc.integer(1, 31).generator.map(format)()}`, 
-      end: `${year}-${jsc.integer(6, 12).generator.map(format)()}-${jsc.integer(1, 31).generator.map(format)()}`, 
+      start, 
+      end, 
       hour: jsc.integer(0, 24).generator.map(format)(),
       minute: jsc.integer(0, 60).generator.map(format)(),
       duration: jsc.integer(1, 60).generator(),
