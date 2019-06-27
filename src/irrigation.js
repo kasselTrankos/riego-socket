@@ -38,18 +38,18 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
     Nil: () => true,
   });
 }
+
 Irrigation.prototype.swap = function () {
   return this.cata({
     Cons: (head, tail) => {
       const {head_, tail_} =  tail.cata({
-        Cons: (head_, tail_) => {
-          return {head_, tail_};
-        },
+        Cons: (head_, tail_) => ({head_, tail_}),
         Nil: () => this,
       });
       if(!tail.is && tail.lte(head)) {
         tail = tail_;
-        return Irrigation.Cons(head_, Irrigation.Cons(head, tail.swap()))
+        // console.log('swap', head, head_);
+        return Irrigation.Cons(head_, Irrigation.Cons(head, tail).swap())
       }
       return Irrigation.Cons(head, tail.swap());
     },

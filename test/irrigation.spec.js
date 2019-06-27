@@ -2,6 +2,7 @@ const Irrigation = require ('./../src/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
+const {expect} = require('chai');
 
 
 
@@ -19,35 +20,22 @@ const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>
 const ordTestTransitivity = laws.Ord.transitivity(blessCons(900), blessCons(900), blessCons(900));
 const testAssociativity = associativity (blessCons(4), blessCons(4), blessCons(4));
 
-const A = Irrigation.from([ {a:180, b: 12}, {a: 4, b:0}, {a:11, b:2}, {a:134, b:109}, {a:190, b: 112},{a: 212, b:1}, {a: 1, b:12}, {a: 1901, b:2}]);
-const B = Irrigation.from([ {a:120, b: 12}, {a: 554, b:0}]);
-// const C = A.sort();
-<<<<<<< Updated upstream
-// console.log(B.toArray())
-=======
-const now = new Date();
-
-const G = blessCons(400).generator();
-const M = G.sort().toArray();
-const S = G.toArray();
-for(let u = 0; u< S.length; u++){
-  console.log('ornb', S[u], u);
-}
-for(let i =0 ; i< M.length; i++){
-  console.log(M[i], M[i +1], i, M.length);  
-  if(i +1 < M.length && M[i].a> M[i+1].a) {
-    console.log('bith bug', M[i], M[i +1])
-    break;
-  }
-}
-// console.log(now, new Date(), G.toArray())
->>>>>>> Stashed changes
-// console.log('0000909090',A.concat(B).toArray());
 describe('Irrigation => ',  () => {
   it('testConsIdentity', testConsIdentity);
   it('testConsComposition', testConsComposition);
   it('ordTestTransitivity', ordTestTransitivity);
   it('testAssociativity', testAssociativity);
+  it('Sort correct', () => {
+    const A = blessCons(146).generator().sort().toArray();
+    let correct = true;
+    for(let i =0 ; i< A.length; i++){
+      if(i +1 < A.length && A[i].a> A[i+1].a) {
+        correct = false;
+        break;
+      }
+    }
+    expect(correct).to.be.true;
+  })
 
 });
 
