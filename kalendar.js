@@ -16,13 +16,12 @@ const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
   const getDayFormat = day => day.format('YYYY-MM-DD');
   const getStrDate = index => getDay(index).set({hour, minute});
   const getObjectKalendar = (_, i) => ({
-    date: getStrDate(i).tz('Europe/Madrid').format('YYYY-MM-DD HH:mm'),
+    date: getStrDate(i).format('YYYY-MM-DD HH:mm'),
     day: getDayFormat(getDay(i)),
     uuid: uuid.v1(),
     duration, hour, minute});
 
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
-
   return Array.from({length: (days + 1)}, getObjectKalendar);
 }
 const write = (riegos, file = FILE) => {
@@ -53,6 +52,7 @@ const madeKalendar = async (data = {}, file = FILE) => {
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
     .filter(item => unique(item)(current)); 
   const riegos = current.concat(prev).sort().filter(filterFromNow);
+  console.log(riegos.toArray());
   return write(riegos);
 };
 
