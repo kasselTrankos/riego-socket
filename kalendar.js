@@ -11,7 +11,7 @@ const getKalendar =  (file = FILE) => {
     return {dates: []};
   }
 };
-const fillKalendar = ({ start, end, hour, minute, duration}) => {
+const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
   const getDay = index => moment(start).add(index, 'days')
   const getDayFormat = day => day.format('YYYY-MM-DD');
   const getStrDate = index => getDay(index).set({hour, minute});
@@ -23,7 +23,7 @@ const fillKalendar = ({ start, end, hour, minute, duration}) => {
 
   const days = Math.abs(moment(start).diff(moment(end), 'days'));
 
-  return Irrigation.from(Array.from({length: (days + 1)}, getObjectKalendar));
+  return Array.from({length: (days + 1)}, getObjectKalendar);
 }
 const write = (riegos, file = FILE) => {
   const json ={
@@ -45,13 +45,14 @@ const madeKalendar = async (data = {}, file = FILE) => {
   if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
     return {message: 'no need update', status: true};
   }
+  const filterFromNow = item => +new Date(item.date) > +new Date();
   const unique = current => riegos => riegos.contains(riego => current.date !== riego.date);
   const gotDates = ({dates}) => Boolean(dates && dates.length);
   const previous = getKalendar();
-  const current = fillKalendar(data);
+  const current = Irrigation.from(getArrayRiegosList(data));
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
     .filter(item => unique(item)(current)); 
-  const riegos = current.concat(prev).sort().filter(item => +new Date(item.date) > +new Date());
+  const riegos = current.concat(prev).sort().filter(filterFromNow);
   return write(riegos);
 };
 
