@@ -1,6 +1,10 @@
 ![travis](https://travis-ci.org/kasselTrankos/riego-socket.svg?branch=master)
 ## The soket riego's leg
 
+Using Fantasy land to create the algebraic interfaz of Irrigation.
+Irrigation uses the sigly linked list.
+
+
 This is the socket server from port 3000 that comunicate directly with arduino and mobile.
 Given apche2(v2.4+) configuration.
 ```
