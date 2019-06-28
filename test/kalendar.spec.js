@@ -27,7 +27,10 @@ describe('Kalendar => ',  () => {
     const A = blessKalendar.generator();
     const {message, status} = await madeKalendar(A);
     expect(status).to.be.true;
-  })
+  });
+  it('madeKalendar -> no duplicates', ()=> {
+
+  });
 
 });
 

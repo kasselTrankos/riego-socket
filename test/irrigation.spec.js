@@ -31,7 +31,7 @@ describe('Irrigation => ',  () => {
   it('testConsComposition', testConsComposition);
   it('ordTestTransitivity', ordTestTransitivity);
   it('testAssociativity', testAssociativity);
-  it('Sort correct', () => {
+  it('sort', () => {
     const A = blessCons(146).generator().sort().toArray();
     let correct = true;
     for(let i =0 ; i< A.length; i++){
@@ -41,7 +41,16 @@ describe('Irrigation => ',  () => {
       }
     }
     expect(correct).to.be.true;
-  })
+  });
+  it('contains', () => {
+    const A = blessCons(146).generator();
+    const {head} = A;
+    const containsHeadDate = el => +el.date === +head.date;
+    const containsByA = el => el.a ===9;
+    const B = Irrigation.from([{a:1}, {a:2}, {a:3}, {a:6}]);
+    expect(A.contains(containsHeadDate)).to.be.true; 
+    expect(B.contains(containsByA)).to.be.false; 
+  }); 
 
 });
 
