@@ -12,7 +12,7 @@ Irrigation.from = function (xs) {
 }
 
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
-  return +this.head.date < +that.date;
+  return +new Date(this.head.date) < +new Date(that.date);
 }
 
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {

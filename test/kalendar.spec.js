@@ -1,4 +1,4 @@
-const {madeKalendar} = require ('./../kalendar');
+const {madeKalendar, getKalendar} = require ('./../kalendar');
 const Irrigation = require ('./../src/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
@@ -27,9 +27,6 @@ describe('Kalendar => ',  () => {
     const A = blessKalendar.generator();
     const {message, status} = await madeKalendar(A);
     expect(status).to.be.true;
-  });
-  it('madeKalendar -> no duplicates', ()=> {
-
   });
 
 });
