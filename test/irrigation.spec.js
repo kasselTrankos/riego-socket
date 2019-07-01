@@ -20,18 +20,22 @@ const blessCons = (length=3) => jsc.bless({
 
 const {identity, composition} = laws.Functor(Z.equals, Irrigation);
 const testConsIdentity = identity(blessCons(9));
-const {associativity} = laws.Semigroup(Z.equals, Irrigation);
+const {rightIdentity, leftIdentity} = laws.Monoid(Z.equals, Irrigation);
 
 const testConsComposition = composition(blessCons(4), jsc.bless({generator:() =>  x => {x.a =  x.a * 3; return x}}), jsc.bless({generator: ()=> x => {x.b = x.b +10; return x}}));
 const ordTestTransitivity = laws.Ord.transitivity(blessCons(900), blessCons(900), blessCons(900));
-const testAssociativity = associativity (blessCons(4), blessCons(4), blessCons(4));
+const testRightIdentity = rightIdentity (blessCons(14));
+const testleftIdentity = leftIdentity (blessCons(14));
+
 
 describe('Irrigation => ',  () => {
   it('testConsIdentity', testConsIdentity);
   it('testConsComposition', testConsComposition);
   it('ordTestTransitivity', ordTestTransitivity);
-  it('testAssociativity', testAssociativity);
-  it('sort', () => {
+  it('testRightIdentity', testRightIdentity);
+  it('testleftIdentity', testleftIdentity);
+
+  it('Sort correct', () => {
     const A = blessCons(146).generator().sort().toArray();
     let correct = true;
     for(let i =0 ; i< A.length; i++){
