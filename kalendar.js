@@ -1,8 +1,9 @@
 const Irrigation = require('./src/irrigation');
 const moment = require('moment-timezone');
 const fs = require('fs');
+const uuid = require('uuid');
 const FILE  = 'kalendar.json';
-var uuid = require('uuid');
+
 
 const getKalendar =  (file = FILE) => {
   try {
@@ -12,7 +13,8 @@ const getKalendar =  (file = FILE) => {
   }
 };
 const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
-  const getDay = index => moment(start).add(index, 'days')
+  
+  const getDay = index => moment(start).add(index, 'days');
   const getDayFormat = day => day.format('YYYY-MM-DD');
   const getStrDate = index => getDay(index).set({hour, minute});
   const getObjectKalendar = (_, i) => ({
