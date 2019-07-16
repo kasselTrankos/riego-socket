@@ -26,11 +26,11 @@ const putConfig = async (id, duration) => {
     client.close();
   } 
 }
-const madeRiego = async (riego) => {
+const madeRiego = async (riego, time) => {
   const client = await getClient(url);
   try {
     const {duration} = await getConfig();
-    return await client.db(dbName).collection(riegos).insertOne({riego: riego, date: new Date(), duration, inmediate: true, programated: false}); 
+    return await client.db(dbName).collection(riegos).insertOne({riego: riego, date: new Date(), duration: time ? time : duration, inmediate: true, programated: false}); 
   } catch(error) {
     throw error;
   } finally {

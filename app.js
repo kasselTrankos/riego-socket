@@ -46,9 +46,9 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
+  // socket.on('chat message', function(msg){
+  //   io.emit('chat message', msg);
+  // });
   socket.on('made riego', async (msg) => {
     const {ops} = await madeRiego(msg);
     io.emit('made riego', ops[0]);
