@@ -40,7 +40,12 @@ const write = (riegos, file = FILE) => {
   } catch(err) {
     return {message: 'ko kalendar', status: false}
   };
-}  
+}
+
+const deleteIrrigation = uuid => {
+  const riegos = getKalendar();
+  return write(riegos.filter(item => !item.uuid!== uuid));
+}
   
 const madeKalendar = async (data = {}, file = FILE) => {
   if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
@@ -58,4 +63,4 @@ const madeKalendar = async (data = {}, file = FILE) => {
   return write(riegos);
 };
 
-module.exports = {madeKalendar, getKalendar};
+module.exports = {madeKalendar, getKalendar, deleteIrrigation};

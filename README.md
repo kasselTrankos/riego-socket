@@ -16,6 +16,10 @@ ProxyPass /socket.io http://localhost:3000/socket.io
 ProxyPassReverse /socket.io http://localhost:3000/socket.io
 ```
 
+To run the sheduler by forever use
+```
+node sheduler.js &
+```
 
 
 

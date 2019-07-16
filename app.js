@@ -4,7 +4,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const {findAll, madeRiego, getConfig,
   riegoDone, putConfig} = require('./riegos.js');
-const {madeKalendar, getKalendar} = require('./kalendar'); 
+const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
@@ -17,6 +17,7 @@ app.get('/config', async (req, res) => {
   const config = await getConfig();
   res.json(config);
 });
+
 app.put('/config/:_id/:duration', async (req, res) => {
   const {duration, _id} = req.params; 
   const config = await putConfig(_id, duration);
@@ -30,7 +31,11 @@ app.get('/kalendar', async (req, res)=> {
   const {dates}  = await getKalendar();
   res.json(dates);
 });
-
+app.delete('/kalendar/:uuid', (req, res)=> {
+  const {uuid} = req.params; 
+  const {dates}  = deleteIrrigation(uuid);
+  res.json(dates);
+});
   
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
@@ -49,8 +54,8 @@ io.on('connection', function(socket){
   // socket.on('chat message', function(msg){
   //   io.emit('chat message', msg);
   // });
-  socket.on('made riego', async (msg) => {
-    const {ops} = await madeRiego(msg);
+  socket.on('made riego', async (msg, time) => {
+    const {ops} = await madeRiego(msg, time);
     io.emit('made riego', ops[0]);
   });
 });
