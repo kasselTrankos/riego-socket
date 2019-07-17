@@ -33,8 +33,7 @@ app.get('/kalendar', async (req, res)=> {
 });
 app.delete('/kalendar/:uuid', (req, res)=> {
   const {uuid} = req.params; 
-  console.log(uuid, ' por fin deleteo');
-  const dates  = deleteIrrigation(uuid);
+  const {dates}  = deleteIrrigation(uuid);
   res.json(dates);
 });
   

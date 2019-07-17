@@ -36,19 +36,18 @@ const write = (riegos, file = FILE) => {
     dates: riegos.toArray()
   };
   try {
-    const data = fs.writeFileSync(file, JSON.stringify(json));
-    return {message: 'update kalendar', status: true, json};
+    fs.writeFileSync(file, JSON.stringify(json));
+    return {message: 'update kalendar', status: true, json, dates: json.dates};
   } catch(err) {
     return {message: 'ko kalendar', status: false}
   };
 }
 
 const deleteIrrigation = uuid => {
-  const dates = getKalendar();
-  const deleteByUuid = item => !item.uuid!== uuid;
-  const riegos = Irrigation.from(dates).filter(deleteByUuid)
-  // console.log(riegos.toArray(), ' lo habre quitado', uuid);
-  // return write(riegos);
+  const {dates} = getKalendar();
+  const deleteByUuid = item => item.uuid !== uuid;
+  const riegos = Irrigation.from(dates).filter(deleteByUuid);
+  return write(riegos);
 }
   
 const madeKalendar = async (data = {}, file = FILE) => {
