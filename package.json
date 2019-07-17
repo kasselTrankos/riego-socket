@@ -33,6 +33,7 @@
     "sanctuary-show": "^1.0.0",
     "sanctuary-type-classes": "^11.0.0",
     "shelljs": "^0.8.3",
+    "sinon": "^7.3.2",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "uuid": "^3.3.2"

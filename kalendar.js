@@ -12,8 +12,9 @@ const getKalendar =  (file = FILE) => {
     return {dates: []};
   }
 };
+const getDiffDays = start => end => Math.abs(moment(start).diff(moment(end), 'days'));
+
 const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
-  
   const getDay = index => moment(start).add(index, 'days');
   const getDayFormat = day => day.format('YYYY-MM-DD');
   const getStrDate = index => getDay(index).set({hour, minute});
@@ -23,7 +24,7 @@ const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
     uuid: uuid.v1(),
     duration, hour, minute});
 
-  const days = Math.abs(moment(start).diff(moment(end), 'days'));
+  const days = getDiffDays(start)(end);
   return Array.from({length: (days + 1)}, getObjectKalendar);
 }
 const write = (riegos, file = FILE) => {
@@ -63,4 +64,4 @@ const madeKalendar = async (data = {}, file = FILE) => {
   return write(riegos);
 };
 
-module.exports = {madeKalendar, getKalendar, deleteIrrigation};
+module.exports = {madeKalendar, getKalendar, deleteIrrigation, getDiffDays, getArrayRiegosList};

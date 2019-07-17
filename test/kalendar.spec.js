@@ -1,4 +1,5 @@
-const {madeKalendar, getKalendar} = require ('./../kalendar');
+const {madeKalendar, getKalendar, getDiffDays,
+    getArrayRiegosList} = require ('./../kalendar');
 const Irrigation = require ('./../src/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
@@ -23,11 +24,21 @@ const blessKalendar = jsc.bless({
 
 
 describe('Kalendar => ',  () => {
-  it('madeKalendar', async () => {
+  xit('madeKalendar', async () => {
     const A = blessKalendar.generator();
     const {message, status} = await madeKalendar(A);
     expect(status).to.be.true;
   });
-
+  it('getDiffDays', ()=> {
+    const start = moment();
+    const end = moment();
+    expect(getDiffDays(start)(end)).to.be.equal(0);
+  });
+  it('getArrayRiegosList', ()=> {
+    const start = moment();
+    const end = moment();
+    const obj= {start, end, hour: 22, minute: 13, duration: 10};
+    console.log(getArrayRiegosList(obj));
+  })
 });
 
