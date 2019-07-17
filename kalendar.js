@@ -36,8 +36,8 @@ const write = (riegos, file = FILE) => {
     dates: riegos.toArray()
   };
   try {
-    fs.writeFileSync(file, JSON.stringify(json))
-    return {message: 'update kalendar', status: true};
+    const data = fs.writeFileSync(file, JSON.stringify(json));
+    return {message: 'update kalendar', status: true, json};
   } catch(err) {
     return {message: 'ko kalendar', status: false}
   };
@@ -53,7 +53,9 @@ const madeKalendar = async (data = {}, file = FILE) => {
     return {message: 'no need update', status: true};
   }
   const filterFromNow = item => +new Date(item.date) > +new Date();
-  const unique = current => riegos => riegos.contains(riego => current.date !== riego.date);
+  const unique = current => riegos => riegos.contains(riego => {
+    return current.date !== riego.date
+  });
   const gotDates = ({dates}) => Boolean(dates && dates.length);
   const previous = getKalendar();
   const current = Irrigation.from(getArrayRiegosList(data));

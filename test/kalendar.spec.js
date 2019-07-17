@@ -1,12 +1,18 @@
 const {madeKalendar, getKalendar, getDiffDays,
-    getArrayRiegosList} = require ('./../kalendar');
+  getArrayRiegosList} = require ('./../kalendar');
+const fs = require('fs')    
 const Irrigation = require ('./../src/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 const moment = require('moment-timezone');
 const {expect} = require('chai');
-
+const sinon = require('sinon');
+const start = moment();
+const end = moment().format('YYYY-MM-DD');
+const file = { "configuration": { "priority": "dates" }, "sheduler": "* * * * * *", "dates": 
+[{ date: start.add(2, 'hours').format('YYYY-MM-DD HH:mm'), 
+  day: start.add(2, 'hours').format('YYYY-MM-DD'), "uuid": "123c0c70-a8ab-11e9-beb6-1f2bddafec9f", "duration": 10, "hour": 22, "minute": 13 }] };
 const blessKalendar = jsc.bless({
   generator: () => {
     const format = value => value <= 9 ? `0${value}` : value;
@@ -24,21 +30,22 @@ const blessKalendar = jsc.bless({
 
 
 describe('Kalendar => ',  () => {
-  xit('madeKalendar', async () => {
+  it('madeKalendar', async () => {
     const A = blessKalendar.generator();
     const {message, status} = await madeKalendar(A);
     expect(status).to.be.true;
   });
-  it('getDiffDays', ()=> {
-    const start = moment();
-    const end = moment();
-    expect(getDiffDays(start)(end)).to.be.equal(0);
+  it('madeKalendar', async ()=> {
+    const hour = Number(moment().add(3, 'hours').format('HH'));
+    const obj= {start: start.format('YYYY-MM-DD'), end, hour, minute: 13, duration: 910};
+    const _readFileSync = sinon.stub(fs, 'readFileSync');
+    const _writeFileSync = sinon.stub(fs, 'writeFileSync')
+    _readFileSync.returns(JSON.stringify(file));
+    _writeFileSync.returns('djsdflhsdfhfd');
+    const riegos = await madeKalendar(obj);
+    expect(riegos.json.dates.length).to.be.equal(2);
+    _readFileSync.restore();
+    _writeFileSync.restore();
   });
-  it('getArrayRiegosList', ()=> {
-    const start = moment();
-    const end = moment();
-    const obj= {start, end, hour: 22, minute: 13, duration: 10};
-    console.log(getArrayRiegosList(obj));
-  })
 });
 

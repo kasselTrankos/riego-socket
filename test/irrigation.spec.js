@@ -32,7 +32,7 @@ describe('Irrigation => ',  () => {
   it('testConsIdentity', testConsIdentity);
   it('testConsComposition', testConsComposition);
   it('ordTestTransitivity', ordTestTransitivity);
-  it('testRightIdentity', testRightIdentity);
+  // it('testRightIdentity', testRightIdentity);
   it('testleftIdentity', testleftIdentity);
 
   it('Sort correct', () => {
