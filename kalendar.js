@@ -44,8 +44,11 @@ const write = (riegos, file = FILE) => {
 }
 
 const deleteIrrigation = uuid => {
-  const riegos = getKalendar();
-  return write(riegos.filter(item => !item.uuid!== uuid));
+  const dates = getKalendar();
+  const deleteByUuid = item => !item.uuid!== uuid;
+  const riegos = Irrigation.from(dates).filter(deleteByUuid)
+  // console.log(riegos.toArray(), ' lo habre quitado', uuid);
+  // return write(riegos);
 }
   
 const madeKalendar = async (data = {}, file = FILE) => {
@@ -58,12 +61,13 @@ const madeKalendar = async (data = {}, file = FILE) => {
   });
   const gotDates = ({dates}) => Boolean(dates && dates.length);
   const previous = getKalendar();
+  
   const current = Irrigation.from(getArrayRiegosList(data));
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
   const uniqueRiegos = prev.filter(item => unique(item)(current)); 
   const riegos = current.concat(uniqueRiegos).sort().filter(filterFromNow);
   
-  return write(riegos);
+  return write(riegos)
 };
 
 module.exports = {madeKalendar, getKalendar, deleteIrrigation, getDiffDays, getArrayRiegosList};
