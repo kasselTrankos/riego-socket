@@ -16,13 +16,11 @@ ProxyPass /socket.io http://localhost:3000/socket.io
 ProxyPassReverse /socket.io http://localhost:3000/socket.io
 ```
 
-To run the sheduler by forever use
-```
-node sheduler.js &
-```
+
+
 
 
 
 Info:
- - [create systemctl riegoserver.service for run node](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/)
- - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```
+ - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```.
+ -  To run the sheduler by forever use ```node sheduler.js &```.
