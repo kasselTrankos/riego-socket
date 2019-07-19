@@ -23,4 +23,4 @@ ProxyPassReverse /socket.io http://localhost:3000/socket.io
 
 Info:
  - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```.
- -  To run the sheduler by forever use ```node sheduler.js &```.
+ -  To run the sheduler by forever with logs use ```node sheduler.js > sheduler.log 2>&1 &```.
