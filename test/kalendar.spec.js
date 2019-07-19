@@ -35,18 +35,23 @@ describe('Kalendar => ',  () => {
     expect(status).to.be.true;
   });
   it('madeKalendar', async ()=> {
-    const hour = Number(moment().add(3, 'hours').format('HH'));
-    const obj= {start: start.format('YYYY-MM-DD'), end, hour: moment().format('HH'), minute: moment().add(2, 'minutes').format('mm'), duration: 910};
+    const hour = Number(moment().format('HH'));
+    const obj= {
+      start: moment().format('YYYY-MM-DD'), 
+      end: moment().add(2, 'days').format('YYYY-MM-DD'), 
+      hour: moment().format('HH'), 
+      minute: moment().add(2, 'minutes').format('mm'), 
+      duration: 910};
     const _readFileSync = sinon.stub(fs, 'readFileSync');
     const _writeFileSync = sinon.stub(fs, 'writeFileSync')
     _readFileSync.returns(JSON.stringify(file));
     _writeFileSync.returns('djsdflhsdfhfd');
     const riegos = await madeKalendar(obj);
-    expect(riegos.json.dates.length).to.be.equal(3);
+    expect(riegos.json.dates.length).to.be.equal(4);
     _readFileSync.returns(JSON.stringify([]));
     const obj1= {start: moment().format('YYYY-MM-DD'), end: moment().add(3, 'days').format('YYYY-MM-DD'), hour, minute: 13, duration: 910};
     const riegos1 = await madeKalendar(obj1);
-    expect(riegos1.json.dates.length).to.be.equal(4);
+    expect(riegos1.json.dates.length).to.be.equal(3);
 
     _readFileSync.restore();
     _writeFileSync.restore();
