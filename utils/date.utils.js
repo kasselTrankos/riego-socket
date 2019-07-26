@@ -17,4 +17,4 @@ const plusDays = days => (date = new Date()) =>
   new Date(clone(date).setDate(date.getDate() + days));
 
 
-  module.exports = {tz, timezone, add};
+  module.exports = {tz, timezone, add, getDate};
