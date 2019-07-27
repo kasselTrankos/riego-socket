@@ -1,4 +1,5 @@
 const {taggedSum} = require('daggy');
+const {tz, getDate} = require('./../utils/date.utils');
 const {map, equals, lte, concat, filter, empty} = require('fantasy-land');
 const Irrigation = taggedSum('Irrigation', {
   Cons: ['head', 'tail'],
@@ -16,7 +17,7 @@ Irrigation[empty] = Irrigation.empty = function () {
 }
 
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
-  return +new Date(this.head.date) < +new Date(that.date);
+  return +tz(getDate(this.head.date)) < +tz(getDate(that.date));
 }
 
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
