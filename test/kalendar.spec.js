@@ -29,7 +29,7 @@ const blessKalendar = jsc.bless({
 
 
 describe('Kalendar => ',  () => {
-  xit('madeKalendar', async () => {
+  it('madeKalendar', async () => {
     const A = blessKalendar.generator();
     const {message, status} = await madeKalendar(A);
     expect(status).to.be.true;
