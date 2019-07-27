@@ -3,6 +3,7 @@ const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
 const {expect} = require('chai');
+const {tz} = require('./../utils/date.utils');
 
 const blessCons = (length=3) => jsc.bless({
   generator: ()=> {
@@ -39,7 +40,7 @@ describe('Irrigation => ',  () => {
     const A = blessCons(146).generator().sort().toArray();
     let correct = true;
     for(let i =0 ; i< A.length; i++){
-      if(i +1 < A.length && A[i].a> A[i+1].a) {
+      if(i +1 < A.length && tz(A[i].date)> tz(A[i+1].date)) {
         correct = false;
         break;
       }

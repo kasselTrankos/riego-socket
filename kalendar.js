@@ -27,6 +27,7 @@ const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
   const days = getDiffDays(start)(end);
   return Array.from({length: (days + 1)}, getObjectKalendar);
 }
+
 const write = (riegos, file = FILE) => {
   const json ={
     configuration: {
@@ -65,8 +66,8 @@ const madeKalendar = async (data = {}, file = FILE) => {
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
   const uniqueRiegos = prev.filter(item => unique(item)(current)); 
   const riegos = current.concat(uniqueRiegos).sort().filter(filterFromNow);
-  
   return write(riegos)
 };
 
-module.exports = {madeKalendar, getKalendar, deleteIrrigation, getDiffDays, getArrayRiegosList};
+module.exports = {madeKalendar, getKalendar, deleteIrrigation, 
+    getDiffDays, getArrayRiegosList};

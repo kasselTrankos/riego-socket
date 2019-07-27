@@ -1,6 +1,6 @@
 const {taggedSum} = require('daggy');
-const {tz, getDate} = require('./../utils/date.utils');
 const {map, equals, lte, concat, filter, empty} = require('fantasy-land');
+const {tz} = require('./../utils/date.utils');
 const Irrigation = taggedSum('Irrigation', {
   Cons: ['head', 'tail'],
   Nil: []
@@ -17,7 +17,7 @@ Irrigation[empty] = Irrigation.empty = function () {
 }
 
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
-  return +tz(getDate(this.head.date)) < +tz(getDate(that.date));
+  return +tz(new Date(this.head.date)) < +tz(new Date(that.date));
 }
 
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
@@ -35,8 +35,9 @@ Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
 Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Cons: (head, tail) => that.cata({
-      Cons: (head_, tail_) => +head.date === +head_.date ? tail.equals(tail_)
-                                                        : +head.date === +head_.date,
+      Cons: (head_, tail_) => +tz(new Date(head.date)) === +tz(new Date(head_.date))
+                                                         ? tail.equals(tail_)
+                                                        : +tz(new Date(head.date)) === +tz(new Date(head_.date)),
       Nil: () => false,
     }),
     Nil: () => true,
@@ -52,20 +53,22 @@ Irrigation.prototype.swap = function () {
       });
       if(!tail.is && tail.lte(head)) {
         tail = tail_;
-        return Irrigation.Cons(Object.assign({}, head_), Irrigation.Cons(Object.assign({}, head), tail).swap())
+        return Irrigation.Cons(Object.assign({}, head_), 
+          Irrigation.Cons(Object.assign({}, head), tail).swap())
       }
       return Irrigation.Cons(Object.assign({}, head), tail.swap());
     },
     Nil:() => this,
   });
 }
-Irrigation.prototype.sort = function (_cons) {
+let sortedIrrigation;
+Irrigation.prototype.sort = function (_cons = this) {
+  let cons = _cons || this;
   return this.cata({
     Cons: (head, tail) => {
-      let cons = _cons || this;
-      cons = cons.swap();
+      sortedIrrigation = cons = cons.swap();
       tail.sort(cons);
-      return cons;
+      return sortedIrrigation;
     },
     Nil: () => this,
   });
