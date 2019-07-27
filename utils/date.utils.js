@@ -13,6 +13,7 @@ const getDate = date => {
   const {hour = 0, minute = 0} = date;
   return new Date(year, month - 1, day, hour, minute, 0);
 }
+
 const plusDays = days => (date = new Date()) => 
   new Date(clone(date).setDate(date.getDate() + days));
 
