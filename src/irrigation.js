@@ -19,6 +19,9 @@ Irrigation[empty] = Irrigation.empty = function () {
 Irrigation.prototype[lte] = Irrigation.prototype.lte = function (that) {
   return +tz(new Date(this.head.date)) < +tz(new Date(that.date));
 }
+Irrigation.prototype.eq = function (that) {
+  return +tz(new Date(this.head.date)) === +tz(new Date(that.date))
+}
 
 Irrigation.prototype[concat] = Irrigation.prototype.concat = function (that) {
   return this.cata({
@@ -61,17 +64,20 @@ Irrigation.prototype.swap = function () {
     Nil:() => this,
   });
 }
-let sortedIrrigation;
-Irrigation.prototype.sort = function (_cons = this) {
-  let cons = _cons || this;
-  return this.cata({
-    Cons: (head, tail) => {
-      sortedIrrigation = cons = cons.swap();
-      tail.sort(cons);
-      return sortedIrrigation;
-    },
-    Nil: () => this,
-  });
+Irrigation.prototype.sort = function () {
+  let sortedIrrigation;
+  let cons = this;
+  Irrigation.prototype.sorting = function(_cons) {
+    return this.cata({
+      Cons: (head, tail) => {
+        sortedIrrigation = cons = cons.swap();
+        tail.sorting(cons);
+        return sortedIrrigation;
+      },
+      Nil: () => this,
+    });
+  }
+  return this.sorting(this);
 }
 
 Irrigation.prototype[map] = Irrigation.prototype.map = function (f) {
@@ -108,7 +114,7 @@ Irrigation.prototype.contains = function (f) {
 Irrigation.prototype.toArray = function () {
   return this.cata({
     Cons: (x, acc) => [
-      x, ... acc.toArray()
+      x, ...acc.toArray()
     ],
     Nil: () => [],
   })
