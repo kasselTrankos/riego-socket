@@ -36,8 +36,8 @@ Irrigation.prototype[equals] = Irrigation.prototype.equals = function (that) {
   return this.cata({
     Cons: (head, tail) => that.cata({
       Cons: (head_, tail_) => +tz(new Date(head.date)) === +tz(new Date(head_.date))
-                                                         ? tail.equals(tail_)
-                                                        : +tz(new Date(head.date)) === +tz(new Date(head_.date)),
+                              ? tail.equals(tail_)
+                              : +tz(new Date(head.date)) === +tz(new Date(head_.date)),
       Nil: () => false,
     }),
     Nil: () => true,
