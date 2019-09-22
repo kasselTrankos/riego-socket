@@ -1,14 +1,14 @@
 module.exports = {
-	"presets": [
-		[
-			"@babel/preset-env",
-			{
-				"targets": {
-					"node": "current"
-				},
-				"useBuiltIns": "entry"
-			}
-		]
-	],
-	"plugins": []
-}
+  "presets": [
+    [
+      "@babel/preset-env",
+
+      {
+        "targets": {
+          "ie": "11"
+        }
+      }
+    ]
+  ],
+  
+};

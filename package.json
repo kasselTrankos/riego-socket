@@ -4,13 +4,11 @@
   "description": "Socket for my irrigation",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js",
-    "stop": "pm2 stop 0",
-    "list": "pm2 list",
-    "delete": "pm2 delete",
-    "build": "babel *.js --out-dir ./dist --source-maps",
     "build:test": "test --out-dir ./test-dist --source-maps",
-    "test": "mocha --require @babel/register --ignore=node_modules"
+    "test": "mocha --require @babel/register",
+    "watch": "webpa(?!@functional-lib)/ck --watch",
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -42,14 +40,15 @@
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
+    "babel-node": "0.0.1-security",
     "benchmark": "^2.1.4",
     "fantasy-land": "^4.0.1",
     "fantasy-laws": "^1.2.0",
+    "nodemon": "^1.19.2",
     "sanctuary": "^2.0.0",
     "sanctuary-show": "^1.0.0",
-    "sanctuary-type-classes": "^11.0.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
+    "sanctuary-type-classes": "^11.0.0"
   }
 }

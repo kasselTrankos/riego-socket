@@ -1,7 +1,9 @@
 {
 	"presets": [
 		["@babel/preset-env", {
-			"debug":true
+      "debug":true,
+      "useBuiltIns": "usage"
 		}]
-	]
+  ],
+  "ignore": ["./node_modules/*"]
 }
