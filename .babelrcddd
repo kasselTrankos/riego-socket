@@ -5,5 +5,5 @@
       "useBuiltIns": "usage"
 		}]
   ],
-  "ignore": ["./node_modules/*"]
+  "exclude": "/node_modules\/(?!\@functional-lib)/"
 }

@@ -1,4 +1,3 @@
-import 'mocha';
 const Irrigation = require ('@functional-lib/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
