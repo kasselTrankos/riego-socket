@@ -8,7 +8,9 @@
     "stop": "pm2 stop 0",
     "list": "pm2 list",
     "delete": "pm2 delete",
-    "test": "mocha"
+    "build": "babel *.js --out-dir ./dist --source-maps",
+    "build:test": "test --out-dir ./test-dist --source-maps",
+    "test": "mocha --require @babel/register --ignore=node_modules"
   },
   "author": "",
   "license": "ISC",
@@ -36,16 +38,18 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "benchmark": "^2.1.4",
-    "sanctuary": "^2.0.0",
-    "fantasy-land": "^4.0.1",
-    "fantasy-laws": "^1.2.0",
-    "sanctuary-show": "^1.0.0",
-    "sanctuary-type-classes": "^11.0.0",
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/preset-env": "^7.6.0"
+    "@babel/preset-env": "^7.6.0",
+    "benchmark": "^2.1.4",
+    "fantasy-land": "^4.0.1",
+    "fantasy-laws": "^1.2.0",
+    "sanctuary": "^2.0.0",
+    "sanctuary-show": "^1.0.0",
+    "sanctuary-type-classes": "^11.0.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   }
 }
