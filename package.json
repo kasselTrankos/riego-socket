@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@functional-lib/irrigation": "^1.0.5",
+    "@functional-lib/irrigation": "^1.0.6",
     "@functional-lib/kalendar": "^1.0.4",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
@@ -22,7 +22,6 @@
     "daggy": "^1.4.0",
     "express": "^4.17.0",
     "file-state-monitor": "^1.0.0",
-    "forever": "^1.0.0",
     "jsverify": "^0.8.4",
     "microtime": "^3.0.0",
     "mocha": "^6.1.4",
@@ -45,13 +44,9 @@
     "@babel/preset-env": "^7.6.0",
     "babel-node": "0.0.1-security",
     "benchmark": "^2.1.4",
-    "fantasy-land": "^4.0.1",
     "fantasy-laws": "^1.2.0",
-    "nodemon": "^1.19.2",
     "sanctuary": "^2.0.0",
     "sanctuary-show": "^1.0.0",
-    "sanctuary-type-classes": "^11.0.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9"
+    "sanctuary-type-classes": "^11.0.0"
   }
 }

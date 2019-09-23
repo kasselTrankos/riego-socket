@@ -1,14 +1,10 @@
 const {madeKalendar} = require ('./../kalendar');
 const fs = require('fs')    
-const Irrigation = require ('./../src/irrigation');
-const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
-const Z = require ('sanctuary-type-classes');
 const moment = require('moment-timezone');
 const {expect} = require('chai');
 const sinon = require('sinon');
 const start = moment();
-const end = moment().format('YYYY-MM-DD');
 const file = { "configuration": { "priority": "dates" }, "sheduler": "* * * * * *", "dates": 
 [{ date: start.add(2, 'hours').format('YYYY-MM-DD HH:mm'), 
   day: start.add(2, 'hours').format('YYYY-MM-DD'), "uuid": "123c0c70-a8ab-11e9-beb6-1f2bddafec9f", "duration": 10, "hour": 22, "minute": 13 }] };
