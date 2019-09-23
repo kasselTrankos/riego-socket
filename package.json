@@ -4,12 +4,9 @@
   "description": "Socket for my irrigation",
   "main": "app.js",
   "scripts": {
-    "dev": "webpack  --progress --hide-modules",
-    "build:test": "test --out-dir ./test-dist --source-maps",
     "test": "mocha --require @babel/register",
-    "watch": "webpa(?!@functional-lib)/ck --watch",
-    "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "start:scheduler": "./node_modules/.bin/babel-node scheduler.js",
+    "start:app": "./node_modules/.bin/babel-node app.js"
   },
   "author": "",
   "license": "ISC",

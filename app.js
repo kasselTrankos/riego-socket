@@ -49,12 +49,6 @@ app.post('/riego', async (req, res)=> {
 });
 
 io.on('connection', function(socket){
-  // socket.on('disconnect', function(){
-  //   console.log('user disconnected');
-  // });
-  // socket.on('chat message', function(msg){
-  //   io.emit('chat message', msg);
-  // });
   socket.on('made riego', async (msg, time) => {
     const {ops} = await madeRiego(msg, time);
     console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) saved riego`);
@@ -63,5 +57,5 @@ io.on('connection', function(socket){
 });
 
 http.listen(3000, function(){
-  // console.log('listening on *:3000');
+  console.log('listening on *:3000');
 });
