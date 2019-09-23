@@ -1,0 +1,9 @@
+{
+	"presets": [
+		["@babel/preset-env", {
+      "debug":true,
+      "useBuiltIns": "usage"
+		}]
+  ],
+  "exclude": "/node_modules\/(?!\@functional-lib)/"
+}

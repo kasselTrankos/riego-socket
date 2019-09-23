@@ -20,6 +20,7 @@ ProxyPassReverse /socket.io http://localhost:3000/socket.io
 
 
 
+In next phase remove the ```pm2``` from server, better use native node behind run.
 
 Info:
  - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```.

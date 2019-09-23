@@ -1,4 +1,4 @@
-const Irrigation = require ('../src/irrigation');
+const Irrigation = require ('@functional-lib/irrigation');
 var Benchmark = require('benchmark');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');

@@ -1,4 +1,4 @@
-const Irrigation = require('./src/irrigation');
+const Irrigation = require('@functional-lib/irrigation');
 const moment = require('moment-timezone');
 const fs = require('fs');
 const uuid = require('uuid');

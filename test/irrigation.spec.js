@@ -1,4 +1,4 @@
-const Irrigation = require ('./../src/irrigation');
+const Irrigation = require ('@functional-lib/irrigation');
 const laws = require('fantasy-laws');
 const jsc = require ('jsverify');
 const Z = require ('sanctuary-type-classes');
