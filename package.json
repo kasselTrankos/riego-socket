@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@functional-lib/irrigation": "^1.0.9",
-    "@functional-lib/kalendar": "^1.0.7",
+    "@functional-lib/irrigation": "^1.0.10",
+    "@functional-lib/kalendar": "^1.0.8",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "cron": "^1.7.1",
