@@ -3,7 +3,7 @@ const ObjectID = require('mongodb').ObjectID;
 const {url, dbName, riegos, config} = require('./config.js');
 const getClient = async (url) =>  await MongoClient.connect(url);
 
-const getConfig = async () => {
+export const getConfig = async () => {
   const client = await getClient(url);
   try {
     const [result] =  await client.db(dbName).collection(config).find({_id: ObjectID('5cf970b0c52511b14d75b351')}).toArray(); 
@@ -15,7 +15,7 @@ const getConfig = async () => {
     client.close();
   } 
 }
-const putConfig = async (id, duration) => {
+export const putConfig = async (id, duration) => {
   const client = await getClient(url);
   try {
     return  await client.db(dbName).collection(config).updateOne({_id: ObjectID(id)}, {$set: {duration: Number(duration)}}, {upsert: true}); 
@@ -26,7 +26,7 @@ const putConfig = async (id, duration) => {
     client.close();
   } 
 }
-const madeRiego = async (riego, time) => {
+export const madeRiego = async (riego, time) => {
   const client = await getClient(url);
   try {
     const {duration} = await getConfig();
@@ -37,7 +37,7 @@ const madeRiego = async (riego, time) => {
     client.close();
   } 
 };
-const findAll = async () => {
+export const findAll = async () => {
   const client = await getClient(url);
   try {
     return  await client.db(dbName).collection(riegos).find({}).sort( { date: -1 } ).toArray();
@@ -47,7 +47,7 @@ const findAll = async () => {
     client.close(); 
   }
 };
-const riegoDone = async (id) => {
+export const riegoDone = async (id) => {
   const client = await getClient(url);
   try {
     return  await client.db(dbName).collection(riegos).updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true});
@@ -57,7 +57,3 @@ const riegoDone = async (id) => {
     client.close(); 
   }
 };
-module.exports = {
-  findAll, madeRiego, getConfig,
-  riegoDone, putConfig
-}
