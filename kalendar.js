@@ -1,4 +1,8 @@
 const Irrigation = require('@functional-lib/irrigation');
+import {diffDays, addDays} from  '@functional-lib/kalendar';
+import { months } from 'moment';
+
+const compose = (...fncs) => x => fncs.reduce((acc, f) => f(acc), x); 
 const moment = require('moment-timezone');
 const fs = require('fs');
 const uuid = require('uuid');
@@ -15,16 +19,21 @@ const getKalendar =  (file = FILE) => {
 const getDiffDays = start => end => Math.abs(moment(start).diff(moment(end), 'days'));
 
 const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
-  const getDay = index => moment(start).add(index, 'days');
-  const getDayFormat = day => day.format('YYYY-MM-DD');
-  const getStrDate = index => getDay(index).set({hour, minute});
-  const getObjectKalendar = (_, i) => ({
-    date: getStrDate(i).format('YYYY-MM-DD HH:mm'),
-    day: getDayFormat(getDay(i)),
+  const toDate = value => new Date(value);
+  const setHour = value => toDate(value).setHours(+hour);
+  const setMinute = value => toDate(value).setMinutes(+minute);
+  const getDate = index => toDate(addDays(toDate(start))(index));
+  const setTime = value => compose(setHour, toDate, setMinute)(value); 
+  const day = value => toDate(value).getDate() <= 9 ? `0${toDate(value).getDate()}` : toDate(value).getDate(); 
+  const month = value => toDate(value).getMonth() <= 9 ? `0${toDate(value).getMonth() + 1}` : toDate(value).getMonth() + 1; 
+  const format = value => `${toDate(value).getFullYear()}-${month(value)}-${day(value)}`;
+  const getObjectKalendar = (_, index) => ({
+    date: `${format(toDate(setTime(getDate(index))))} ${hour}:${minute}`,
+    day: format(toDate(setTime(getDate(index)))),
     uuid: uuid.v1(),
     duration, hour, minute});
 
-  const days = getDiffDays(start)(end);
+  const days = diffDays(start)(end);
   return Array.from({length: (days + 1)}, getObjectKalendar);
 }
 
