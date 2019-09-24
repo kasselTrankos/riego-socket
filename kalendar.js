@@ -1,4 +1,4 @@
-const Irrigation = require('@functional-lib/irrigation');
+import Irrigation from '@functional-lib/irrigation';
 import {diffDays, addDays} from  '@functional-lib/kalendar';
 
 const compose = (...fncs) => x => fncs.reduce((acc, f) => f(acc), x); 
