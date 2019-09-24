@@ -15,7 +15,6 @@ const getKalendar =  (file = FILE) => {
     return {dates: []};
   }
 };
-const getDiffDays = start => end => Math.abs(moment(start).diff(moment(end), 'days'));
 
 const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
   const toDate = value => new Date(value);
@@ -78,5 +77,4 @@ const madeKalendar = async (data = {}, file = FILE) => {
   return write(riegos)
 };
 
-module.exports = {madeKalendar, getKalendar, deleteIrrigation, 
-    getDiffDays, getArrayRiegosList};
+module.exports = {madeKalendar, getKalendar, deleteIrrigation};
