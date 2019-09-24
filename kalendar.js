@@ -33,9 +33,8 @@ const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
     uuid: uuid.v1(),
     duration, hour, minute});
 
-  const days = diffDays(start)(end);
   
-  return Array.from({length: (days + 1)}, getObjectKalendar);
+  return Array.from({length: diffDays(start)(end) + 1}, getObjectKalendar);
 }
 
 const write = (riegos, file = FILE) => {
