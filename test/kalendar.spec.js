@@ -1,11 +1,11 @@
-import {madeKalendar} from './../kalendar';
+import {madeKalendar, getKalendar} from './../kalendar';
 import jsc from 'jsverify';
 import {stub} from 'sinon';
 import fs from 'fs';
 import moment from 'moment-timezone';
 import {expect} from 'chai';
 const d = moment().set({hour:0,minute:0,second:0,millisecond:0});
-const file = { configuration: { priority: 'dates' }, sheduler: '* * * * * *', 
+const file = { configuration: { priority: 'dates' }, sheduler: '* * * * * *',
 dates: [{
   date: d.add(2, 'hours').format('YYYY-MM-DD HH:mm'), 
   day: d.add(2, 'hours').format('YYYY-MM-DD'), 
@@ -36,6 +36,43 @@ describe('Kalendar => ',  () => {
     const {_, status} = await madeKalendar(A);
     expect(status).to.be.true;
   });
+  it('madeKalendar:after is sorted', async () => {
+    const A = blessKalendar.generator();
+    const {_, status} = await madeKalendar(A);
+    const dates = getKalendar();
+    for(let i = 0; i < dates.length; i++) {
+      expect(+new Date(dates[i].date) < +new Date(dates[i+1].date)).to.be.true;
+    }
+    expect(status).to.be.true;
+  });
+  it('madeKalendar:no dates before now', async () => {
+    const A = blessKalendar.generator();
+    const {_, status} = await madeKalendar(A);
+    const dates = getKalendar();
+    for(let i = 0; i < dates.length; i++) {
+      expect(+new Date(dates[i].date) > +new Date()).to.be.true;
+    }
+    expect(status).to.be.true;
+  });
+  it('madeKalendar:no dates before now even add one before now', async () => {
+    const format = value => value <= 9 ? `0${value}` : value;
+    const minutes = new Date().getMinutes() - 10;
+    const A = {
+      start: moment().subtract(20, 'days').format('YYYY-MM-DD'), 
+      end: moment().format('YYYY-MM-DD'), 
+      hour: format(new Date().getHours()),
+      minute: format(minutes),
+      duration: jsc.integer(1, 60).generator(),
+    };
+
+    const {_, status} = await madeKalendar(A);
+    const dates = getKalendar();
+    for(let i = 0; i < dates.length; i++) {
+      expect(+new Date(dates[i].date) > +new Date()).to.be.true;
+    }
+    expect(status).to.be.true;
+  });
+
   it('update kalendar', async ()=> {
     const hour = Number(d.format('HH'));
     const days = 6;

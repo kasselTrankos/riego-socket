@@ -31,9 +31,9 @@ const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
 
   const get = i => date(start)
     .map(add(i))
-    .chain(hours).map(compose(getValue, date.of))
-    .chain(minutes).map(compose(getValue, date.of))
-    .chain(format);
+    .map(hours).map(compose(getValue, date.of))
+    .map(minutes).map(compose(getValue, date.of))
+    .map(format);
 
   const getObjectKalendar = (_, index) => ({
     date: `${compose(getValue, get)(index)} ${hour}:${minute}`,
@@ -85,6 +85,7 @@ const madeKalendar = async (data = {}, file = FILE) => {
   const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
   const uniqueRiegos = prev.filter(item => unique(item)(current)); 
   const riegos = current.concat(uniqueRiegos).sort().filter(filterFromNow);
+  
   return write(riegos)
 };
 
