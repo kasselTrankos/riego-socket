@@ -1,12 +1,13 @@
 import Irrigation from '@functional-lib/irrigation';
-import {diffDays, addDays} from  '@functional-lib/kalendar';
+import {diffDays, addDays, date} from  '@functional-lib/kalendar';
+import fs from 'fs';
+import uuid from 'uuid';
 
-const compose = (...fncs) => x => fncs.reduce((acc, f) => f(acc), x); 
-const moment = require('moment-timezone');
-const fs = require('fs');
-const uuid = require('uuid');
 const FILE  = 'kalendar.json';
 
+const prop = key => obj => obj[key];
+const getValue = prop('value');
+const compose = (...fncs) => x => fncs.reduceRight((acc, f) => f(acc), x); 
 
 const getKalendar =  (file = FILE) => {
   try {
@@ -17,18 +18,26 @@ const getKalendar =  (file = FILE) => {
 };
 
 const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
-  const toDate = value => new Date(value);
-  const setHour = value => toDate(value).setHours(+hour);
-  const setMinute = value => toDate(value).setMinutes(+minute);
-  const getDate = index => toDate(addDays(toDate(start))(index));
-  const setTime = value => compose(setHour, toDate, setMinute)(value);
-  const formatZero = value => value <= 9 ? `0${value}` : value;
-  const day = value => formatZero(toDate(value).getDate()); 
-  const month = value => formatZero(toDate(value).getMonth() + 1); 
-  const format = value => `${toDate(value).getFullYear()}-${month(value)}-${day(value)}`;
+  const zero = value => value <= 9 ? `0${value}` : value;
+  const getDay = d => date(d).map(x => x.getDate());
+  const getMonth = d => date(d).map(x => x.getMonth() + 1);
+  const day = d => compose(zero, getValue, getDay)(d); 
+  const month = d => compose(zero, getValue, getMonth)(d);
+  const year = d => date.of(d).value.getFullYear();
+  const minutes = d => d.setMinutes(minute);
+  const hours = d => d.setHours(hour);
+  const add = i => d => addDays(date.of(d).value)(i);
+  const format = d => `${year(d)}-${month(d)}-${day(d)}`;
+
+  const get = i => date(start)
+    .map(add(i))
+    .chain(hours).map(compose(getValue, date.of))
+    .chain(minutes).map(compose(getValue, date.of))
+    .chain(format);
+
   const getObjectKalendar = (_, index) => ({
-    date: `${format(toDate(setTime(getDate(index))))} ${hour}:${minute}`,
-    day: format(toDate(setTime(getDate(index)))),
+    date: `${compose(getValue, get)(index)} ${hour}:${minute}`,
+    day: compose(getValue, get)(index),
     uuid: uuid.v1(),
     duration, hour, minute});
 
@@ -60,7 +69,9 @@ const deleteIrrigation = uuid => {
 }
   
 const madeKalendar = async (data = {}, file = FILE) => {
-  if(!moment(data.start, 'YYYY-MM-DD', true).isValid()) {
+  const getTime = d => d.getTime();
+  const isValid = getValue(date.of(data.start).map(getTime)) > 0;
+  if(!isValid) {
     return {message: 'no need update', status: true};
   }
   const filterFromNow = item => +new Date(item.date) > +new Date();
