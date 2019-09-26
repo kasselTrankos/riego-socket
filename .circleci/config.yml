@@ -1,32 +1,90 @@
+# This code is licensed from CircleCI to the user under the MIT license. See
+# https://circleci.com/orbs/registry/licensing for details.
 version: 2.1
 description: "Orb for Node.js applications and libraries."
- jobs:
-   build:
-     docker:
-       - image: circleci/node:10.16.3
-     steps:
-      - run:
-        name: update-npm
-        command: 'sudo npm install -g npm@latest'
-      - restore_cache: # special step to restore the dependency cache
-          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: install-npm-wee
-          command: npm install
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
-      - run: # run tests
-          name: test
-          command: npm test
-       - store_artifacts: # special step to save test results as as artifact
-          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: test-results.xml
-          prefix: tests
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
-          path: coverage
-          prefix: coverage
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: test-results.xml
+
+executors:
+  nodejs:
+    working_directory: "/docker/project"
+    docker:
+    - image: twuni/nodejs:12.10.0
+
+jobs:
+  initialize:
+    executor: nodejs
+    steps:
+    - checkout
+    - persist_to_workspace:
+        root: /docker
+        paths:
+        - project
+  install:
+    executor: nodejs
+    steps:
+    - attach_workspace:
+        at: /docker
+    - restore_cache:
+        keys:
+        - v1-{{ checksum ".tool-versions" }}-yarn-lock-{{ checksum "yarn.lock" }}
+    - run:
+        name: Installing dependencies
+        command: |
+          yarn install --frozen-lockfile
+    - save_cache:
+        key: v1-{{ checksum ".tool-versions" }}-yarn-lock-{{ checksum "yarn.lock" }}
+        paths:
+        - node_modules
+    - persist_to_workspace:
+        root: /docker
+        paths:
+        - project/node_modules
+  style:
+    executor: nodejs
+    steps:
+    - attach_workspace:
+        at: /docker
+    - run:
+        name: Checking code style
+        command: |
+          mkdir -vp reports
+          yarn --silent lint --format junit --output-file reports/eslint.xml
+    - store_test_results:
+        path: reports
+  test:
+    executor: nodejs
+    steps:
+    - attach_workspace:
+        at: /docker
+    - run:
+        name: Testing
+        command: |
+          mkdir -vp reports/junit
+          yarn --silent test --reporter xunit > reports/junit/test-results.xml
+    - store_test_results:
+        path: reports/junit
+  build:
+    executor: nodejs
+    steps:
+    - attach_workspace:
+        at: /docker
+    - run:
+        name: Building assets for production
+        command: |
+          NODE_ENV=production yarn build
+    - store_artifacts:
+        path: lib
+    - persist_to_workspace:
+        root: /docker
+        paths:
+        - project/lib
+  documentation:
+    executor: nodejs
+    steps:
+    - attach_workspace:
+        at: /docker
+    - run:
+        name: Generating API documentation
+        command: |
+          yarn --silent documentation
+    - store_artifacts:
+        path: docs
