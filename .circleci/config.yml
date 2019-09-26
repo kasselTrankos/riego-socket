@@ -1,4 +1,5 @@
-ersion: 2
+version: 2.1
+description: "Orb for Node.js applications and libraries."
  jobs:
    build:
      docker:
