@@ -1,3 +1,5 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import {madeKalendar, getKalendar} from './../kalendar';
 import jsc from 'jsverify';
 import {stub} from 'sinon';
