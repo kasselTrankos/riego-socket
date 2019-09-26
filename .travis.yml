@@ -3,3 +3,5 @@ node_js:
   - "8.11"
   - "10.11"
   - "9.0"
+cache:
+  npm: false
