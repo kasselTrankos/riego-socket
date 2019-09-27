@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-const {url, dbName, riegos, config} = require('./config.js');
+const {url, dbName, riegos, config} = require('./../config.js');
 const getClient = async (url) =>  await MongoClient.connect(url);
 
 export const getConfig = async () => {
