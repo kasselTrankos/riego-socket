@@ -1,6 +1,8 @@
 ![travis](https://travis-ci.org/kasselTrankos/riego-socket.svg?branch=master)
 ## The soket riego's leg
 
+You can made a irrigation calling 'made riego' or 'irrigate' socket.
+
 Using Fantasy land to create the algebraic interfaz of Irrigation.
 Irrigation uses the sigly linked list.
 
