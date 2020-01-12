@@ -35,6 +35,7 @@
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.2",
     "benchmark": "^2.1.4",
+    "daggy": "^1.4.0",
     "fantasy-laws": "^1.2.0",
     "sanctuary": "^2.0.0",
     "sanctuary-show": "^1.0.0",

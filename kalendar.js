@@ -2,12 +2,11 @@ import Irrigation from '@functional-lib/irrigation';
 import {diffDays, addDays, date} from  '@functional-lib/kalendar';
 import fs from 'fs';
 import uuid from 'uuid';
-
+import {compose, prop} from './utils';
+import {Maybe} from './fp/maybe';
 const FILE  = 'kalendar.json';
 
-const prop = key => obj => obj[key];
 const getValue = prop('value');
-const compose = (...fncs) => x => fncs.reduceRight((acc, f) => f(acc), x); 
 
 const getKalendar =  (file = FILE) => {
   try {
@@ -67,13 +66,9 @@ const deleteIrrigation = uuid => {
   const riegos = Irrigation.from(dates).filter(deleteByUuid);
   return write(riegos);
 }
-  
-const madeKalendar = async (data = {}, file = FILE) => {
-  const getTime = d => d.getTime();
-  const isValid = getValue(date.of(data.start).map(getTime)) > 0;
-  if(!isValid) {
-    return {message: 'no need update', status: true};
-  }
+
+const _made = (data = {}) => {
+
   const filterFromNow = item => +new Date(item.date) > +new Date();
   const unique = current => riegos => riegos.contains(riego => {
     return current.date !== riego.date
@@ -87,6 +82,14 @@ const madeKalendar = async (data = {}, file = FILE) => {
   const riegos = current.concat(uniqueRiegos).sort().filter(filterFromNow);
   
   return write(riegos)
+}
+
+const madeKalendar = async (data = {}, file = FILE) => {
+  const getTime = d => d.getTime();
+  const isValid = getValue(date.of(data.start).map(getTime)) > 0;
+  return !isValid
+    ? {message: 'no need update', status: true}
+    : _made(data);
 };
 
-module.exports = {madeKalendar, getKalendar, deleteIrrigation};
+module.exports = {madeKalendar, getKalendar, deleteIrrigation, getArrayRiegosList};

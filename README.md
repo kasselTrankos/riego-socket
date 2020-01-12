@@ -24,4 +24,5 @@ In next phase remove the ```pm2``` from server, better use native node behind ru
 
 Info:
  - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```.
- -  To run the sheduler by forever with logs use ```node sheduler.js > sheduler.log 2>&1 &```.
+ -  To run the sheduler by forever with logs use ```node sheduler.js > sheduler-out.log 2>&1 &```.
+ -  To run the app by forever with logs use ```node ./node_modules/.bin/babel-node app.js > app-out.log 2>&1 &```.

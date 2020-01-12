@@ -6,6 +6,9 @@ const {findAll, madeRiego, getConfig,
   riegoDone, putConfig} = require('./riegos.js');
 const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 const moment = require('moment');
+
+const MADE_RIEGO = 'made riego';
+const IRRIGATE = 'irrigate';
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
@@ -49,10 +52,10 @@ app.post('/riego', async (req, res)=> {
 });
 
 io.on('connection', function(socket){
-  socket.on('made riego', async (msg, time) => {
+  socket.on(MADE_RIEGO || IRRIGATE, async (msg, time) => {
     const {ops} = await madeRiego(msg, time);
     console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) saved riego`);
-    io.emit('made riego', ops[0]);
+    io.emit(MADE_RIEGO || IRRIGATE, ops[0]);
   });
 });
 
