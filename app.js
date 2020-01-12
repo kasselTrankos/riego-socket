@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const {findAll, madeRiego, getConfig,
-  riegoDone, putConfig} = require('./riegos.js');
+  riegoDone, putConfig} = require('./src/riegos.js');
 const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 const moment = require('moment');
 
