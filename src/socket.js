@@ -14,4 +14,7 @@ export const socket = io => {
       io.emit(MADE_RIEGO || IRRIGATE, ops[0]);
     });
   });
+  io.on('error', function(e){
+    console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) socket with this error of ${e}`);
+  })
 }
