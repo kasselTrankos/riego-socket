@@ -5,6 +5,7 @@ const Maybe = taggedSum('Maybe', {
 });
 
 
+// map:: Functor f a ~>(a -> b) -> b 
 Maybe.prototype.map = function (f) {
   return this.cata({
     Just: x => f(x),
