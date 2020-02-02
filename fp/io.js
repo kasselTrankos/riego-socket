@@ -22,11 +22,63 @@ IO.of = function(f) {
 
 function Task(computation, _return) {
   this.fork = computation;
-  this._return = _return || function() {};
+  this.cleanup = _return || function() {};
 }
+Task.prototype.ap = function _ap(that) {
+  var forkThis = this.fork;
+  var forkThat = that.fork;
+  var cleanupThis = this.cleanup;
+  var cleanupThat = that.cleanup;
+
+  function cleanupBoth(state) {
+    cleanupThis(state[0]);
+    cleanupThat(state[1]);
+  }
+  return new Task(function(reject, resolve) {
+    var func, funcLoaded = false;
+    var val, valLoaded = false;
+    var rejected = false;
+    var allState;
+
+    var thisState = forkThis(guardReject, guardResolve(function(x) {
+      funcLoaded = true;
+      func = x;
+    }));
+
+    var thatState = forkThat(guardReject, guardResolve(function(x) {
+      valLoaded = true;
+      val = x;
+    }));
+
+    function guardResolve(setter) {
+      return function(x) {
+        if (rejected) {
+          return;
+        }
+
+        setter(x);
+        if (funcLoaded && valLoaded) {
+          delayed(function(){ cleanupBoth(allState) });
+          return resolve(func(val));
+        } else {
+          return x;
+        }
+      }
+    }
+
+    function guardReject(x) {
+      if (!rejected) {
+        rejected = true;
+        return reject(x);
+      }
+    }
+
+    return allState = [thisState, thatState];
+  }, cleanupBoth);
+};
 Task.prototype.chain = function _chain(f) {
   var fork = this.fork;
-  var _return = this._return;
+  var _return = this.cleanup;
 
   return new Task(function(reject, resolve) {
     return fork(function(a) {
