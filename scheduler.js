@@ -1,3 +1,4 @@
 process.env.TZ = 'Europe/Madrid';
 const {scheduler} = require('./lib/kron');
-scheduler();
+let job;
+scheduler(job);
