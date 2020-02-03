@@ -1,18 +1,18 @@
 function Observer(handler) {
-  this._observer = handler;
+  this.handler = handler;
   this.unsubscribed = false;
 }
 
-Observer.prototype.next = function () {
+Observer.prototype.next = function (value) {
   if(!this.unsubscribed) {
-    this.handler.next();
+    this.handler.next(value);
   }
 }
 Observer.prototype.complete = function() {
   if(!this.unsubscribed) {
     this.handler.complete();
   }
-  this.unsubscribed();
+  this.unsubscribe();
 }
 Observer.prototype.error = function(e) {
   if (!this.unsubscribed) {

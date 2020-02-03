@@ -1,4 +1,6 @@
 import Observer from './observer';
+import Subscription from './subscription';
+
 
 function Observable(subscribe) {
   this._subscribe = subscribe; 
@@ -20,11 +22,13 @@ Observable.prototype.pipe = function(...operators) {
 
 Observable.from = function(xs) {
   return new Observable(observer => {
-      xs.forEach(x => observer.next(x))
-      observer.complete()
-      return () => {
-          /* unsubscribed*/
-      }
+
+    // shooot an iterator ranwaland.
+    xs.forEach(x => observer.next(x));// is automatic no me mola
+    observer.complete();// throw complete alone ....
+    return () => {
+        /* unsubscribed*/
+    }
   })
 }
 
