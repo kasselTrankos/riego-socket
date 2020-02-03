@@ -33,4 +33,4 @@ date.of = function (x) {
   return new date(value);
 };
 
-module.exports = {date};
+module.exports = date;
