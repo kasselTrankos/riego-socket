@@ -2,7 +2,7 @@ function Task(computation, cleanup) {
   this.fork = computation;
   this.cleanup = cleanup || function() {};
 }
-// ap :: Apply => f a ~> f(a->b) -> f b;
+// ap :: Apply f => f a ~> f(a->b) -> f b;
 Task.prototype.ap = function _ap(that) {
   var forkThis = this.fork;
   var forkThat = that.fork;
@@ -54,6 +54,8 @@ Task.prototype.ap = function _ap(that) {
     return allState = [thisState, thatState];
   }, cleanupBoth);
 };
+
+// chain :: Chain m => m a ~> (a-> m b) -> m b
 Task.prototype.chain = function _chain(f) {
   var fork = this.fork;
   var cleanup = this.cleanup;
@@ -67,24 +69,26 @@ Task.prototype.chain = function _chain(f) {
   }, cleanup);
 };
 
+// of :: Applicative f => a -> f a
 Task.prototype.of = function _of(b) {
-return new Task((_, resolve) => {
+  return new Task((_, resolve) => {
     return resolve(b);
-});
+  });
 };
 Task.of = Task.prototype.of;
 
+// map :: Functor f => f a ~> (a -> b) -> f b
 Task.prototype.map = function _map(f) {
-var fork = this.fork;
-var _return = this._return;
+  var fork = this.fork;
+  var _return = this._return;
 
-return new Task(function(reject, resolve) {
+  return new Task(function(reject, resolve) {
     return fork(function(a) {
-    return reject(a);
+      return reject(a);
     }, function(b) {
-    return resolve(f(b));
+      return resolve(f(b));
     });
-}, _return);
+  }, _return);
 };
 
 module.exports = Task;
