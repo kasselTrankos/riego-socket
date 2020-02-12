@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script>
+    $(function () {
+      var socket = io('http://micasitatucasita.com:3000');
+      $('form#messages').submit(function(e){
+        e.preventDefault(); // prevents page reloading
+        socket.emit('chat message', $('#message').val());
+        $('#message').val('');
+        return false;
+      });
+      $('#riego-1').click(function() {
+        socket.emit('made riego', 'riego - 1');
+      });
+      $('#riego-2').click(function() {
+        socket.emit('made riego', 'riego - 2');
+      });
+      $('#riego-3').click(function() {
+        socket.emit('made riego', 'riego - 3');
+      });
+      $('#riego-all').click(function() {
+        socket.emit('made riego', 'riego - all');
+      });
+
+      socket.on('chat message', function(msg){
+        $('#list').append($('<li  class="list-group-item"/>').text(msg));
+      });
+      socket.on('made riego', function(msg){
+        $('#list').append($('<li class="list-group-item" />').text(msg.riego));
+      });
+    });
+  </script>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      .center {text-align: center;}
+      .top20{margin-top: 20px;}
+      .fixed {position: fixed; bottom: 0; width: 100%;}
+      #list { list-style-type: none; margin: 0; padding: 0; }
+      #list li { padding: 5px 10px; }
+      #list li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <h1 class="center">Riega</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+          <button class="btn btn-primary" id="riego-1">Riega 1</button>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-primary" id="riego-2">Riega 2</button>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-primary" id="riego-3">Riega3</button>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-success" id="riego-all">Riega all</button>
+        </div>
+      </div>
+      <div class="row top20">
+        <div class="col-md-8">
+          <ul class="list-group" id="list"></ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <form class="form-inline row" id="messages">
+            <div class="form-group mx-sm-3 mb-2 col-md-8">
+              <label for="message" class="sr-only">Message</label>
+              <input type="text" class=" form-control col-md-12" id="message">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
