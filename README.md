@@ -28,4 +28,4 @@ Info:
  - using [pm2](http://pm2.keymetrics.io/) to always stay at work ```npm npm i -g pm2```.
  -  To run the sheduler by forever with logs use ```node sheduler.js > sheduler-out.log 2>&1 &```.
  -  To run the app by forever with logs use ```node ./node_modules/.bin/babel-node app.js > app-out.log 2>&1 &```.
- - By pm2 ```pm2 start run.sh --max-memory-restart 50M``` only 50M.
+ - By pm2 ```pm2 start run.sh --max-memory-restart 6M --restart-delay 86400000``` only 6M and restart every day ( there is a bug with apache and blocks it).
