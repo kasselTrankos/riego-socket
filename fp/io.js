@@ -1,5 +1,4 @@
 function IO(f) {
-  
   this._f = f;
 }
 

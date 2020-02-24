@@ -1,4 +1,4 @@
-const {madeRiego, getConfig} = require('./riegos');
+const { madeRiego } = require('./riegos');
 const moment = require('moment');
 const MADE_RIEGO = 'made riego';
 const ON_MADE_RIEGO = 'on made riego';
@@ -11,10 +11,10 @@ export const socket = io => {
       const {ops} = await madeRiego(msg, time);
       const {duration} = ops[0];
       console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) saved riego with duration of ${duration}`);
-      io.emit(MADE_RIEGO || IRRIGATE, ops[0]);
+      io.emit(ON_IRRIGATE, ops[0]);
     });
+    socket.on('error', function(e){
+      console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) socket with this error of ${e}`);
+    })
   });
-  io.on('error', function(e){
-    console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) socket with this error of ${e}`);
-  })
 }

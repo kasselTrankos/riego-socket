@@ -2,7 +2,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const {findAll, madeRiego, getConfig,
+const {findAll, getConfig,
   riegoDone, putConfig} = require('./src/riegos.js');
 const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 
@@ -46,7 +46,6 @@ app.get('/', function(req, res){
 
 app.post('/riego', async (req, res)=> {
   const response  = await riegoDone(req.body.id);
-  const text = response.error ? 'KO logs...' : 'OK done!'  
   res.send(response);
 });
 
