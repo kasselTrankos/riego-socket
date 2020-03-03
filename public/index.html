@@ -27,10 +27,7 @@
         socket.emit('made riego', 'riego - all');
       });
 
-      socket.on('chat message', function(msg){
-        $('#list').append($('<li  class="list-group-item"/>').text(msg));
-      });
-      socket.on('made riego', function(msg){
+      socket.on('on-irrigate', function(msg){
         $('#list').append($('<li class="list-group-item" />').text(msg.riego));
       });
     });

@@ -7,6 +7,9 @@ Using Fantasy land to create the algebraic interfaz of Irrigation.
 Irrigation uses the sigly linked list.
 
 
+## deprecated
+Not uising reverse proxy with apache, this was temporal until dns is ok.
+Now only using node server.
 This is the socket server from port 3000 that comunicate directly with arduino and mobile.
 Given apche2(v2.4+) configuration.
 ```
