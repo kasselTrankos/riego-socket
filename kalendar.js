@@ -1,12 +1,15 @@
 import Irrigation from '@functional-lib/irrigation';
-import {diffDays, addDays, date} from  '@functional-lib/kalendar';
 import fs from 'fs';
+import {date as D} from './fp/date';
 import uuid from 'uuid';
-import {compose, prop} from './utils';
-import {Maybe} from './fp/maybe';
+import {prop} from './utils';
 const FILE  = 'kalendar.json';
 
 const getValue = prop('value');
+const setMinutes = value => d => d.setMinutes(value);
+const setHours = value => d => d.setHours(value);
+const setSeconds = value => d => d.setSeconds(value);
+
 
 const getKalendar =  (file = FILE) => {
   try {
@@ -16,32 +19,13 @@ const getKalendar =  (file = FILE) => {
   }
 };
 
-const getArrayRiegosList = ({ start, end, hour, minute, duration}) => {
-  const zero = value => value <= 9 ? `0${value}` : value;
-  const getDay = d => date(d).map(x => x.getDate());
-  const getMonth = d => date(d).map(x => x.getMonth() + 1);
-  const day = d => compose(zero, getValue, getDay)(d); 
-  const month = d => compose(zero, getValue, getMonth)(d);
-  const year = d => date.of(d).value.getFullYear();
-  const minutes = d => d.setMinutes(minute);
-  const hours = d => d.setHours(hour);
-  const add = i => d => addDays(date.of(d).value)(i);
-  const format = d => `${year(d)}-${month(d)}-${day(d)}`;
-
-  const get = i => date(start)
-    .map(add(i))
-    .map(hours).map(compose(getValue, date.of))
-    .map(minutes).map(compose(getValue, date.of))
-    .map(format);
-
-  const getObjectKalendar = (_, index) => ({
-    date: `${compose(getValue, get)(index)} ${hour}:${minute}`,
-    day: compose(getValue, get)(index),
+const getArrayRiegosList = ({ dates, irrigation: {time: {hour, minute, second}, duration}}) => {
+  return dates.map(d => ({
+    date: D.of(d).map(setHours(hour)).map(setMinutes(minute)).map(setSeconds(second)).value,
+    day: d,
     uuid: uuid.v1(),
-    duration, hour, minute});
-
-  
-  return Array.from({length: diffDays(start)(end) + 1}, getObjectKalendar);
+    duration, hour, minute, second,
+  }));
 }
 
 const write = (riegos, file = FILE) => {
@@ -50,9 +34,10 @@ const write = (riegos, file = FILE) => {
       priority: 'dates'
     },
     sheduler: "* * * * * *",
-    dates: riegos.toArray()
+    dates: riegos
   };
   try {
+
     fs.writeFileSync(file, JSON.stringify(json));
     return {message: 'update kalendar', status: true, json, dates: json.dates};
   } catch(err) {
@@ -68,28 +53,15 @@ const deleteIrrigation = uuid => {
 }
 
 const _made = (data = {}) => {
-
-  const filterFromNow = item => +new Date(item.date) > +new Date();
-  const unique = current => riegos => riegos.contains(riego => {
-    return current.date !== riego.date
-  });
-  const gotDates = ({dates}) => Boolean(dates && dates.length);
+  const overNow = item => +new Date(item.date) > +new Date();
   const previous = getKalendar();
-  
-  const current = Irrigation.from(getArrayRiegosList(data));
-  const prev = Irrigation.from(gotDates(previous) ? previous.dates : [])
-  const uniqueRiegos = prev.filter(item => unique(item)(current)); 
-  const riegos = current.concat(uniqueRiegos).sort().filter(filterFromNow);
+  const current = getArrayRiegosList(data);
+  const riegos = current.concat(prop('dates')(previous) || []).filter(overNow);
   
   return write(riegos)
 }
 
-const madeKalendar = async (data = {}, file = FILE) => {
-  const getTime = d => d.getTime();
-  const isValid = getValue(date.of(data.start).map(getTime)) > 0;
-  return !isValid
-    ? {message: 'no need update', status: true}
-    : _made(data);
-};
+const madeKalendar = async (data = {}, file = FILE) => _made(data);
+
 
 module.exports = {madeKalendar, getKalendar, deleteIrrigation, getArrayRiegosList};
