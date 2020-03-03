@@ -41,24 +41,24 @@ describe('Kalendar => ',  () => {
     const {_, status} = await madeKalendar(A);
     expect(status).to.be.true;
   });
-  // it('madeKalendar:after is sorted', async () => {
-  //   const A = blessKalendar.generator();
-  //   const {_, status} = await madeKalendar(A);
-  //   const dates = getKalendar();
-  //   for(let i = 0; i < dates.length; i++) {
-  //     expect(+new Date(dates[i].date) < +new Date(dates[i+1].date)).to.be.true;
-  //   }
-  //   expect(status).to.be.true;
-  // });
-  // it('madeKalendar:no dates before now', async () => {
-  //   const A = blessKalendar.generator();
-  //   const {_, status} = await madeKalendar(A);
-  //   const dates = getKalendar();
-  //   for(let i = 0; i < dates.length; i++) {
-  //     expect(+new Date(dates[i].date) > +new Date()).to.be.true;
-  //   }
-  //   expect(status).to.be.true;
-  // });
+  it('madeKalendar:after is sorted', async () => {
+    const A = blessKalendar.generator();
+    const {_, status} = await madeKalendar(A);
+    const dates = getKalendar();
+    for(let i = 0; i < dates.length; i++) {
+      expect(+new Date(dates[i].date) < +new Date(dates[i+1].date)).to.be.true;
+    }
+    expect(status).to.be.true;
+  });
+  it('madeKalendar:no dates before now', async () => {
+    const A = blessKalendar.generator();
+    const {_, status} = await madeKalendar(A);
+    const dates = getKalendar();
+    for(let i = 0; i < dates.length; i++) {
+      expect(+new Date(dates[i].date) > +new Date()).to.be.true;
+    }
+    expect(status).to.be.true;
+  });
   // it('madeKalendar:no dates before now even add one before now', async () => {
   //   const format = value => value <= 9 ? `0${value}` : value;
   //   const minutes = new Date().getMinutes() - 10;

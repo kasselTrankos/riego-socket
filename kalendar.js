@@ -19,7 +19,7 @@ const getKalendar =  (file = FILE) => {
   }
 };
 
-const getArrayRiegosList = ({ dates, irrigation: {time: {hour, minute, second}, duration}}) => {
+const getArrayRiegosList = ({ dates = [], irrigation: {time: {hour, minute, second}, duration}}) => {
   return dates.map(d => ({
     date: D.of(d).map(setHours(hour)).map(setMinutes(minute)).map(setSeconds(second)).value,
     day: d,
