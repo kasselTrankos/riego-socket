@@ -5,7 +5,6 @@ import uuid from 'uuid';
 import {prop} from './utils';
 const FILE  = 'kalendar.json';
 
-const getValue = prop('value');
 const setMinutes = value => d => d.setMinutes(value);
 const setHours = value => d => d.setHours(value);
 const setSeconds = value => d => d.setSeconds(value);
@@ -37,7 +36,6 @@ const write = (riegos, file = FILE) => {
     dates: riegos
   };
   try {
-
     fs.writeFileSync(file, JSON.stringify(json));
     return {message: 'update kalendar', status: true, json, dates: json.dates};
   } catch(err) {
