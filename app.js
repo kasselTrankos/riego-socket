@@ -28,14 +28,6 @@ app.put('/config/:_id/:duration', async (req, res) => {
   const config = await putConfig(_id, duration);
   res.json(config);
 });
-app.post('/kalendar', async (req, res)=> {
-  const response  = await madeKalendar(req.body);
-  res.send(response);
-});
-app.get('/kalendar', async (req, res)=> {
-  const {dates}  = await getKalendar();
-  res.json(dates);
-});
 app.delete('/kalendar/:uuid', (req, res)=> {
   const {uuid} = req.params; 
   const {dates}  = deleteIrrigation(uuid);

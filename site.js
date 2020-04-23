@@ -4,6 +4,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const { exec } = require('child_process');
+const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
@@ -22,6 +23,15 @@ app.get('/', function(req, res){
 	});
 });
 
+app.post('/kalendar', async (req, res)=> {
+  const response  = await madeKalendar(req.body);
+  res.send(response);
+});
+
+app.get('/kalendar', async (req, res)=> {
+  const {dates}  = await getKalendar();
+  res.json(dates);
+});
 
 http.listen(3001, function(){
   console.log('listening on *:3001');

@@ -28,3 +28,5 @@ Info:
  -  To run the sheduler by forever with logs use ```node sheduler.js > sheduler-out.log 2>&1 &```.
  -  To run the app by forever with logs use ```node ./node_modules/.bin/babel-node app.js > app-out.log 2>&1 &```.
  - By pm2 ```pm2 start run.sh --max-memory-restart 6M --cron 30 2 * * *``` only 6M and restart every day ( there is a bug with apache and blocks it).
+
+ - By pm2 ```pm2 start site.sh```  initialize the app for mantain data and server.
