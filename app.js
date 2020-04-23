@@ -18,11 +18,6 @@ app.get('/riegos', async (req, res) => {
   const riegos = await findAll();
   res.json(riegos);
 });
-app.get('/config', async (req, res) => {
-  const config = await getConfig();
-  res.json(config);
-});
-
 app.put('/config/:_id/:duration', async (req, res) => {
   const {duration, _id} = req.params; 
   const config = await putConfig(_id, duration);

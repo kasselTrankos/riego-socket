@@ -4,6 +4,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const { exec } = require('child_process');
+const {getConfig} = require('./src/riegos.js');
 const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -31,6 +32,11 @@ app.post('/kalendar', async (req, res)=> {
 app.get('/kalendar', async (req, res)=> {
   const {dates}  = await getKalendar();
   res.json(dates);
+});
+
+app.get('/config', async (req, res) => {
+	const config = await getConfig();
+	res.json(config);
 });
 
 http.listen(3001, function(){
