@@ -7,7 +7,9 @@ const ON_IRRIGATE = 'on-irrigate';
 
 export const socket = io => {
   io.on('connection', function(socket){
+    console.log('estoy ')
     socket.on(MADE_RIEGO || IRRIGATE, async (msg, time) => {
+      console.log('molomogo')
       const {ops} = await madeRiego(msg, time);
       const {duration} = ops[0];
       console.log(`${moment().format('DD-MM-YYYY HH:mm:ss')} (${process.pid}) saved riego with duration of ${duration}`);

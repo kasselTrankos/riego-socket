@@ -1,6 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const { Future } = require('fluture')
 const {url, dbName, riegos, config} = require('./../config.js');
+
 const getClient = async (url) =>  await MongoClient.connect(url);
 
 export const getConfig = async () => {
@@ -37,23 +39,36 @@ export const madeRiego = async (riego, time) => {
     client.close();
   } 
 };
-export const findAll = async () => {
-  const client = await getClient(url);
-  try {
-    return  await client.db(dbName).collection(riegos).find({}).sort( { date: -1 } ).toArray();
-  } catch (err) {
-    return  {};
-  } finally {
-    client.close(); 
-  }
-};
-export const riegoDone = async (id) => {
-  const client = await getClient(url);
-  try {
-    return  await client.db(dbName).collection(riegos).updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true});
-  } catch (err) {
-    return  {id, error: true};
-  } finally {
-    client.close(); 
-  }
-};
+// findAll :: () -> Future Error [ {} ]  
+export const findAll = () => Future((rej, res) => {
+  MongoClient.connect(url,  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err)  return rej(err)
+    const db = client.db(dbName)
+    const collection = db.collection(riegos)
+    collection.find({}).toArray((err, docs) =>{
+      err ? rej(err) : res(docs)
+        client.close();
+    }) 
+  })
+  return () => { console.log ('CANT CANCEL')}
+});
+export const riegoDone = id => Future((rej, res) => {
+  let _client;
+  MongoClient.connect(url,  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err)  return rej(err)
+    _client = client
+    const db = client.db(dbName)
+    const collection = db.collection(riegos)
+    collection.updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true}).toArray((err, docs) =>{
+      err ? rej(err) : res(docs)
+        client.close()
+    }) 
+  })
+  return () => { _client.close()}
+});
