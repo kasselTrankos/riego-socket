@@ -6,16 +6,12 @@ const { fork, resolve, map, chain, alt } = require('fluture')
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const {findAll, riegoDone, setConfig, getConfig} = require('./src/riegos.js');
-const sanctuary  = require('sanctuary')
-const { env } = require('fluture-sanctuary-types')
+
 const { safeIsEmpty, eitherToFuture, prop } = require('./utils')
 const { config } = require('./config')
+const { S } = require('./helpers/sanctuary')
 
 
-const S = sanctuary.create ({
-  checkTypes: true, 
-  env: sanctuary.env.concat(env)
-})
 const { pipe } = S
 
 // auto initialize client MQTT

@@ -2,22 +2,34 @@
 const request = require('supertest')
 const { app } = require('../app')
 const { configDB } = require('../config')
+const { dropCollection } = require('../src/riegos')
+const { fork, resolve } = require('fluture')
+const { S } = require('../helpers/sanctuary')
+
+const { alt } = S
 
 describe('POSTs', () => {
 })
 
 describe('GETs', ()=> {
-  it('/config', async ()=> {
-    // drop if exits
+  it('/config', done => {
+
+    const test = () => {
+      request(app)
+        .get('/config')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.statusCode).toEqual(200)
+          expect(res.body).toEqual({
+            _id: "00000001dda85d44fa0638d6",
+            duration: 10,
+          })
+          return done()
+        })
+    }
+    const dropIfExists = name => alt(resolve(0)) (dropCollection(name))
     
-    const res = await request(app)
-      .get('/config')
-    
-    expect(res.statusCode).toEqual(200)
-    expect(res.body).toEqual({
-      _id: "00000001dda85d44fa0638d6",
-      duration: 10,
-    })
+    fork (x => console.log(x)) (test) (dropIfExists(configDB))
   })
 
   it('riegos', async () => {
