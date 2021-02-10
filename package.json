@@ -4,8 +4,7 @@
   "description": "Socket for my irrigation",
   "main": "app.js",
   "scripts": {
-    "test:services": "cross-env NODE_ENV=test jest  --testTimeout=10000",
-    "test": "mocha --require @babel/register",
+    "test": "cross-env NODE_ENV=test jest  --testTimeout=10000",
     "start:scheduler": "./node_modules/.bin/babel-node scheduler.js",
     "start:app": "./node_modules/.bin/babel-node app.js",
     "start:site": "./node_modules/.bin/babel-node site.js",
@@ -21,6 +20,7 @@
     "cron": "^1.7.1",
     "express": "^4.17.0",
     "fluture": "^13.0.1",
+    "fluture-sanctuary-types": "^7.0.1",
     "jsverify": "^0.8.4",
     "mocha": "^6.1.4",
     "moment": "^2.24.0",

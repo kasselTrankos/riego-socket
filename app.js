@@ -2,11 +2,21 @@
 require("tls").SLAB_BUFFER_SIZE = 100 * 1024; // 100Kb
 const app = require('express')();
 const bodyParser = require('body-parser');
-const { fork, resolve, map, chain } = require('fluture')
+const { fork, resolve, map, chain, alt } = require('fluture')
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const {findAll, riegoDone, putConfig} = require('./src/riegos.js');
-const { prop } = require('./utils')
+const {findAll, riegoDone, setConfig, getConfig} = require('./src/riegos.js');
+const sanctuary  = require('sanctuary')
+const { env } = require('fluture-sanctuary-types')
+const { safeIsEmpty, eitherToFuture, prop } = require('./utils')
+const { config } = require('./config')
+
+
+const S = sanctuary.create ({
+  checkTypes: true, 
+  env: sanctuary.env.concat(env)
+})
+const { pipe } = S
 
 // auto initialize client MQTT
 const {mqttClient} = require('./lib/mqttclient')
@@ -21,7 +31,9 @@ app.use(bodyParser.json()); // support json encoded bodies
 // get :: riegos
 app.get('/riegos',  (req, res) => {
   fork (console.error) (x => res.json(x)) (findAll())
-});
+})
+
+
 // post :: riego
 app.post('/riego', (req, res)=> {
   const proc = resolve(req)
@@ -30,7 +42,21 @@ app.post('/riego', (req, res)=> {
     .pipe(chain(riegoDone))
 
   fork (console.error) (x => res.send(x) ) (proc(req.body.id))
-});
+})
+
+app.get('/config', (_, res)=> {
+  const proc = pipe([
+    getConfig,
+    S.chain(pipe([
+      safeIsEmpty,
+      eitherToFuture
+    ])),
+    S.alt(setConfig(config.id)(config.duration)),
+    S.map(prop('0'))
+  ])
+
+  fork (x => res.send({error: 'empty'})) (x => res.send(x)) (proc(''))
+})
 
 // app.put('/config/:_id/:duration', async (req, res) => {
 //   const {duration, _id} = req.params; 

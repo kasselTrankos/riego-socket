@@ -10,5 +10,7 @@ const map = curry((x, xs)=> xs.map(x));
 const flatmap = curry((x, xs)=> xs.flatmap(x));
 const filter = curry((x, xs)=> xs.filter(x));
 
+
+
 module.exports =  {compose, curry, safeProp, prop, 
   chain, pipe, map, flatmap, filter};
