@@ -40,6 +40,24 @@ export const setConfig = id => duration => Future((rej, res) =>{
   return () => { console.log ('CANT CANCEL')}
 })
 
+// dropCollection -> String -> Future Error [{}]
+export const dropCollection = collectionName => Future((rej, res) =>{
+  MongoClient.connect(url,  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err)  return rej(err)
+    const db = client.db(dbName)
+    const collection = db.collection(collectionName)
+    .drop((err, result) => {
+      if(err) rej(err)
+      res(result)
+      client.close()
+    })
+  })
+  return () => { console.log ('CANT CANCEL')}
+})
+
 // findAll :: () -> Future Error [ {} ]  
 export const findAll = () => Future((rej, res) => {
   MongoClient.connect(url,  {

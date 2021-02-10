@@ -1,11 +1,15 @@
 // crud.trest
 const request = require('supertest')
 const { app } = require('../app')
+const { configDB } = require('../config')
+
 describe('POSTs', () => {
 })
 
 describe('GETs', ()=> {
   it('/config', async ()=> {
+    // drop if exits
+    
     const res = await request(app)
       .get('/config')
     
