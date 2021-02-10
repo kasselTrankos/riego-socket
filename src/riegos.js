@@ -74,6 +74,8 @@ export const findAll = () => Future((rej, res) => {
   })
   return () => { console.log ('CANT CANCEL')}
 });
+
+
 export const riegoDone = id => Future((rej, res) => {
   let _client;
   MongoClient.connect(url,  {

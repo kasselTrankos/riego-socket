@@ -8,8 +8,7 @@ const { S } = require('../helpers/sanctuary')
 
 const { alt } = S
 
-describe('POSTs', () => {
-})
+
 
 describe('GETs', ()=> {
   it('/config', done => {
@@ -28,7 +27,7 @@ describe('GETs', ()=> {
         })
     }
     const dropIfExists = name => alt(resolve(0)) (dropCollection(name))
-    
+
     fork (x => console.log(x)) (test) (dropIfExists(configDB))
   })
 
@@ -41,4 +40,21 @@ describe('GETs', ()=> {
   })
 })
 
+
+
+describe('PUTs', () => {
+  it('/config/:duration', ()=> {
+    request(app)
+        .put('/config/89')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.statusCode).toEqual(200)
+          expect(res.body).toEqual({
+            _id: "00000001dda85d44fa0638d6",
+            duration: 89,
+          })
+          return done()
+        })
+  })
+})
 

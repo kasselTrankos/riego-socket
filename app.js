@@ -26,7 +26,7 @@ app.use(bodyParser.json()); // support json encoded bodies
 
 // get :: riegos
 app.get('/riegos',  (req, res) => {
-  fork (console.error) (x => res.json(x)) (findAll())
+  fork (x => res.send({ error: 'riegos'})) (x => res.json(x)) (findAll())
 })
 
 
@@ -54,11 +54,22 @@ app.get('/config', (_, res)=> {
   fork (x => res.send({error: 'empty'})) (x => res.send(x)) (proc(''))
 })
 
-// app.put('/config/:_id/:duration', async (req, res) => {
-//   const {duration, _id} = req.params; 
-//   const config = await putConfig(_id, duration);
-//   res.json(config);
-// });
+app.put('/config/:duration', (req, res) => {
+  // const {duration, _id} = req.params;
+  const proc = pipe([
+    prop('params'),
+    prop('duration'),
+    x => Number(x),
+    setConfig(config.id),
+    S.map(prop('0'))
+  ])
+
+  fork (x => res.json({error: true, x})) (x => res.json(x)) (proc(req))
+  // const config = await setConfig(_id, duration);
+  // res.json(config);
+});
+
+
 // app.delete('/kalendar/:uuid', (req, res)=> {
 //   const {uuid} = req.params; 
 //   const {dates}  = deleteIrrigation(uuid);
