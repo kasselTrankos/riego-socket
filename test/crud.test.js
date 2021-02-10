@@ -1,8 +1,8 @@
 // crud.trest
 const request = require('supertest')
 const { app } = require('../app')
-const { configDB } = require('../config')
-const { dropCollection } = require('../src/riegos')
+const { configDB, riegosDB } = require('../config')
+const { dropCollection } = require('../src/configs')
 const { fork, resolve } = require('fluture')
 const { S } = require('../helpers/sanctuary')
 
@@ -22,8 +22,22 @@ describe('PUTs', () => {
         return done()
       })
   })
+  it('/kalendar/:date/:duration', done => {
+    const test = () => {
+      request(app)
+        .put('/kalendar/1602288000000/89')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.statusCode).toEqual(200)
+          expect(res.body.date).toEqual('2020-10-10T00:00:00.000Z')
+          expect(res.body.duration).toEqual(89)
+          return done()
+        })
+      }
+      const dropIfExists = name => alt(resolve(0)) (dropCollection(name))
+      fork (x => console.log(x)) (test) (dropIfExists(riegosDB))  
+  })
 })
-
 
 describe('GETs', ()=> {
   it('/config', done => {
@@ -46,11 +60,15 @@ describe('GETs', ()=> {
     fork (x => console.log(x)) (test) (dropIfExists(configDB))
   })
 
-  it('riegos', async () => {
+  it('kalendar', async () => {
+    const add = await request(app)
+      .put('/kalendar/1917820800000/109')
+    
     const res = await request(app)
-      .get('/riegos')
+      .get('/kalendar')
   
-    expect(res.body).toEqual([]) 
+    expect(res.body[0].date).toEqual('2030-10-10T00:00:00.000Z')
+    expect(res.body[0].duration).toEqual(109)
     expect(res.statusCode).toEqual(200)
   })
 })

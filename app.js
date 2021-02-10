@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const { initializeConfig } = require('./app/config')
+const { initializeKalendar } = require('./app/kalendar')
 
 
 
@@ -21,14 +22,12 @@ app.use(bodyParser.json()); // support json encoded bodies
 
 // init config routes
 initializeConfig(app)
+initializeKalendar(app)
 
 
 
-// app.delete('/kalendar/:uuid', (req, res)=> {
-//   const {uuid} = req.params; 
-//   const {dates}  = deleteIrrigation(uuid);
-//   res.json(dates);
-// });
+
+
 
 app.get('/', async (req, res) => {
   res.sendFile(__dirname + '/public/index.html');

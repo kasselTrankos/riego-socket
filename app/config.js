@@ -1,5 +1,5 @@
 const { fork, resolve, map, chain, alt } = require('fluture')
-const {findAll, riegoDone, setConfig, getConfig} = require('../src/riegos.js')
+const {findAll, riegoDone, setConfig, getConfig} = require('../src/configs')
 const { safeIsEmpty, eitherToFuture, prop } = require('../utils')
 const { config } = require('../config')
 const { S } = require('../helpers/sanctuary')
@@ -13,16 +13,6 @@ export const initializeConfig = app => {
     // get :: riegos    
   app.get('/riegos',  (req, res) => {
     fork (x => res.send({ error: 'riegos'})) (x => res.json(x)) (findAll())
-  })
-  
-  // post :: riego
-  app.post('/riego', (req, res)=> {
-    const proc = resolve(req)
-      .pipe(map(prop('body')))
-      .pipe(map(prop('id')))
-      .pipe(chain(riegoDone))
-  
-    fork (console.error) (x => res.send(x) ) (proc(req.body.id))
   })
   
   // get :: config
