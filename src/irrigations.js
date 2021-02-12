@@ -7,8 +7,8 @@ const { curry } = require('ramda')
 
 
 
-// insertIrrigation :: {} -> {} -> {} -> Future Error {}
-export const insertIrrigation = curry((query, update, options) => Future((rej, res) => {
+// updateOne :: {} -> {} -> {} -> Future Error {}
+export const updateOne = curry((query, update, options) => Future((rej, res) => {
   MongoClient.connect(url,  {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -18,13 +18,13 @@ export const insertIrrigation = curry((query, update, options) => Future((rej, r
     const collection = db.collection(riegosDB)
     collection.updateOne(query, update ,options)
       .then(x => res(x))
-      .catch(rej)
+      .catch(x => rej(x))
   })
   return () => { console.log ('CANT CANCEL')}
 }))
 
-// findAll :: () -> Future Error [ {} ]  
-export const irrigations = () => Future((rej, res) => {
+// find :: {} -> Future Error [ {} ]  
+export const find = query => Future((rej, res) => {
   MongoClient.connect(url,  {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -32,9 +32,7 @@ export const irrigations = () => Future((rej, res) => {
     if (err)  return rej(err)
     const db = client.db(dbName)
     const collection = db.collection(riegosDB)
-    collection.find({date: {
-      $gte: new Date()
-    }}).toArray((err, docs) =>{
+    collection.find(query).toArray((err, docs) =>{
       err ? rej(err) : res(docs)
         client.close();
     }) 
@@ -42,21 +40,19 @@ export const irrigations = () => Future((rej, res) => {
   return () => { console.log ('CANT CANCEL')}
 });
 
-// irrigations :: 
-export const irrigationDone = id => Future((rej, res) => {
-  let _client;
+
+// deleteOne :: () -> Future Error {}
+export const deleteOne = date => Future((rej, res) => {
   MongoClient.connect(url,  {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }, (err, client) => {
     if (err)  return rej(err)
-    _client = client
     const db = client.db(dbName)
     const collection = db.collection(riegosDB)
-    collection.updateOne({_id: ObjectID(id)}, {$set: {done: new Date(), isDone: true}}, {upsert: true}).toArray((err, docs) =>{
-      err ? rej(err) : res(docs)
-        client.close()
-    }) 
+    collection.deleteOne({date}, (err, result) => {
+      err ? rej(err) : res(result)
+    })
   })
-  return () => { _client.close()}
+  return () => { console.log ('CANT CANCEL')}
 });

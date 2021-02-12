@@ -1,8 +1,8 @@
 const { fork, resolve, map, chain, alt } = require('fluture')
 const {findAll, riegoDone, setConfig, getConfig} = require('../src/configs')
-const { safeIsEmpty, eitherToFuture, prop } = require('../utils')
+const { prop } = require('../utils')
 const { config } = require('../config')
-const { S } = require('../helpers/sanctuary')
+const { safeIsEmpty, eitherToFuture, S } = require('../helpers/sanctuary')
 
 
 const { pipe } = S

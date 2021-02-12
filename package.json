@@ -5,9 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --runInBand  --force-exit --detectOpenHandles --testTimeout=10000",
-    "start:scheduler": "./node_modules/.bin/babel-node scheduler.js",
+    "start:scheduller": "./node_modules/.bin/babel-node scheduler",
     "start:app": "./node_modules/.bin/babel-node index",
-    "start:site": "./node_modules/.bin/babel-node site.js",
     "start:mqtt:client": "node lib/mqttclient.js"
   },
   "author": "",
@@ -29,8 +28,6 @@
     "most": "^1.9.0",
     "mqtt": "^4.2.6",
     "ramda": "^0.27.1",
-    "rxjs": "^6.6.3",
-    "rxjs-compat": "^6.5.4",
     "shelljs": "^0.8.3",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
