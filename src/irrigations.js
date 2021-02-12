@@ -1,13 +1,14 @@
 // kalendars
 
 const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
 const { Future } = require('fluture')
 const {url, dbName, riegosDB} = require('./../config.js');
+const { curry } = require('ramda')
 
 
-// insertIrrigation :: Date -> Int -> Future Error {}
-export const insertIrrigation = date => duration => Future((rej, res) => {
+
+// insertIrrigation :: {} -> {} -> {} -> Future Error {}
+export const insertIrrigation = curry((query, update, options) => Future((rej, res) => {
   MongoClient.connect(url,  {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -15,12 +16,12 @@ export const insertIrrigation = date => duration => Future((rej, res) => {
     if (err)  return rej(err)
     const db = client.db(dbName)
     const collection = db.collection(riegosDB)
-    collection.insertOne({date: new Date(date), duration})
+    collection.updateOne(query, update ,options)
       .then(x => res(x))
       .catch(rej)
   })
   return () => { console.log ('CANT CANCEL')}
-})
+}))
 
 // findAll :: () -> Future Error [ {} ]  
 export const irrigations = () => Future((rej, res) => {

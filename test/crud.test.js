@@ -25,7 +25,7 @@ describe('PUTs', () => {
   it('/kalendar/:date/:duration', done => {
     const test = () => {
       request(app)
-        .put('/kalendar/1602288000000/89')
+        .post('/kalendar/1602288000000/89')
         .expect(200)
         .end((err, res) => {
           expect(res.statusCode).toEqual(200)
@@ -62,7 +62,7 @@ describe('GETs', ()=> {
 
   it('kalendar', async () => {
     const add = await request(app)
-      .put('/kalendar/1917820800000/109')
+      .post('/kalendar/1917820800000/109')
     
     const res = await request(app)
       .get('/kalendar')
