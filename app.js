@@ -2,16 +2,10 @@
 require("tls").SLAB_BUFFER_SIZE = 100 * 1024; // 100Kb
 const app = require('express')();
 const bodyParser = require('body-parser');
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+
 const { initializeConfig } = require('./app/config')
 const { initializeKalendar } = require('./app/kalendar')
 
-
-
-// auto initialize client MQTT
-const {mqttClient} = require('./lib/mqttclient')
-mqttClient(io)
 
 const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
 
@@ -34,8 +28,6 @@ app.get('/', async (req, res) => {
 });
 
 
-// http.listen(3000, function(){
-//   console.log('listening on *:3000');
-// });
+
 
 module.exports = { app }

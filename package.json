@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --runInBand  --force-exit --detectOpenHandles --testTimeout=10000",
     "start:scheduler": "./node_modules/.bin/babel-node scheduler.js",
-    "start:app": "./node_modules/.bin/babel-node app.js",
+    "start:app": "./node_modules/.bin/babel-node index",
     "start:site": "./node_modules/.bin/babel-node site.js",
     "start:mqtt:client": "node lib/mqttclient.js"
   },
