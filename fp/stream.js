@@ -55,10 +55,7 @@ function stream$ap(that) {
 function stream$concat$map (f) {
   return this.chain(([head, ...tail]) => tail.reduce((acc, x) => acc.concat(f(x)), f(head)) )
 }
-// fantasy-land/chain :: Chain m => m a ~> (a -> m b) -> m b
-function stream$chain(m) {
-  return this.map(m).join();
-}
+
 // fantasy-land/concat :: Semigroup a => a ~> a -> a
 function stream$concat(that) {
   return Stream(observer => {
@@ -70,14 +67,14 @@ function stream$concat(that) {
         observer.next(x)
       },
       complete: ()=> {
-        that.subscribe({
+        const unsuscribeThat = that.subscribe({
             next: x => {
               observer.next(x)
               observer.complete()
             },
           })
+        return () => unsubscribeThat()
       },
-      // error: observer.error,
     })
     return ()=> {
       // unsubscribeThat()
@@ -131,6 +128,26 @@ Stream.prototype.filter = function (f) {
   });
 }
 
+// fantasy-land/chain :: Chain m => m a ~> (a -> m b) -> m b
+function stream$chain(m) {
+  // metdo
+  return Stream(observer => {
+    const cancel = this.subscribe({
+      next: x => {
+         m(x).subscribe({
+            next: x => {
+              observer.next(x)
+            },
+            complete: observer.complete
+          })
+          return ()=> {}
+      },
+      error: observer.error
+    })
+    return ()=> {}
+  })
+}
+
 // join :: Chain m => m (m a) -> m a
 // https://github.com/sanctuary-js/sanctuary/blob/v3.1.0/index.js#L1500
 //  Removes one level of nesting from a nested monadic structure.
@@ -138,44 +155,44 @@ function stream$join() {
   let streams = 0;
   let completes = 0;
   const subs = [];
-
+  let insideStream = () => {}
   return Stream(observer => {
     // first level stream
     const outsideStream = this.subscribe({
       // next
       next: stream => {
-        streams++;
+        // streams++;
         /// level inside first level
-        const insideStream = stream.subscribe({
+        insideStream = stream.subscribe({
           next: value => {
-            observer.next(value);
-            if (streams === completes) {
-              observer.complete();
-            }
+            console.log(value, 'ruifuffhfhfhfh')
+            observer.next(value)
+            observer.complete()
+            // if (streams === completes) {
+            //   observer.complete();
+            // }
           },
-          complete: () => {
-            completes++;
-            if (completes === streams) {
-              observer.complete();
-            }
-          },
-          error: observer.error
+          complete: observer.complete
+          // complete: () => {
+          //   completes++;
+          //   if (completes === streams) {
+          //     observer.complete();
+          //   }
+          // },
+          // error: observer.error
         });
-        subs.push(insideStream);
+        // subs.push(insideStream);
       },
       // complete
-      complete: () => {
-        if (completes === streams) {
-          observer.complete()
-        }
-      },
+      // complete: observer.complete,
       //error
       error: e => observer.error(e)
     }
     );
     return () => {
       outsideStream();
-      subs.forEach(unsus => unsus())
+      insideStream()
+      // subs.forEach(unsus => unsus())
     }
   });
 }
