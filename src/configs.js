@@ -1,8 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
 const { Future } = require('fluture')
-const {url, dbName, riegosDB, configDB} = require('./../config.js');
-
+const {url, dbName, configDB} = require('./../config.js');
+const { curry } = require('ramda')
 
 // getconfig :: () -> Future Error {}
 export const getConfig = () => Future((rej, res) => {
@@ -22,7 +21,7 @@ export const getConfig = () => Future((rej, res) => {
 })
 
 // setConfig -> String -> Int -> Future Error [{}]
-export const setConfig = id => duration => Future((rej, res) =>{
+export const setConfig = curry((id, duration) => Future((rej, res) =>{
   MongoClient.connect(url,  {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -31,14 +30,14 @@ export const setConfig = id => duration => Future((rej, res) =>{
     const db = client.db(dbName)
     const collection = db.collection(configDB)
     collection
-    .updateOne({_id: ObjectID(id)}, {$set: {duration: Number(duration)}}, {upsert: true})
+    .updateOne({_id: id}, {$set: { duration } }, {upsert: true})
     .then(r =>{
       res([{ _id: id, duration}])
     })
     .catch(e => rej(e))
   })
   return () => { console.log ('CANT CANCEL')}
-})
+}))
 
 // dropCollection -> String -> Future Error [{}]
 export const dropCollection = collectionName => Future((rej, res) =>{

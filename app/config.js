@@ -1,19 +1,30 @@
-const { fork, resolve, map, chain, alt } = require('fluture')
-const {findAll, riegoDone, setConfig, getConfig} = require('../src/configs')
-const { prop } = require('../utils')
+import { duration } from 'moment'
+
+const { fork } = require('fluture')
+const R = require('ramda')
+const { setConfig, getConfig} = require('../src/configs')
+const ObjectID = require('mongodb').ObjectID
+const { prop, toNumber } = require('../utils')
 const { config } = require('../config')
 const { safeIsEmpty, eitherToFuture, S } = require('../helpers/sanctuary')
-
 
 const { pipe } = S
 // config
 
 
+// setDefaultConfig -> {} -> []
+const setDefaultConfig = R.pipe(
+  R.converge(
+    (id, duration) => [id, duration],
+    [
+      R.pipe(prop('id'), ObjectID),
+      R.pipe(prop('duration'), toNumber)
+    ]
+  ),
+)
+
+
 export const initializeConfig = app => {
-    // get :: riegos    
-  app.get('/riegos',  (req, res) => {
-    fork (x => res.send({ error: 'riegos'})) (x => res.json(x)) (findAll())
-  })
   
   // get :: config
   app.get('/config', (_, res)=> {
@@ -23,7 +34,10 @@ export const initializeConfig = app => {
         safeIsEmpty,
         eitherToFuture
       ])),
-      S.alt(setConfig(config.id)(config.duration)),
+      S.alt(pipe([
+        setDefaultConfig,
+        R.apply(setConfig)
+      ])(config)),
       S.map(prop('0'))
     ])
   
@@ -35,8 +49,9 @@ export const initializeConfig = app => {
     const proc = pipe([
       prop('params'),
       prop('duration'),
-      x => Number(x),
-      setConfig(config.id),
+      duration => Object.assign({}, config, {duration}),
+      setDefaultConfig,
+      R.apply(setConfig),
       S.map(prop('0'))
     ])
   

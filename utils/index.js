@@ -1,7 +1,7 @@
-import {compose, prop} from './fp.utils'
+import {compose} from './fp.utils'
 
 // log :: String -> a -> a
-const log = label => x =>
+export const log = label => x =>
     (console.log(`[${label}]:`, x), x)
-
-module.exports =  {compose, prop, log};
+export const toNumber = x => Number(x)
+export const prop = k => o => o[k]

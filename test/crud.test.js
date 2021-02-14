@@ -66,7 +66,7 @@ describe('POSTs', ()=> {
 describe('GETs', ()=> {
   it('/config', done => {
 
-    const test = () => {
+    const test = (c) => {
       request(app)
         .get('/config')
         .expect(200)
@@ -79,9 +79,8 @@ describe('GETs', ()=> {
           return done()
         })
     }
-    const dropIfExists = name => S.alt(resolve(0)) (dropCollection(name))
 
-    fork (x => console.log(x)) (test) (dropIfExists(configDB))
+    fork (x => console.log(x)) (test) (dropCollection(configDB))
   })
 
   it('kalendar', async () => {

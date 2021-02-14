@@ -1,12 +1,12 @@
 // kalendar
 const { fork } = require('fluture')
 const { updateOne, find, deleteOne } = require('../src/irrigations')
-const { prop } = require('../utils')
+const { prop, toNumber } = require('../utils')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
 const {kalendar: { file}} = require('../config')
-const toNumber = x => Number(x)
+
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
 
