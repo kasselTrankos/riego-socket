@@ -4,10 +4,12 @@ const { updateOne, find, deleteOne } = require('../src/irrigations')
 const { prop } = require('../utils')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
-
+const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
+const {kalendar: { file}} = require('../config')
 const toNumber = x => Number(x)
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
+
 
 
 export const initializeKalendar = app => {
@@ -23,7 +25,12 @@ export const initializeKalendar = app => {
       ),
       o => S.pipe([
         R.apply(updateOne),
-        S.map(x => prop ('$set') (prop('1')(o)))
+        S.pipe([
+          S.chain(()=> find({date: {$gte: new Date()}})),
+          S.map(S.pipe([S.map(prop('date')), setDates, jsonToString])),
+          R.chain(writeFile(file))
+        ]),
+        S.map(x => prop ('$set') (prop('1')(o))),
       ])(o),
 		])
 

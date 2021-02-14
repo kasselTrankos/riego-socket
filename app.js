@@ -6,9 +6,6 @@ const bodyParser = require('body-parser');
 const { initializeConfig } = require('./app/config')
 const { initializeKalendar } = require('./app/kalendar')
 
-
-const {madeKalendar, getKalendar, deleteIrrigation} = require('./kalendar'); 
-
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
