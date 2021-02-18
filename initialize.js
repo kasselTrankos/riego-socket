@@ -8,3 +8,5 @@ const io = require('socket.io')(http)
 const {mqttClient} = require('./lib/mqttclient')
 mqttClient(io)
 
+module.exports = { http }
+
