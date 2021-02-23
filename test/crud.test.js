@@ -9,7 +9,8 @@ const { S } = require('../helpers/sanctuary')
 describe('PUTs', () => {
   it('/config/:duration', done=> {
     request(app)
-      .put('/config/89')
+      .put('/config')
+      .send({duration: 89})
       .expect(200)
       .end((err, res) => {
         expect(res.statusCode).toEqual(200)

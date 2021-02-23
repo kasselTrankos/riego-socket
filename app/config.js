@@ -45,9 +45,9 @@ export const initializeConfig = app => {
   })
   
   // put :: config/:duration
-  app.put('/config/:duration', (req, res) => {
+  app.put('/config', (req, res) => {
     const proc = pipe([
-      prop('params'),
+      prop('body'),
       prop('duration'),
       duration => Object.assign({}, config, {duration}),
       setDefaultConfig,
