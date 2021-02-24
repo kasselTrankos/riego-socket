@@ -13,9 +13,9 @@ const toBoolean = x => x === 'true' ? true : false
 
 
 export const initializeKalendar = app => {
-	app.post('/kalendar/:date/:duration', (req, res)=> {
+	app.post('/kalendar', (req, res)=> {
 		const proc = S.pipe([
-			prop('params'),
+			prop('body'),
       R.converge(
         (date, duration) => [{date}, {$set: {date, duration}}, {upsert: true}],
         [

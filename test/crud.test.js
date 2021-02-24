@@ -26,7 +26,9 @@ describe('PUTs', () => {
     const t = 189
     const date = new Date(d).getTime()
     const add = await request(app)
-      .post(`/kalendar/${date}/${t}`)
+      .post(`/kalendar`)
+      .send({date, duration: t})
+      .set('Accept', 'application/json')
     
     const put = await request(app)
       .put(`/kalendar/${date}/${t}/true`)
@@ -38,23 +40,22 @@ describe('PUTs', () => {
     expect(res.body[0].duration).toEqual(t)
     expect(res.body[0].irrigated).toEqual(true)
     expect(res.statusCode).toEqual(200)
-    JSON.stringify(data)
     const del = await request(app)
       .delete(`/kalendar/${date}`)
   })
 })
 
 describe('POSTs', ()=> {
-  it('/kalendar/:date/:duration', async () => {
+  it('/kalendar', async () => {
     const d = '2020-12-23'
     const t = 189
     const date = new Date(d).getTime()
     const add = await request(app)
-      .post(`/kalendar/${date}/${t}`)
-    
+      .post(`/kalendar`)
+      .send({date, duration: t})
+      .set('Accept', 'application/json')
     const res = await request(app)
       .get(`/kalendar/${date}`)
-
     expect(res.body[0].date).toEqual(`${d}T00:00:00.000Z`)
     expect(res.body[0].duration).toEqual(t)
     expect(res.statusCode).toEqual(200)
@@ -88,8 +89,8 @@ describe('GETs', ()=> {
     const d = '2023-10-10'
     const date = new Date(d).getTime()
     const add = await request(app)
-      .post(`/kalendar/${date}/109`)
-    
+      .post(`/kalendar`)
+      .send({date, duration: 109})
     const res = await request(app)
       .get('/kalendar')
   

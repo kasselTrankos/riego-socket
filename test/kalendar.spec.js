@@ -15,7 +15,8 @@ describe('Kalendar => ',  () => {
     const date = moment().add(1, 'hours').valueOf()
     const t = 10
     const add = await request(app)
-      .post(`/kalendar/${date}/${t}`)
+      .post(`/kalendar`)
+      .send({duration: t, date})
     const kalendar = await fs.readFileSync(file, 'utf8')
     const del = await request(app)
       .delete(`/kalendar/${date}`)
