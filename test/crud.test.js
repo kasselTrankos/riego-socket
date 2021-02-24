@@ -38,7 +38,7 @@ describe('PUTs', () => {
     expect(res.body[0].duration).toEqual(t)
     expect(res.body[0].irrigated).toEqual(true)
     expect(res.statusCode).toEqual(200)
-
+    JSON.stringify(data)
     const del = await request(app)
       .delete(`/kalendar/${date}`)
   })
