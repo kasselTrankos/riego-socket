@@ -32,7 +32,7 @@ export const find = query => Future((rej, res) => {
     if (err)  return rej(err)
     const db = client.db(dbName)
     const collection = db.collection(riegosDB)
-    collection.find(query).toArray((err, docs) =>{
+    collection.find(query).sort( { date: 1 } ).toArray((err, docs) =>{
       err ? rej(err) : res(docs)
         client.close();
     }) 
