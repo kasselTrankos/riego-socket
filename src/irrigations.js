@@ -51,7 +51,7 @@ export const deleteOne = date => Future((rej, res) => {
     const db = client.db(dbName)
     const collection = db.collection(riegosDB)
     collection.deleteOne({date}, (err, result) => {
-      err ? rej(err) : res(result)
+      result && result.result && result.result.ok === 1 ?  res(result) : rej(err)
     })
   })
   return () => { console.log ('CANT CANCEL')}
