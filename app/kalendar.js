@@ -75,9 +75,9 @@ export const initializeKalendar = app => {
   })
 
   // delete :: kalendar/:date
-  app.delete('/kalendar/:date', (req, res)=> {
+  app.delete('/kalendar', (req, res)=> {
     const proc = S.pipe([
-      prop('params'),
+      prop('body'),
       prop('date'),
       toNumber,
       toDate,

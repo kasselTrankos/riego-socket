@@ -108,10 +108,12 @@ describe('DELETE', ()=> {
     const d = '2023-10-10'
     const date = new Date(d).getTime()
     const add = await request(app)
-      .post(`/kalendar/${date}/89`)
+      .post(`/kalendar`)
+      .send({date, duration: 89})
     
     const res = await request(app)
-      .delete(`/kalendar/${date}`)
+      .delete(`/kalendar`)
+      .send({date})
   
     expect(res.body).toEqual({deleted: true})
     expect(res.statusCode).toEqual(200)
