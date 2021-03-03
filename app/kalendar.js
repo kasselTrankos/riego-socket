@@ -5,8 +5,12 @@ const { prop, toNumber } = require('../utils')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
-const { setLoggerPostKalendar, setLoggerGetKalendar, setLoggerDeleteKalendar } = require('../log')
+const { setLoggerPostKalendar,
+  setLoggerPostIrrigate,
+  setLoggerGetKalendar,
+  setLoggerDeleteKalendar } = require('../log')
 const {kalendar: { file}} = require('../config')
+const { irrigate } = require('../lib/mqttclient') 
 
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
@@ -35,6 +39,16 @@ export const initializeKalendar = app => {
         S.map(() => prop ('$set') (prop('1')(o))),
       ])(o),
       S.chain(setLoggerPostKalendar),
+		])
+
+		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
+	})
+  app.post('/irrigate', (req, res)=> {
+		const proc = S.pipe([
+			prop('body'),
+      prop('duration'),
+      irrigate,
+      S.chain(setLoggerPostIrrigate),
 		])
 
 		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
