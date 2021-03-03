@@ -27,6 +27,7 @@
     "mongodb": "^3.6.3",
     "most": "^1.9.0",
     "mqtt": "^4.2.6",
+    "nodemailer": "^6.5.0",
     "ramda": "^0.27.1",
     "shelljs": "^0.8.3",
     "socket.io": "^2.2.0",
