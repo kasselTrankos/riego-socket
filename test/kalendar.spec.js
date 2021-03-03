@@ -11,13 +11,14 @@ const d = moment().set({hour:0,minute:0,second:0,millisecond:0});
 
 describe('Kalendar => ',  () => {
 
-  it('add date ', async ()=> {
+  it('add date ', async () => {
     const date = moment().add(1, 'hours').valueOf()
     const t = 10
     const add = await request(app)
       .post(`/kalendar`)
       .send({duration: t, date})
     const kalendar = await fs.readFileSync(file, 'utf8')
+    console.log(kalendar, 'asdhalskjdhasjklasjkasdh')
     const del = await request(app)
       .delete(`/kalendar`)
       .send({date})

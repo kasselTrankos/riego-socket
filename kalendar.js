@@ -2,7 +2,7 @@ import Irrigation from '@functional-lib/irrigation';
 import fs from 'fs';
 import {date as D} from './fp/date';
 import uuid from 'uuid';
-import {prop} from './utils';
+import { prop } from './utils';
 const FILE  = 'kalendar.json';
 
 const setMinutes = value => d => d.setMinutes(value);

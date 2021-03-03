@@ -1,5 +1,3 @@
-import { duration } from 'moment'
-
 const { fork, resolve } = require('fluture')
 const R = require('ramda')
 const { setConfig, getConfig} = require('../src/configs')
@@ -8,6 +6,7 @@ const { prop, toNumber } = require('../utils')
 const { config } = require('../config')
 const { safeIsEmpty, eitherToFuture, S } = require('../helpers/sanctuary')
 const { setLoggerGetConfig, setLoggerPutConfig } = require('../log')
+const { sendEmail, mailOptions } = require('./email')
 
 const { pipe } = S
 // config
@@ -39,7 +38,8 @@ export const initializeConfig = app => {
         R.apply(setConfig)
       ])(config)),
       S.chain(setLoggerGetConfig),
-      S.map(prop('0'))
+      S.map(prop('0')),
+      // S.bichain(()=> sendEmail(mailOptions)) (resolve),
     ])
   
     fork (x => res.send({error: 'empty'})) (x => res.send(x)) (proc(''))

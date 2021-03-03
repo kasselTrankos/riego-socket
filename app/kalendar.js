@@ -14,6 +14,7 @@ const toBoolean = x => x === 'true' ? true : false
 
 
 export const initializeKalendar = app => {
+
 	app.post('/kalendar', (req, res)=> {
 		const proc = S.pipe([
 			prop('body'),
@@ -31,13 +32,14 @@ export const initializeKalendar = app => {
           S.map(S.pipe([S.map(prop('date')), setDates, jsonToString])),
           R.chain(writeFile(file))
         ]),
-        S.map(x => prop ('$set') (prop('1')(o))),
+        S.map(() => prop ('$set') (prop('1')(o))),
       ])(o),
       S.chain(setLoggerPostKalendar),
 		])
 
 		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
 	})
+
   // put :: /kalendar/:date/:duration/:irrigated
   app.put('/kalendar/:date/:duration/:irrigated', (req, res)=> {
 		const proc = S.pipe([

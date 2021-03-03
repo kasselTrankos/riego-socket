@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV || 'development';
 
 module.exports = {
   kalendar: {
-    file: env === 'test' ? 'kalendar.json' : 'kalendar-test.json'
+    file: env === 'test' ? 'kalendar-test.json' : 'kalendar.json'
   },
   config: {
       duration: 10,

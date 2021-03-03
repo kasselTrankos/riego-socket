@@ -1,10 +1,9 @@
 const { fork } = require('fluture')
 const Future = require('fluture')
 const R = require('ramda')
-const { setConfig, getConfig} = require('../src/configs')
-const ObjectID = require('mongodb').ObjectID
 const { prop } = require('../utils')
 const { config } = require('../config')
+const { S } = require('../helpers/sanctuary')
 var nodemailer = require('nodemailer')
 
 const { pipe } = S
@@ -18,18 +17,18 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const mailOptions = {
+export const mailOptions = {
   from: 'Remitente',
   to: 'alvaro.touzon@gmail.com',
-  subject: 'ERROR',
+  subject: 'ERROR in [PROCESS IRRIGATION]',
   text: 'BODY'
 }
-const sendEmail = mailOptions => Future((rej, res) =>{ 
+export const sendEmail = mailOptions => Future((rej, res) =>{ 
 
-  transporter.sendMail(mailOptions, (error) => {
-    error 
-      ? rej(500, err.message)
-      : res('ok')
+  transporter.sendMail(mailOptions, err => {
+    err
+      ? rej(err)
+      : rej('mail enviado')
   })
   return () => { console.log ('CANT CANCEL')}
 });
