@@ -1,0 +1,6 @@
+[03/02/2021 22:33:32] {104866}  [GET] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 10}
+[03/02/2021 22:33:50] {104965}  [GET] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 10}
+[03/02/2021 22:34:26] {105076}  [GET] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 10}
+[03/02/2021 22:35:30] {105189}  [GET] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 10}
+[03/02/2021 22:37:53] {105356}  [PUT] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 89}
+[03/02/2021 22:37:54] {105356}  [GET] Obtains this config { _id: 00000001dda85d44fa0638d6, duration: 10}

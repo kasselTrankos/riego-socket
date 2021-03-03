@@ -1,16 +1,32 @@
 import { duration } from 'moment'
 
-const { fork } = require('fluture')
+const { fork, resolve } = require('fluture')
 const R = require('ramda')
 const { setConfig, getConfig} = require('../src/configs')
 const ObjectID = require('mongodb').ObjectID
 const { prop, toNumber } = require('../utils')
 const { config } = require('../config')
 const { safeIsEmpty, eitherToFuture, S } = require('../helpers/sanctuary')
+const { logger } = require('../log')
 
 const { pipe } = S
 // config
 
+
+// setLoggerGetConfig :: {} -> Future {} Error
+const setLoggerGetConfig = response => pipe([
+  prop('0'),
+  ({_id, duration}) => ` [GET] Obtains this config { _id: ${_id}, duration: ${duration}}`,
+  logger,
+   S.chain(() => resolve(response))
+])(response)
+// setLoggerPutConfig :: {} -> Future {} Error
+const setLoggerPutConfig = response => pipe([
+  prop('0'),
+  ({_id, duration}) => ` [PUT] Obtains this config { _id: ${_id}, duration: ${duration}}`,
+  logger,
+   S.chain(() => resolve(response))
+])(response)
 
 // setDefaultConfig -> {} -> []
 const setDefaultConfig = R.pipe(
@@ -38,6 +54,7 @@ export const initializeConfig = app => {
         setDefaultConfig,
         R.apply(setConfig)
       ])(config)),
+      S.chain(setLoggerGetConfig),
       S.map(prop('0'))
     ])
   
@@ -52,6 +69,7 @@ export const initializeConfig = app => {
       duration => Object.assign({}, config, {duration}),
       setDefaultConfig,
       R.apply(setConfig),
+      S.chain(setLoggerPutConfig),
       S.map(prop('0'))
     ])
   
