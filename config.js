@@ -12,5 +12,7 @@ module.exports = {
   url: 'mongodb://localhost:27017',
   dbName: 'irrigations',
   riegosDB: env === 'test' ? 'testIrrigate' : 'irrigate',
-  configDB: env === 'test' ? 'testConfig': 'config'
+  configDB: env === 'test' ? 'testConfig': 'config',
+  email: process.env.EMAIL || '',
+  pwd: process.env.PWD || '',
 }
