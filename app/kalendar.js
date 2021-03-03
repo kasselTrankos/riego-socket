@@ -6,6 +6,7 @@ const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
 const {kalendar: { file}} = require('../config')
+const { setLoggerPostKalendar, setLoggerGetKalendar } = require('../log')
 
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
@@ -32,6 +33,7 @@ export const initializeKalendar = app => {
         ]),
         S.map(x => prop ('$set') (prop('1')(o))),
       ])(o),
+      S.chain(setLoggerPostKalendar),
 		])
 
 		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
@@ -69,7 +71,11 @@ export const initializeKalendar = app => {
   
   // post :: kalendar/:date
   app.get('/kalendar', (req, res)=> {
-    fork (console.error) (x => res.send(x) ) (find({date: {
+    const proc = S.pipe([
+      find,
+      S.chain(setLoggerGetKalendar),
+    ])
+    fork (console.error) (x => res.send(x) ) (proc({date: {
       $gte: new Date()
     }}))
   })
@@ -82,7 +88,7 @@ export const initializeKalendar = app => {
       toNumber,
       toDate,
       deleteOne,
-      S.map(x => ({deleted: true}))
+      S.map(x => ({deleted: true})),
     ])
     fork (console.error) (x => res.send(x) ) (proc(req))
   })

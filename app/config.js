@@ -7,26 +7,10 @@ const ObjectID = require('mongodb').ObjectID
 const { prop, toNumber } = require('../utils')
 const { config } = require('../config')
 const { safeIsEmpty, eitherToFuture, S } = require('../helpers/sanctuary')
-const { logger } = require('../log')
+const { setLoggerGetConfig, setLoggerPutConfig } = require('../log')
 
 const { pipe } = S
 // config
-
-
-// setLoggerGetConfig :: {} -> Future {} Error
-const setLoggerGetConfig = response => pipe([
-  prop('0'),
-  ({_id, duration}) => ` [GET] Obtains this config { _id: ${_id}, duration: ${duration}}`,
-  logger,
-   S.chain(() => resolve(response))
-])(response)
-// setLoggerPutConfig :: {} -> Future {} Error
-const setLoggerPutConfig = response => pipe([
-  prop('0'),
-  ({_id, duration}) => ` [PUT] Obtains this config { _id: ${_id}, duration: ${duration}}`,
-  logger,
-   S.chain(() => resolve(response))
-])(response)
 
 // setDefaultConfig -> {} -> []
 const setDefaultConfig = R.pipe(
