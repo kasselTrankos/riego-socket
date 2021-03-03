@@ -1,3 +1,5 @@
+import { config } from 'shelljs'
+
 const { appendFile } = require('./fs')
 const { pipe, prop, chain, reduce } = require('ramda')
 const { now, formatDate } = require('../lib/date')
@@ -48,6 +50,13 @@ export const setLoggerGetKalendar = response => pipe(
     (acc, {date, duration, _id}) => 
       `${acc} [GET][/kalendar] { _id: ${_id}, date: ${date}, duration: ${duration}}\n`,
   '', x),
+  logger,
+  chain(() => resolve(response))
+)(response)
+
+// setLoggerDeleteKalendar -> [] -> Future {} Error
+export const setLoggerDeleteKalendar = response => pipe(
+  date => ` [DELETE][/kalendar] { date: ${date} }`,
   logger,
   chain(() => resolve(response))
 )(response)

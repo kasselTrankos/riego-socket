@@ -5,8 +5,8 @@ const { prop, toNumber } = require('../utils')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
+const { setLoggerPostKalendar, setLoggerGetKalendar, setLoggerDeleteKalendar } = require('../log')
 const {kalendar: { file}} = require('../config')
-const { setLoggerPostKalendar, setLoggerGetKalendar } = require('../log')
 
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
@@ -87,7 +87,8 @@ export const initializeKalendar = app => {
       prop('date'),
       toNumber,
       toDate,
-      deleteOne,
+      setLoggerDeleteKalendar,
+      S.chain(deleteOne),
       S.map(x => ({deleted: true})),
     ])
     fork (console.error) (x => res.send(x) ) (proc(req))
