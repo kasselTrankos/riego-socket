@@ -17,7 +17,7 @@ const toBoolean = x => x === 'true' ? true : false
 
 
 
-export const initializeKalendar = app => {
+export const initializeKalendar = (io, app) => {
 
 	app.post('/kalendar', (req, res)=> {
 		const proc = S.pipe([
@@ -48,7 +48,7 @@ export const initializeKalendar = app => {
       prop('body'),
       prop('duration'),
       x => String(x),
-      irrigate,
+      irrigate(io),
       S.chain(setLoggerPostIrrigate),
     ])
     fork (console.error) (x => res.send(x) ) (proc(req))

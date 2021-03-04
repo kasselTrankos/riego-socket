@@ -1,10 +1,11 @@
 // crud.trest
 const request = require('supertest')
-const { app } = require('../app')
+const { app, startApp } = require('../app')
 const { configDB } = require('../config')
 const { dropCollection } = require('../src/configs')
 const { fork, resolve } = require('fluture')
 const { S } = require('../helpers/sanctuary')
+import '../initialize'
 
 describe('PUTs', () => {
   it('/config/:duration', done=> {

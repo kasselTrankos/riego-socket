@@ -11,20 +11,23 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
 
 
-// init config routes
-initializeConfig(app)
-initializeKalendar(app)
+const startApp = (io) => {
+  // init config routes
+  initializeConfig(app)
+  initializeKalendar(io, app)
+  app.get('/', async (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+  });
+
+}
 
 
 
 
 
 
-app.get('/', async (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
 
 
 
 
-module.exports = { app }
+module.exports = { app, startApp }
