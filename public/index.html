@@ -12,15 +12,7 @@
       socket.on('update-irrigate', function(msg){
         $('#list').append($('<li class="list-group-item" />').text(msg));
       });
-      function sendIrrigation() {
-        fetch('/irrigate', {
-          method: 'POST',
-          body: JSON.stringify({ duration: 10}) 
-        })
-        .then(response => response.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
-      }
+      
     });
   </script>
     <title>Irrigation v2.0</title>
@@ -45,6 +37,15 @@
       </div>
     </div>
     <script>
+      function sendIrrigation() {
+        fetch('/irrigate', {
+          method: 'POST',
+          body: JSON.stringify({ duration: 10}) 
+        })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+      }
       const button = document.querySelector('button');
       button.addEventListener('click', event => {
         sendIrrigation()
