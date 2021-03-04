@@ -44,14 +44,20 @@ export const initializeKalendar = app => {
 		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
 	})
   app.post('/irrigate', (req, res)=> {
-		const proc = S.pipe([
-			prop('body'),
-      prop('duration'),
+    const proc = S.pipe([
+      prop('body'),
+      prop('date'),
       irrigate,
       // S.chain(setLoggerPostIrrigate),
-		])
+    ])
+    fork (console.error) (x => res.send(x) ) (proc(req))
+		// const proc = S.pipe([
+		// 	prop('body'),
+    //   prop('duration'),
+    //   irrigate,
+		// ])
 
-		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
+		// fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
 	})
 
   // put :: /kalendar/:date/:duration/:irrigated
