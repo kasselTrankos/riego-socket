@@ -40,7 +40,10 @@
       function sendIrrigation() {
         fetch('/irrigate', {
           method: 'POST',
-          body: JSON.stringify({ duration: 10}) 
+          body: JSON.stringify({ duration: 10}),
+          headers: {
+            'Content-Type': 'application/json'
+          } 
         })
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
