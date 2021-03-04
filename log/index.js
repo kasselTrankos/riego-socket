@@ -63,7 +63,7 @@ export const setLoggerDeleteKalendar = response => pipe(
 
 // setLoggerPostIrrigate -> [] -> Future {} Error
 export const setLoggerPostIrrigate = response => pipe(
-  date => ` [POST][/irrigate] { date: ${date} }`,
+  x => ` [POST][/irrigate] { duration: ${x} }`,
   logger,
   chain(() => resolve(response))
 )(response)

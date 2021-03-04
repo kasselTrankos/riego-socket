@@ -70,8 +70,10 @@ it('/irrigate', async () => {
     .post(`/irrigate`)
     .send({duration: 12})
     .set('Accept', 'application/json')
-  console.log(res)
-  expect(res.body[0].duration).toEqual(12)
+    expect(res.statusCode).toEqual(200)
+    console.log(res.body)
+    expect(res.body.duration).toEqual(12)
+
 
 })
 
