@@ -35,7 +35,7 @@
   <body>
     <h1 class="center">Irrigation v.2.0</h1>
     <div class="container">
-      <button  onclick="sendIrrigation()"> irrigate</button>
+      <button> irrigate</button>
       <div class="row">
         <div class="col-sm">
           <ul class="list-group" id="list">
@@ -44,4 +44,10 @@
         </div>
       </div>
     </div>
+    <script>
+      const button = document.querySelector('button');
+      button.addEventListener('click', event => {
+        sendIrrigation()
+      });
+    </script>
 </html>
