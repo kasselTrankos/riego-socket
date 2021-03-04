@@ -52,13 +52,6 @@ export const initializeKalendar = app => {
       S.chain(setLoggerPostIrrigate),
     ])
     fork (console.error) (x => res.send(x) ) (proc(req))
-		// const proc = S.pipe([
-		// 	prop('body'),
-    //   prop('duration'),
-    //   irrigate,
-		// ])
-
-		// fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))
 	})
 
   // put :: /kalendar/:date/:duration/:irrigated
