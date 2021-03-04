@@ -71,7 +71,7 @@ it('/irrigate', async () => {
     .send({duration: 12})
     .set('Accept', 'application/json')
     expect(res.statusCode).toEqual(200)
-    console.log(res.body)
+    console.log(res)
     expect(res.body.duration).toEqual(12)
 
 
