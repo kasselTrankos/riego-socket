@@ -18,7 +18,6 @@ describe('Kalendar => ',  () => {
       .post(`/kalendar`)
       .send({duration: t, date})
     const kalendar = await fs.readFileSync(file, 'utf8')
-    console.log(kalendar, 'asdhalskjdhasjklasjkasdh')
     const del = await request(app)
       .delete(`/kalendar`)
       .send({date})

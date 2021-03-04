@@ -1,7 +1,6 @@
 // kalendar
 const { fork } = require('fluture')
 const { updateOne, find, deleteOne } = require('../src/irrigations')
-const { prop, toNumber } = require('../utils')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
@@ -11,6 +10,7 @@ const { setLoggerPostKalendar,
   setLoggerDeleteKalendar } = require('../log')
 const {kalendar: { file}} = require('../config')
 const { irrigate } = require('../lib/mqttclient') 
+const { prop, toNumber } = require('../utils')
 
 const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
@@ -48,7 +48,7 @@ export const initializeKalendar = app => {
 			prop('body'),
       prop('duration'),
       irrigate,
-      S.chain(setLoggerPostIrrigate),
+      // S.chain(setLoggerPostIrrigate),
 		])
 
 		fork(x => res.json( {error: true})) (x => res.json(x)) (proc(req))

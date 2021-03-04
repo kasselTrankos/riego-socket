@@ -65,6 +65,16 @@ describe('POSTs', ()=> {
   })
 })
 
+it('/irrigate', async () => {
+  const res = await request(app)
+    .post(`/irrigate`)
+    .send({duration: 12})
+    .set('Accept', 'application/json')
+  console.log(res)
+  expect(res.body[0].duration).toEqual(12)
+
+})
+
 describe('GETs', ()=> {
   it('/config', done => {
 
