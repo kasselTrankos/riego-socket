@@ -96,7 +96,7 @@ export const initializeKalendar = (io, app) => {
     }}))
   })
 
-  const getNext = x => x.lenght ? x[0] : []
+  const getNext = x => console.log(x) ||  x.lenght ? x[0] : []
   // get :: nextIrrigate
   app.get('/nextIrrigate', (req, res)=> {
     const proc = S.pipe([
