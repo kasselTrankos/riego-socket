@@ -7,7 +7,8 @@ const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
 const { setLoggerPostKalendar,
   setLoggerPostIrrigate,
   setLoggerGetKalendar,
-  setLoggerDeleteKalendar } = require('../log')
+  setLoggerDeleteKalendar,
+  setLoggerGetNextIrrigate } = require('../log')
 const {kalendar: { file}} = require('../config')
 const { irrigate } = require('../lib/mqttclient') 
 const { prop, toNumber } = require('../utils')
@@ -96,13 +97,14 @@ export const initializeKalendar = (io, app) => {
     }}))
   })
 
-  const getNext = x => console.log(x) ||  x.lenght ? x[0] : []
+  // getNext :: [{}] ->  {}
+  const getNext = x => x.length ? x[0] : {}
   // get :: nextIrrigate
   app.get('/nextIrrigate', (req, res)=> {
     const proc = S.pipe([
       find,
       S.map(getNext),
-      S.chain(setLoggerGetKalendar),
+      S.chain(setLoggerGetNextIrrigate),
     ])
     fork (console.error) (x => res.send(x) ) (proc({date: {
       $gte: new Date()
