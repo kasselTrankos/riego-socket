@@ -96,11 +96,12 @@ export const initializeKalendar = (io, app) => {
     }}))
   })
 
+  const getNext = x => x.lenght ? x[0] : []
   // get :: nextIrrigate
   app.get('/nextIrrigate', (req, res)=> {
     const proc = S.pipe([
       find,
-      S.map(prop('0')),
+      S.map(getNext),
       S.chain(setLoggerGetKalendar),
     ])
     fork (console.error) (x => res.send(x) ) (proc({date: {
