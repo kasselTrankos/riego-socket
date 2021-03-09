@@ -54,6 +54,16 @@ export const setLoggerGetKalendar = response => pipe(
   chain(() => resolve(response))
 )(response)
 
+// setLoggerGetNextIrrigate -> [] -> Future {} Error
+export const setLoggerGetNextIrrigate = response => pipe(
+  x => reduce (
+    (acc, {date, duration, _id}) => 
+      `${acc} [GET][/nextIrrigate] { _id: ${_id}, date: ${date}, duration: ${duration}}\n`,
+  '', x),
+  logger,
+  chain(() => resolve(response))
+)(response)
+
 // setLoggerDeleteKalendar -> [] -> Future {} Error
 export const setLoggerDeleteKalendar = response => pipe(
   date => ` [DELETE][/kalendar] { date: ${date} }`,

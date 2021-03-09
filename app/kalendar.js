@@ -85,10 +85,22 @@ export const initializeKalendar = (io, app) => {
     fork (console.error) (x => res.send(x) ) (proc(req))
   })
   
-  // post :: kalendar/:date
+  // get :: kalendar
   app.get('/kalendar', (req, res)=> {
     const proc = S.pipe([
       find,
+      S.chain(setLoggerGetKalendar),
+    ])
+    fork (console.error) (x => res.send(x) ) (proc({date: {
+      $gte: new Date()
+    }}))
+  })
+
+  // get :: nextIrrigate
+  app.get('/nextIrrigate', (req, res)=> {
+    const proc = S.pipe([
+      find,
+      S.map(prop('0')),
       S.chain(setLoggerGetKalendar),
     ])
     fork (console.error) (x => res.send(x) ) (proc({date: {
