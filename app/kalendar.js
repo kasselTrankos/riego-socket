@@ -99,6 +99,7 @@ export const initializeKalendar = (io, app) => {
 
   // getNext :: [{}] ->  {}
   const getNext = x => x.length ? x[0] : {}
+  
   // get :: nextIrrigate
   app.get('/nextIrrigate', (req, res)=> {
     const proc = S.pipe([
