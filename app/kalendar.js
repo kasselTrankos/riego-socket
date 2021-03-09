@@ -39,6 +39,7 @@ export const initializeKalendar = (io, app) => {
         ]),
         S.map(() => prop ('$set') (prop('1')(o))),
       ])(o),
+      S.chain(updateNextIrrigate),
       S.chain(setLoggerPostKalendar),
 		])
 
