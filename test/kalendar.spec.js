@@ -7,7 +7,7 @@ import "regenerator-runtime/runtime";
 import fs from 'fs';
 import moment from 'moment-timezone';
 const d = moment().set({hour:0,minute:0,second:0,millisecond:0});
-
+import '../initialize'
 
 describe('Kalendar => ',  () => {
 
@@ -17,6 +17,8 @@ describe('Kalendar => ',  () => {
     const add = await request(app)
       .post(`/kalendar`)
       .send({duration: t, date})
+      .set('Accept', 'application/json')
+    
     const kalendar = await fs.readFileSync(file, 'utf8')
     const del = await request(app)
       .delete(`/kalendar`)
