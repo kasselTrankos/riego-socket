@@ -15,4 +15,6 @@ module.exports = {
   configDB: env === 'test' ? 'testConfig': 'config',
   email: process.env.EMAIL || '',
   pwd: process.env.PWD || '',
+  logMaxSize: 50290,
+  logName: 'irrigation_log'
 }

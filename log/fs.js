@@ -8,10 +8,10 @@ const { curry } = require('ramda')
 export const basename = file => path.basename(file);
 
 // writefile :: String -> String -> Async e String
-export const writefile = name => data => Future((reject, resolve) =>{ 
-    fs.writeFile(name, data, err =>  err ? reject(err) : resolve(data))
+export const writefile = curry((name, data) => Future((rej, res) =>{ 
+    fs.writeFile(name, data, err => console.log(err, name, data) ||  err ? rej(err) : res(data))
     return () => { console.log ('CANT CANCEL')}
-});
+}))
 
 
 // createWriteStream :: String -> String -> Async e String
@@ -25,6 +25,31 @@ export const readfile = file => Future((rej, res) => {
     fs.readFile(file, 'utf8', (err, data)=> err 
         ? rej(err)
         : res(data)
+    )
+    return () => { console.log ('CANT CANCEL')}
+});
+
+
+// access :: String -> Future a b
+export const access =  file => Future((rej, res) => {
+    fs.access(file, (err)=> err ? rej(file) : res(file))
+    return () => { console.log ('CANT CANCEL')}
+})
+
+
+// rename :: String -> Future a b
+export const rename = curry((oldname, newname) => Future((rej, res) => {
+    fs.rename(oldname, newname, ()=> 
+        res(newname)
+    )
+    return () => { console.log ('CANT CANCEL')}
+}))
+
+// stat :: String -> Future a b
+export const stat = file => Future((rej, res) => {
+    fs.stat(file, (err, stats)=> err 
+        ? rej(err)
+        : res(stats)
     )
     return () => { console.log ('CANT CANCEL')}
 });

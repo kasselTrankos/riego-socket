@@ -1,21 +1,8 @@
 import { config } from 'shelljs'
-
-const { appendFile } = require('./fs')
+const { logger } = require('../utils/log.utils')
 const { pipe, prop, chain, reduce } = require('ramda')
-const { now, formatDate } = require('../lib/date')
-const process = require('process')
 const { resolve } = require('fluture')
 
-const file = 'LOG-for-ALL'
-
-
-// logger :: String -> Future String Error
-const logger = msg => pipe(
-  now,
-  formatDate,
-  x => `[${x}] {${process.pid}} ${msg}\n`,
-  appendFile(file)
-)(msg)
 
 
 
@@ -35,6 +22,7 @@ export const setLoggerPutConfig = response => pipe(
   logger,
   chain(() => resolve(response))
 )(response)
+
 
 
 // setLoggerPostKalendar :: {} -> Future {} Error
