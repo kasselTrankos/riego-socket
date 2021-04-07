@@ -2,16 +2,15 @@
 const {app, startApp} = require('./app')
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
-const kron = require('./lib/kron')
+const {kron} = require('./lib/kron')
 
 
 // auto initialize client MQTT
-const {mqttClient, irrigate} = require('./lib/mqttclient')
-
+const {mqttClient} = require('./lib/mqttclient')
 
 mqttClient(io)
 startApp(io)
-kron(io, irrigate)
+kron(io)
 
 module.exports = { http }
 
