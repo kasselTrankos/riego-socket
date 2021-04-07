@@ -3,7 +3,7 @@ const { fork } = require('fluture')
 const { updateOne, find, deleteOne } = require('../src/irrigations')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
-const { writeFile, jsonToString, setDates} = require('../lib/kalendar')
+const { updateKalendar} = require('../lib/kalendar')
 const { setLoggerPostKalendar,
   setLoggerPostIrrigate,
   setLoggerGetKalendar,
@@ -32,11 +32,7 @@ export const initializeKalendar = (io, app) => {
       ),
       o => S.pipe([
         R.apply(updateOne),
-        S.pipe([
-          S.chain(()=> find({date: {$gte: new Date()}})),
-          S.map(S.pipe([S.map(prop('date')), setDates, jsonToString])),
-          R.chain(writeFile(file))
-        ]),
+        updateKalendar,
         S.map(() => prop ('$set') (prop('1')(o))),
       ])(o),
       S.chain(updateNextIrrigate),
