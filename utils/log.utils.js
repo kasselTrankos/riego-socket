@@ -9,7 +9,7 @@ const {logMaxSize, logName} = require('../config')
 // logMsg :: Date -> String -> String
 const logMsg = curry((date, msg) => `[${date}] {${process.pid}} ${msg}\n`)
 
-const wrt = name => pipe(
+const writeSized = name => pipe(
   writefile(__, ''),
   chain(()=> fileSize(name))
 )(name)
@@ -28,7 +28,7 @@ const rejectRenamed = name => pipe(
   reject
 )(name)
 
-// 
+// renameFileIfExceeds:: String -> Number -> Future String Error 
 const renameFileIfExceeds = curry((size, name)=>
   size > logMaxSize ? rejectRenamed(name) : resolve(name)
 )
@@ -38,11 +38,9 @@ const renameFile = curry((oldname, newname)=> pipe(
   chain(()=> writefile(oldname, ''))
 )(newname)) 
 
-  
-
-
+// saveFile :: String -> String -> Future String {}
 const saveToFile = curry((name, content) => pipe(
-  () => alt (wrt(name)) (fileSize(name)),
+  () => alt (writeSized(name)) (fileSize(name)),
   chain(renameFileIfExceeds(__, name)),
   bichain (renameFile(name, __)) (resolve),
   chain(()=>appendFile(name, content) )

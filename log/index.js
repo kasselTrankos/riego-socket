@@ -1,4 +1,3 @@
-import { config } from 'shelljs'
 const { logger } = require('../utils/log.utils')
 const { pipe, prop, chain, reduce } = require('ramda')
 const { resolve } = require('fluture')
