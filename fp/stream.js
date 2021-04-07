@@ -165,7 +165,7 @@ function stream$join() {
         /// level inside first level
         insideStream = stream.subscribe({
           next: value => {
-            console.log(value, 'ruifuffhfhfhfh')
+            // console.log(value, 'ruifuffhfhfhfh')
             observer.next(value)
             observer.complete()
             // if (streams === completes) {
