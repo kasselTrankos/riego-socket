@@ -6,7 +6,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import fs from 'fs';
 import moment from 'moment-timezone';
-const d = moment().set({hour:0,minute:0,second:0,millisecond:0});
+const d = moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
 import '../initialize'
 
 describe('Kalendar => ',  () => {
