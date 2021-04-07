@@ -1,18 +1,11 @@
 // readline
-import fs from 'fs';
+import fs from 'fs'
 import path from 'path';
 import { Future, resolve, ap } from 'fluture'
 const { curry } = require('ramda')
 
 // basename :: String -> String
 export const basename = file => path.basename(file);
-
-// writefile :: String -> String -> Async e String
-export const writefile = curry((name, data) => Future((rej, res) =>{ 
-    fs.writeFile(name, data, err => console.log(err, name, data) ||  err ? rej(err) : res(data))
-    return () => { console.log ('CANT CANCEL')}
-}))
-
 
 // createWriteStream :: String -> String -> Async e String
 export const appendFile = curry((name, msg) => Future((rej, res) =>{ 

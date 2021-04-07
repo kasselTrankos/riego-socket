@@ -3,13 +3,12 @@ const { fork } = require('fluture')
 const { updateOne, find, deleteOne } = require('../src/irrigations')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
-const { updateKalendar} = require('../lib/kalendar')
+const { updateKalendarDates } = require('../lib/kalendar')
 const { setLoggerPostKalendar,
   setLoggerPostIrrigate,
   setLoggerGetKalendar,
   setLoggerDeleteKalendar,
   setLoggerGetNextIrrigate } = require('../log')
-const {kalendar: { file}} = require('../config')
 const { irrigate, updateNextIrrigate } = require('../lib/mqttclient') 
 const { prop, toNumber } = require('../utils')
 
@@ -32,7 +31,7 @@ export const initializeKalendar = (io, app) => {
       ),
       o => S.pipe([
         R.apply(updateOne),
-        updateKalendar,
+        S.chain(updateKalendarDates),
         S.map(() => prop ('$set') (prop('1')(o))),
       ])(o),
       S.chain(updateNextIrrigate),
@@ -119,7 +118,8 @@ export const initializeKalendar = (io, app) => {
       setLoggerDeleteKalendar,
       S.chain(deleteOne),
       S.chain(updateNextIrrigate),
-      S.map(x => ({deleted: true})),
+      S.chain(updateKalendarDates),
+      S.map(() => ({deleted: true})),
     ])
     fork (console.error) (x => res.send(x) ) (proc(req))
   })

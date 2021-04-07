@@ -1,6 +1,7 @@
 const process = require('process')
 const { pipe, curry, __, map, chain, prop } = require('ramda')
-const { appendFile, stat, rename, writefile } = require('../log/fs')
+const { appendFile, stat, rename } = require('../log/fs')
+const { writefile } = require('../lib/fs')
 const { now, formatDate, formatYYYMMDD_HHMM } = require('../lib/date')
 const { reject, resolve, bichain, alt } = require('fluture')
 
