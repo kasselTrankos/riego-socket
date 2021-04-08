@@ -1,6 +1,5 @@
 // kalendar
 const { fork } = require('fluture')
-const { updateOne, find, deleteOne } = require('../src/irrigations')
 const R = require('ramda')
 const { S } = require('../helpers/sanctuary')
 const { updateKalendarDates } = require('../lib/kalendar')
@@ -9,10 +8,10 @@ const { setLoggerPostKalendar,
   setLoggerGetKalendar,
   setLoggerDeleteKalendar,
   setLoggerGetNextIrrigate } = require('../log')
+const { updateOne, find, deleteOne } = require('../src/irrigations')
 const { irrigate, updateNextIrrigate } = require('../lib/mqttclient') 
-const { prop, toNumber } = require('../utils')
+const { prop, toNumber, toDate } = require('../utils')
 
-const toDate = x => new Date(x)
 const toBoolean = x => x === 'true' ? true : false
 
 
