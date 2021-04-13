@@ -41,6 +41,7 @@ const startApp = (io) => {
     const proc = R.pipe(
       readfile,
       R.map(x => x.split(EOL)),
+      R.map(x => x.reverse()),
       R.map(R.map(x => `<li  class="list-group-item">${x}</li>`)),
       R.map(x => x.join(EOL)),
       R.map(x => `<!doctype html>
