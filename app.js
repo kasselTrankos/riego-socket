@@ -63,7 +63,7 @@ const startApp = (io) => {
           <h1 class="center">Irrigation v.2.0</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/home">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">Logs</li>
             </ol>
           </nav>

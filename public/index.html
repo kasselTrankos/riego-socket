@@ -26,12 +26,16 @@
   </head>
   <body>
     <h1 class="center">Irrigation v.2.0</h1>
-    <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+      </ol>
+    </nav>
+    <div class="btn-group" role="group" aria-label="Basic example">
       <button type="button" class="btn btn-primary">irrigate</button>
-      <form action="/logs">
-      
-        <button type="submit" class="btn btn-primary">LOGS</button>
-      </form>
+      <button type="button" onclick="location.href = '/logs';" class="btn btn-primary">LOGS</button>
+    </div>
+    <div class="container">
       <div class="row">
         <div class="col-sm">
           <ul class="list-group" id="list">
