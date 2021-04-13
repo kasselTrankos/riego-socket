@@ -13,15 +13,6 @@ export const appendFile = curry((name, msg) => Future((rej, res) =>{
     return () => { console.log ('CANT CANCEL')}
 }));
 
-// readfile :: String -> Future a b
-export const readfile = file => Future((rej, res) => {
-    fs.readFile(file, 'utf8', (err, data)=> err 
-        ? rej(err)
-        : res(data)
-    )
-    return () => { console.log ('CANT CANCEL')}
-});
-
 
 // access :: String -> Future a b
 export const access =  file => Future((rej, res) => {

@@ -4,9 +4,11 @@ const app = require('express')();
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const R = require('ramda')
+const { fork } = require('fluture')
 
 const { initializeConfig } = require('./app/config')
-const { initializeKalendar } = require('./app/kalendar')
+const { initializeKalendar } = require('./app/kalendar');
+const { readfile } = require("./lib/fs");
 
 var auth = (req, res, next) =>
   (req.session.auth) 
@@ -32,6 +34,13 @@ const startApp = (io) => {
   })
   app.get('/home', auth, async (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
+  })
+  app.get('/logs', auth, (req, res)=> {
+    const proc = R.pipe(
+      readfile
+    )
+
+    fork(console.log)(x => res.send(x)) (proc('./irrigation_log'))
   })
   app.post('/login', async (req, res) => {
     const auth = R.converge((user, pwd) => user === 'yo' && pwd === 'yo', [
