@@ -17,6 +17,7 @@ var auth = (req, res, next) =>
     :res.redirect('/')
 
 
+
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(bodyParser.json()); // support json encoded bodies
@@ -40,7 +41,43 @@ const startApp = (io) => {
     const proc = R.pipe(
       readfile,
       R.map(x => x.split(EOL)),
-      R.map(R.map(x => `<li>${x}</li>`))
+      R.map(R.map(x => `<li  class="list-group-item">${x}</li>`)),
+      R.map(x => x.join(EOL)),
+      R.map(x => `<!doctype html>
+      <html>
+        <head>
+          <script src="/socket.io/socket.io.js"></script>
+          <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+          <!-- Latest compiled and minified CSS -->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script>
+          $(function () {
+            var socket = io();
+            
+            socket.on('update-irrigate', function(msg){
+              $('#list').append($('<li class="list-group-item" />').text(msg));
+            });
+            
+          });
+        </script>
+          <title>Irrigation v2.0</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font: 13px Helvetica, Arial; }
+            .center {text-align: center;}
+            .top20{margin-top: 20px;}
+            .fixed {position: fixed; bottom: 0; width: 100%;}
+          </style>
+        </head>
+        <body>
+          <h1 class="center">Irrigation v.2.0</h1>
+          <div class="container">
+            <ul class="list-group list-group-flush">
+              ${x}
+            </ul>
+          </div>
+        </body>
+      </html>`)
     )
 
     fork(console.log)(x => res.send(x)) (proc('./irrigation_log'))
