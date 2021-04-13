@@ -50,16 +50,6 @@ const startApp = (io) => {
           <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
           <!-- Latest compiled and minified CSS -->
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script>
-          $(function () {
-            var socket = io();
-            
-            socket.on('update-irrigate', function(msg){
-              $('#list').append($('<li class="list-group-item" />').text(msg));
-            });
-            
-          });
-        </script>
           <title>Irrigation v2.0</title>
           <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,6 +61,12 @@ const startApp = (io) => {
         </head>
         <body>
           <h1 class="center">Irrigation v.2.0</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Logs</li>
+            </ol>
+          </nav>
           <div class="container">
             <ul class="list-group list-group-flush">
               ${x}
