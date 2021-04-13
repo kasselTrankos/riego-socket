@@ -8,12 +8,11 @@ const R = require('ramda')
 const { initializeConfig } = require('./app/config')
 const { initializeKalendar } = require('./app/kalendar')
 
-var auth = function(req, res, next) {
-  if (req.session.auth)
-    return next();
-  else
-    return res.sendStatus(401);
-};
+var auth = (req, res, next) =>
+  (req.session.auth) 
+    ? next()
+    :res.redirect('/')
+
 
 ////////////////////////////////////////////////////////////////////////////
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
