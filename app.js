@@ -9,6 +9,7 @@ const { fork } = require('fluture')
 const { initializeConfig } = require('./app/config')
 const { initializeKalendar } = require('./app/kalendar');
 const { readfile } = require("./lib/fs");
+const { EOL } = require("os");
 
 var auth = (req, res, next) =>
   (req.session.auth) 
@@ -37,7 +38,9 @@ const startApp = (io) => {
   })
   app.get('/logs', auth, (req, res)=> {
     const proc = R.pipe(
-      readfile
+      readfile,
+      R.map(x => x.split(EOL)),
+      R.map(R.map(x => `<li>${x}</li>`))
     )
 
     fork(console.log)(x => res.send(x)) (proc('./irrigation_log'))
