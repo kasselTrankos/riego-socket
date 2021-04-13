@@ -16,7 +16,7 @@ const startApp = (io) => {
   initializeConfig(app)
   initializeKalendar(io, app)
   app.get('/', async (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/public/login.html');
   });
 
 }

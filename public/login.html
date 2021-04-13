@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script>
+    $(function () {
+      var socket = io();
+      
+      socket.on('update-irrigate', function(msg){
+        $('#list').append($('<li class="list-group-item" />').text(msg));
+      });
+      
+    });
+  </script>
+    <title>Irrigation v2.0</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      .center {text-align: center;}
+      .top20{margin-top: 20px;}
+      .fixed {position: fixed; bottom: 0; width: 100%;}
+    </style>
+  </head>
+  <body>
+    <h1 class="center">Irrigation v.2.0</h1>
+    <div class="container">
+      
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <script>
+      function sendIrrigation() {
+        fetch('/irrigate', {
+          method: 'POST',
+          body: JSON.stringify({ duration: 10}),
+          headers: {
+            'Content-Type': 'application/json'
+          } 
+        })
+        .then(response => response.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+      }
+      const button = document.querySelector('button');
+      button.addEventListener('click', event => {
+        sendIrrigation()
+      });
+    </script>
+</html>
