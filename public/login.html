@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -27,19 +28,22 @@
   <body>
     <h1 class="center">Irrigation v.2.0</h1>
     <div class="container">
-      
-      <form action="/login" method="post">
-        <div class="form-group">
-          <label for="userF">User</label>
-          <input type="text" class="form-control" id="userF" aria-describedby="userHelp" placeholder="Enter user" name="user">
-          <small id="emailHelp" class="form-text text-muted">Please add.</small>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-8">
+          <form action="/login" method="post">
+            <div class="form-group">
+              <label for="userF">User</label>
+              <input type="text" class="form-control" id="userF" aria-describedby="userHelp" placeholder="Enter user" name="user">
+              <small id="emailHelp" class="form-text text-muted">Please add.</small>
+            </div>
+            <div class="form-group">
+              <label for="pwdF">Password</label>
+              <input type="password" class="form-control" id="pwdF" placeholder="Password" name="pwd">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="pwdF">Password</label>
-          <input type="password" class="form-control" id="pwdF" placeholder="Password" name="pwd">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </div>
     </div>
     <script>
       function sendIrrigation() {
