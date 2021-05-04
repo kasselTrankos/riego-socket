@@ -1,4 +1,3 @@
-export const { toString } = require('./string')
 export const { gteNow, lteNow, toDate } = require('./date')
 
 
@@ -11,3 +10,6 @@ export const toNumber = x => Number(x)
 
 // prop :: String -> {} -> a
 export const prop = k => o => o[k]
+
+// toString :: Any -> String
+export const toString = x => String(x)
